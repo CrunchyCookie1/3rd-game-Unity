@@ -14,6 +14,8 @@ on GitHub desktop app
 - clone repository
 - then find the 3rd Game Unity Repository
 (Remember the location for where the files are being saved. This can be seen before cloning in the local path section)
+<img width="496" height="89" alt="image" src="https://github.com/user-attachments/assets/1d11012d-3632-4d8e-ae10-b4ead9277af1" />
+
 
 Now on the Unity Hub
 - go to the drop down for open
