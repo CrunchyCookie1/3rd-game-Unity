@@ -1,4 +1,4 @@
-= How to add the project to unity =
+# = How to add the project to unity =
 
 After accepting the invite to join the GitHub repo you can now do the following steps
 
@@ -28,7 +28,7 @@ Now on the Unity Hub
 (normally this is in documents/GitHub/3rd game unity)
 - click on the project folder and add it to your unity hub
 
-= How to save changes made by you =
+# = How to save changes made by you =
 
 after you've made a change like say adding a cube you first save the project then do these steps.
 
