@@ -5,6 +5,10 @@ After accepting the invite to join the GitHub repo you can now do the following 
 Download the github desktop app:
 https://desktop.github.com/download/
 
+The version of unity that is being used is Version 6000.3.9f1
+If the version isn't in the install unity editor section then you can go to the Archive. Here's the link: https://unity.com/releases/editor/archive
+You may need to click on LTS to see the 6000.3.9f1 version.
+
 on GitHub desktop app
 - go to file
 - clone repository
