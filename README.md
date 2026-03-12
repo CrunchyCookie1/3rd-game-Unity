@@ -2,6 +2,9 @@
 
 After accepting the invite to join the GitHub repo you can now do the following steps
 
+Download the github desktop app:
+https://desktop.github.com/download/
+
 on GitHub desktop app
 - go to file
 - clone repository
