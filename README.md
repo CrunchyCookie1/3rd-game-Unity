@@ -9,7 +9,7 @@ The version of unity that is being used is Version 6000.3.9f1
 If the version isn't in the install unity editor section then you can go to the Archive. Here's the link: https://unity.com/releases/editor/archive
 You may need to click on LTS to see the 6000.3.9f1 version.
 
-on GitHub desktop app
+**on GitHub desktop app**
 - go to file
 - clone repository
 <img width="307" height="268" alt="image" src="https://github.com/user-attachments/assets/30600f48-ea63-46e3-803f-72611a9104e7" />
@@ -19,7 +19,7 @@ on GitHub desktop app
 <img width="496" height="89" alt="image" src="https://github.com/user-attachments/assets/1d11012d-3632-4d8e-ae10-b4ead9277af1" />
 
 
-Now on the Unity Hub
+**Now on the Unity Hub**
 - go to the drop down for open
 - click on add project from disk
 <img width="210" height="118" alt="image" src="https://github.com/user-attachments/assets/a29a8fb0-fb88-49c2-85a9-102512ffbec5" />
@@ -30,7 +30,7 @@ Now on the Unity Hub
 
 # = How to save changes made by you =
 
-after you've made a change like say adding a cube you first save the project then do these steps.
+**after you've made a change like say adding a cube you first save the project then do these steps.**
 
 - go to the GitHub desktop app
 (you'll see all the changes you've made)
