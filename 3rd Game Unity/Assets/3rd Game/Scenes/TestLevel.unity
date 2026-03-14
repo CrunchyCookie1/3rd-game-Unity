@@ -136,6 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17b4447fc94ad6a41b3efb547d8e613e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimatorManager
+  animator: {fileID: 0}
 --- !u!1 &294485573
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,7 +484,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.15206, y: 0, z: -1.2592}
-  m_LocalScale: {x: 3.2569, y: 3.2569, z: 3.2569}
+  m_LocalScale: {x: 3.2569, y: 3.2569, z: 4.985988}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -636,7 +637,7 @@ Transform:
   m_GameObject: {fileID: 1034513948}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2.56}
+  m_LocalPosition: {x: 0, y: 0, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -792,8 +793,8 @@ Transform:
   m_GameObject: {fileID: 1405409957}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.05, y: 1.65, z: -0.26}
-  m_LocalScale: {x: 1.6983, y: 3.4935694, z: 1.6983}
+  m_LocalPosition: {x: -9.23, y: 1.14, z: 1.56}
+  m_LocalScale: {x: 3.4823294, y: 2.8650448, z: 3.8714175}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -935,7 +936,7 @@ Transform:
   m_GameObject: {fileID: 1999563333}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.68, z: 0}
+  m_LocalPosition: {x: 0, y: 2.09, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1013,6 +1014,26 @@ PrefabInstance:
     - target: {fileID: 1661414322273350741, guid: 9f64e31f5ff4f2d46a5ab88010914b84, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1772886274663465540, guid: 9f64e31f5ff4f2d46a5ab88010914b84, type: 3}
+      propertyPath: isGrounded
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1772886274663465540, guid: 9f64e31f5ff4f2d46a5ab88010914b84, type: 3}
+      propertyPath: fallingSpeed
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 1772886274663465540, guid: 9f64e31f5ff4f2d46a5ab88010914b84, type: 3}
+      propertyPath: leapingVelocity
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1772886274663465540, guid: 9f64e31f5ff4f2d46a5ab88010914b84, type: 3}
+      propertyPath: gravityIntensity
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1772886274663465540, guid: 9f64e31f5ff4f2d46a5ab88010914b84, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1860211136583764802, guid: 9f64e31f5ff4f2d46a5ab88010914b84, type: 3}
       propertyPath: m_Name
@@ -1101,7 +1122,7 @@ PrefabInstance:
     - target: {fileID: 4934590955601824642, guid: 9f64e31f5ff4f2d46a5ab88010914b84, type: 3}
       propertyPath: m_Avatar
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 9000000, guid: a231731ccde54204f93fc4686d923b40, type: 3}
     - target: {fileID: 4934590955601824642, guid: 9f64e31f5ff4f2d46a5ab88010914b84, type: 3}
       propertyPath: m_WarningMessage
       value: 
