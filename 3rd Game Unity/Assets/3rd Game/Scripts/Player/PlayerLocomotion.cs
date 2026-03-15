@@ -26,7 +26,9 @@ public class PlayerLocomotion : MonoBehaviour
     public float walkingSpeed = 1.5f;
     public float runningSpeed = 5f;
     public float sprintingSpeed = 7f;
+    public float airControlSpeed = 4f;
     public float rotationSpeed = 15f;
+    public float airRotationSpeed = 8f;
 
     [Header("Jump Speeds")]
     public float jumpHeight = 3f;
@@ -54,37 +56,48 @@ public class PlayerLocomotion : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (isJumping)
-            return;
         moveDirection = cameraObject.forward * inputManager.verticlalInput;
         moveDirection = moveDirection + cameraObject.right * inputManager.horizontalInput;
         moveDirection.Normalize();
         moveDirection.y = 0;
 
-        if (isSprinting)
+        float currentVerticalVelocity = playerRigidbody.linearVelocity.y;
+
+        if (isGrounded)
         {
-            moveDirection = moveDirection * sprintingSpeed;
-        }
-        else
-        {
-            if (inputManager.moveAmount >= 0.5f)
+            moveDirection.y = 0;
+
+            if (isSprinting)
             {
-                moveDirection = moveDirection * runningSpeed;
+                moveDirection = moveDirection * sprintingSpeed;
             }
             else
             {
-                moveDirection = moveDirection * walkingSpeed;
+                if (inputManager.moveAmount >= 0.5f)
+                {
+                    moveDirection = moveDirection * runningSpeed;
+                }
+                else
+                {
+                    moveDirection = moveDirection * walkingSpeed;
+                }
             }
         }
+        else
+        {
+            moveDirection.y = 0;
+            moveDirection = moveDirection * airControlSpeed;
+        }
 
-        Vector3 movementVelocity = moveDirection;
+            Vector3 movementVelocity = moveDirection;
+
+        movementVelocity.y = currentVerticalVelocity;
+
         playerRigidbody.linearVelocity = movementVelocity;
     }
 
     private void HandleRotation()
     {
-        if (isJumping)
-            return;
         Vector3 targetDirection = Vector3.zero;
 
         targetDirection = cameraObject.forward * inputManager.verticlalInput;
@@ -96,6 +109,7 @@ public class PlayerLocomotion : MonoBehaviour
             targetDirection = transform.forward;
 
         Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+        float currentRotationSpeed = isGrounded ? rotationSpeed : airRotationSpeed;
         Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
         transform.rotation = playerRotation;
@@ -147,5 +161,10 @@ public class PlayerLocomotion : MonoBehaviour
             playerVelocity.y = jumpingVelocity;
             playerRigidbody.linearVelocity = playerVelocity;
         }
+    }
+
+    public void ResetIsJumping()
+    {
+        isJumping = false;
     }
 }
