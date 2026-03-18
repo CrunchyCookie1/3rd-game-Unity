@@ -1,13 +1,31 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class NPCManager : MonoBehaviour
 {
     PlayerControls playerControls;
 
+    [Header("Dialogue Options")]
+    public TextMeshProUGUI dialogueText;
+    public TextMeshProUGUI nameText;
+
+    [Header("NPC Interactions")]
     public GameObject interactionZone; // Reference to the zone object
     public GameObject cameraPos; // This should be a camera GameObject, not just a position
     public GameObject playerVisualDisabled;
+    public GameObject displayDialogue;
+    public GameObject interactionPanel;
+
+    [Header("Audio Settings")]
+    public AudioSource audioSource; // Reference to an AudioSource component
+    public AudioClip dialogueAdvanceSound; // Sound to play when advancing to new line
+    public bool playSoundOnNewLine = true; // Toggle to enable/disable sound
+
+    // Dialogue tracking variables
+    private int currentDialogueIndex = 0;
+    private int currentLineIndex = 0;
+    private bool conversationEnded = false;
 
     private bool isPlayerInZone = false;
     private bool isInConversation = false;
@@ -18,8 +36,18 @@ public class NPCManager : MonoBehaviour
     private InputManager playerInputManager;
     private PlayerLocomotion playerLocomotion;
     private AnimatorManager animatorManager;
-    private PlayerManager playerManager; // Add PlayerManager reference
+    private PlayerManager playerManager;
     private Rigidbody playerRigidbody;
+
+    [System.Serializable]
+    public class Dialogue
+    {
+        public string[] lines;
+        public string name;
+        public AudioClip[] lineSounds; // Optional: different sound per line
+    }
+
+    public Dialogue[] myDataArray;
 
     private void Awake()
     {
@@ -29,6 +57,22 @@ public class NPCManager : MonoBehaviour
         if (cameraPos != null)
         {
             cameraPos.SetActive(false);
+        }
+
+        // Ensure display dialogue is disabled at start
+        if (displayDialogue != null)
+        {
+            displayDialogue.SetActive(false);
+        }
+
+        // Try to get or add AudioSource if not assigned
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+            if (audioSource == null)
+            {
+                audioSource = gameObject.AddComponent<AudioSource>();
+            }
         }
     }
 
@@ -59,6 +103,7 @@ public class NPCManager : MonoBehaviour
         {
             player = enteringPlayer;
             playerControls.Enable();
+            interactionPanel.SetActive(true);
 
             // Find player components
             if (player != null)
@@ -78,6 +123,7 @@ public class NPCManager : MonoBehaviour
         }
         else if (!isInConversation)
         {
+            interactionPanel.SetActive(false);
             playerControls.Disable();
             player = null;
             playerCamera = null;
@@ -98,7 +144,8 @@ public class NPCManager : MonoBehaviour
         }
         else if (isInConversation)
         {
-            Debug.Log("Already in conversation with NPC");
+            // If we're in conversation and press interact, advance dialogue
+            AdvanceDialogue();
         }
         else
         {
@@ -119,11 +166,20 @@ public class NPCManager : MonoBehaviour
     {
         isInConversation = true;
 
+        // Reset dialogue indices
+        currentDialogueIndex = 0;
+        currentLineIndex = 0;
+        conversationEnded = false;
+
+        interactionPanel.SetActive(false);
+
         // Set player as interacting to stop movement (uses your existing system)
         if (playerManager != null)
         {
             playerManager.isInteracting = true;
         }
+
+        displayDialogue.SetActive(true);
 
         // Disable player camera
         if (playerCamera != null)
@@ -170,8 +226,6 @@ public class NPCManager : MonoBehaviour
         {
             playerLocomotion.isSprinting = false;
             playerLocomotion.isJumping = false;
-            // Note: PlayerLocomotion doesn't have horizontal/verticalMovement variables
-            // It uses inputManager values directly
         }
 
         // Reset animations to idle
@@ -196,9 +250,104 @@ public class NPCManager : MonoBehaviour
 
         // Unlock and show cursor for conversation
         Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        Cursor.visible = false;
+
+        // Display the first line of dialogue
+        DisplayCurrentLine();
+
+        // Play sound for first line
+        PlayLineSound();
 
         Debug.Log("Started conversation with NPC");
+    }
+
+    private void AdvanceDialogue()
+    {
+        if (conversationEnded) return;
+
+        // Check if we have more lines in the current dialogue
+        if (currentLineIndex < myDataArray[currentDialogueIndex].lines.Length - 1)
+        {
+            // Move to next line in current dialogue
+            currentLineIndex++;
+            DisplayCurrentLine();
+
+            audioSource.Stop();
+            // Play sound when advancing to new line
+            PlayLineSound();
+
+            Debug.Log("Advanced to next line: " + currentLineIndex);
+        }
+        else
+        {
+            // Check if we have more dialogues in the array
+            if (currentDialogueIndex < myDataArray.Length - 1)
+            {
+                // Move to next dialogue
+                currentDialogueIndex++;
+                currentLineIndex = 0;
+                DisplayCurrentLine();
+
+                // Play sound for first line of new dialogue
+                PlayLineSound();
+
+                Debug.Log("Moved to next dialogue: " + currentDialogueIndex);
+            }
+            else
+            {
+                // Reached the end of all dialogues - end conversation
+                Debug.Log("Reached end of all dialogues, ending conversation");
+                conversationEnded = true;
+                EndConversation();
+            }
+        }
+    }
+
+    private void DisplayCurrentLine()
+    {
+        // Make sure we have valid data
+        if (myDataArray == null || myDataArray.Length == 0)
+        {
+            Debug.LogWarning("No dialogue data assigned!");
+            return;
+        }
+
+        // Display the current line
+        Dialogue currentDialogue = myDataArray[currentDialogueIndex];
+
+        // Set name text
+        if (nameText != null)
+        {
+            nameText.text = currentDialogue.name;
+        }
+
+        // Set dialogue text
+        if (dialogueText != null && currentLineIndex < currentDialogue.lines.Length)
+        {
+            dialogueText.text = currentDialogue.lines[currentLineIndex];
+        }
+    }
+
+    private void PlayLineSound()
+    {
+        if (!playSoundOnNewLine || audioSource == null) return;
+
+        // Check if we have line-specific sounds
+        Dialogue currentDialogue = myDataArray[currentDialogueIndex];
+
+        if (currentDialogue.lineSounds != null &&
+            currentDialogue.lineSounds.Length > currentLineIndex &&
+            currentDialogue.lineSounds[currentLineIndex] != null)
+        {
+            audioSource.Stop();
+            // Play line-specific sound
+            audioSource.PlayOneShot(currentDialogue.lineSounds[currentLineIndex]);
+        }
+        else if (dialogueAdvanceSound != null)
+        {
+            // Play default advance sound
+            audioSource.PlayOneShot(dialogueAdvanceSound);
+        }
     }
 
     private void EndConversation()
@@ -210,6 +359,12 @@ public class NPCManager : MonoBehaviour
         {
             playerManager.isInteracting = false;
         }
+
+        displayDialogue.SetActive(false);
+
+        audioSource.Stop();
+
+        interactionPanel.SetActive(true);
 
         // Enable player camera
         if (playerCamera != null)
