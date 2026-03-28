@@ -20,6 +20,8 @@ public class InputManager : MonoBehaviour
     public bool sprintInput;
     public bool jumpInput;
 
+    public bool interactInput;
+
     private void Awake()
     {
         animatorManager = GetComponent<AnimatorManager>();
@@ -38,6 +40,9 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.Sprint.performed += i => sprintInput = true;
             playerControls.PlayerActions.Sprint.canceled += i => sprintInput = false;
             playerControls.PlayerActions.Jump.performed += i => jumpInput = true;
+
+            playerControls.PlayerActions.Interact.performed += i => interactInput = true;
+            playerControls.PlayerActions.Interact.canceled += i => interactInput = false;
         }
 
         playerControls.Enable();

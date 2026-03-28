@@ -9,9 +9,15 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/3rd Game/Scenes/TestLevel.unity
-    guid: 7761a05a807f37846ba2cbf1317e50a6
+    path: Assets/3rd Game/Scenes/Indoors/MelvinsHome.unity
+    guid: b31f136c85d44a9468284318c4f79667
   - enabled: 1
+    path: Assets/3rd Game/Scenes/City/MainCity.unity
+    guid: 66d54733a11ac024fab13600f3841e0d
+  - enabled: 0
+    path: Assets/3rd Game/Scenes/test level/TestLevel.unity
+    guid: 7761a05a807f37846ba2cbf1317e50a6
+  - enabled: 0
     path: Assets/3rd Game/Scenes/TestLevel2.unity
     guid: d396d95b902d5874d90ed00c838630a9
   m_configObjects:
