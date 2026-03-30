@@ -1,4 +1,7 @@
+using System;
+using System.Linq;
 using UnityEngine;
+using System.Collections.Generic;
 
 [ExecuteAlways]
 public class LightingManager : MonoBehaviour
@@ -8,6 +11,60 @@ public class LightingManager : MonoBehaviour
     [SerializeField] private LightingPreset preset;
     //Variables
     [SerializeField, Range(0, 24)] private float timeOfDay;
+    public bool nightTime = false;
+
+    private List<Light> allLights = new List<Light>();
+
+    [Header("Exclusion Settings")]
+    [SerializeField] private Light[] excludedLights;
+
+    [Header("Time Settings")]
+    [SerializeField] private float realMinutesPerGameHour = 1f; 
+    [SerializeField] private float timeMultiplier = 1f / 60f;
+
+
+    private void Start()
+    {
+        Light[] foundLights = FindObjectsByType<Light>(FindObjectsSortMode.None);
+
+        foreach (Light light in foundLights)
+        {
+            if (!IsExcluded(light))
+            {
+                allLights.Add(light);
+            }
+        }
+
+        Debug.Log($"Found {foundLights.Length} total lights, {allLights.Count} controllable lights");
+    }
+
+    private bool IsExcluded(Light light)
+    {
+        foreach (Light excluded in excludedLights)
+        {
+            if (excluded == light)
+                return true;
+        }
+        return false;
+    }
+
+    public void TurnOnAllLights()
+    {
+        foreach (Light light in allLights)
+        {
+            light.enabled = true;
+        }
+        Debug.Log($"Turned on {allLights.Count} lights");
+    }
+
+    public void TurnOffAllLights()
+    {
+        foreach (Light light in allLights)
+        {
+            light.enabled = false;
+        }
+        Debug.Log($"Turned off {allLights.Count} lights");
+    }
 
     private void Update()
     {
@@ -16,13 +73,22 @@ public class LightingManager : MonoBehaviour
 
         if (Application.isPlaying)
         {
-            timeOfDay += Time.deltaTime;
+            timeOfDay += Time.deltaTime * timeMultiplier;
             timeOfDay %= 24; //Clamp between 0 - 24
             UpdateLighting(timeOfDay / 24f);
         }
         else
         {
             UpdateLighting(timeOfDay / 24f);
+        }
+
+        if (timeOfDay >= 0 && timeOfDay <= 6 || timeOfDay >= 18 && timeOfDay <= 24)
+        {
+            TurnOnAllLights();
+        }
+        else
+        {
+            TurnOffAllLights();
         }
     }
     private void UpdateLighting(float timePercent)
@@ -50,7 +116,7 @@ public class LightingManager : MonoBehaviour
         }
         else
         {
-            Light[] lights = Object.FindObjectsByType<Light>(FindObjectsSortMode.None);
+            Light[] lights = UnityEngine.Object.FindObjectsByType<Light>(FindObjectsSortMode.None);
             foreach (Light light in lights)
             {
                 if (light.type == LightType.Directional)
