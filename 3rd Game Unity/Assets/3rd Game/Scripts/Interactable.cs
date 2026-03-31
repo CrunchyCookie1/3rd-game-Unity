@@ -11,6 +11,7 @@ public class Interactable : MonoBehaviour
     [SerializeField] private GameObject[] objectsToEnable;
 
     [Header("Tp Settings")]
+    public bool allowTp = false;
     [SerializeField] Transform tpLocation;
     [SerializeField] GameObject player;
 
@@ -78,11 +79,13 @@ public class Interactable : MonoBehaviour
     {
         if (showDebugMessages)
             Debug.Log($"Interacted with {gameObject.name}");
-
+        if (allowTp == true)
+        {
             player.transform.position = tpLocation.position;
+        }
 
-        // Invoke the Unity Event (you can hook up functions in the Inspector)
-        onInteract?.Invoke();
+            // Invoke the Unity Event (you can hook up functions in the Inspector)
+            onInteract?.Invoke();
 
         // Reset the input flag so we don't trigger multiple times
         if (inputManager != null)
