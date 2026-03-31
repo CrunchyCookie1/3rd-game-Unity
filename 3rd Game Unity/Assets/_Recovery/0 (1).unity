@@ -26340,90 +26340,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 181702295018820015, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1184427394409995073, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
-      propertyPath: npcManager
-      value: 
-      objectReference: {fileID: 2102089869}
-    - target: {fileID: 2609218681961204727, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
-      propertyPath: enabler
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2609218681961204727, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
-      propertyPath: disabler
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2609218681961204727, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
-      propertyPath: isAQuest
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2609218681961204727, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
-      propertyPath: dialogueAdvanceSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 675df02ce93a93549abc93638b3ead2c, type: 3}
     - target: {fileID: 2609218681961204727, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
       propertyPath: playerVisualDisabled
       value: 
       objectReference: {fileID: 987197833}
-    - target: {fileID: 2609218681961204727, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
-      propertyPath: NpcDialogue.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2609218681961204727, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
-      propertyPath: enableObjects.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2609218681961204727, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
-      propertyPath: disableObjects.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2609218681961204727, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
-      propertyPath: playerDialogue.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2609218681961204727, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
-      propertyPath: 'enableObjects.Array.data[0]'
+    - target: {fileID: 3574473068464291483, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
+      propertyPath: playerVisualDisabled
       value: 
-      objectReference: {fileID: 774214308}
-    - target: {fileID: 2609218681961204727, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
-      propertyPath: 'disableObjects.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2102089866}
-    - target: {fileID: 2609218681961204727, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
-      propertyPath: NpcDialogue.Array.data[0].name
-      value: Spooky dude
-      objectReference: {fileID: 0}
-    - target: {fileID: 2609218681961204727, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
-      propertyPath: playerDialogue.Array.data[0].name
-      value: Melvin
-      objectReference: {fileID: 0}
-    - target: {fileID: 2609218681961204727, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
-      propertyPath: NpcDialogue.Array.data[0].lines.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2609218681961204727, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
-      propertyPath: 'NpcDialogue.Array.data[0].lines.Array.data[0]'
-      value: Hey how ya doin Melvin
-      objectReference: {fileID: 0}
-    - target: {fileID: 2609218681961204727, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
-      propertyPath: 'NpcDialogue.Array.data[0].lines.Array.data[1]'
-      value: I have a special quest for ya
-      objectReference: {fileID: 0}
-    - target: {fileID: 2609218681961204727, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
-      propertyPath: 'NpcDialogue.Array.data[0].lines.Array.data[2]'
-      value: head over to the shops and get me a drink
-      objectReference: {fileID: 0}
-    - target: {fileID: 2609218681961204727, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
-      propertyPath: playerDialogue.Array.data[0].lines.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2609218681961204727, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
-      propertyPath: 'playerDialogue.Array.data[0].lines.Array.data[0]'
-      value: Bet tell me about it
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 987197833}
     - target: {fileID: 8134411583893605610, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -45.130386
@@ -26471,19 +26395,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 784357665016931163, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2102089871}
-    - targetCorrespondingSourceObject: {fileID: 784357665016931163, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2102089870}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
---- !u!1 &774214308 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4159204380996644029, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
-  m_PrefabInstance: {fileID: 774214307}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &775771530
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68769,56 +68682,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5655357841251446327, guid: a5db9d83be8f7ec40a416579b251f95b, type: 3}
   m_PrefabInstance: {fileID: 2099388412}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2102089866 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 784357665016931163, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
-  m_PrefabInstance: {fileID: 774214307}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2102089869 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2609218681961204727, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
-  m_PrefabInstance: {fileID: 774214307}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2102089866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0a3e5cdef38a0941852d9107d492f5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NPCManager
---- !u!114 &2102089870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2102089866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b384a93334d83b42bfec15a0dfcb3c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractionZone
-  npcManager: {fileID: 2102089869}
---- !u!135 &2102089871
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2102089866}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.4550252
-  m_Center: {x: 0, y: 0.9550252, z: -0}
 --- !u!1001 &2102791516
 PrefabInstance:
   m_ObjectHideFlags: 0

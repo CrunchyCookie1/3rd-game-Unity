@@ -81,7 +81,7 @@ public class LightingManager : MonoBehaviour
             if (light != null) // Safety check for destroyed lights
                 light.enabled = true;
         }
-        Debug.Log($"Turned on {allLights.Count} lights");
+        //Debug.Log($"Turned on {allLights.Count} lights");
     }
 
     public void TurnOffAllLights()
@@ -91,14 +91,14 @@ public class LightingManager : MonoBehaviour
             if (light != null) // Safety check for destroyed lights
                 light.enabled = false;
         }
-        Debug.Log($"Turned off {allLights.Count} lights");
+        //Debug.Log($"Turned off {allLights.Count} lights");
     }
 
     // Public method to manually refresh the light list (useful for runtime changes)
     public void RefreshExcludedLights()
     {
         RefreshLightList();
-        Debug.Log("Light list refreshed with current exclusion settings");
+        //Debug.Log("Light list refreshed with current exclusion settings");
     }
 
     // Public method to add a tag to exclude at runtime
