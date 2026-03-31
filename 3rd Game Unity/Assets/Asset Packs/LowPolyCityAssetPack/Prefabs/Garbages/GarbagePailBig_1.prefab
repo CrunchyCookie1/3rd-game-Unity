@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2409953089622557171}
   - component: {fileID: 3261078073567087223}
   - component: {fileID: 8100510392265330159}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BigGarbageWheel.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 8431174074558784959}
   - component: {fileID: 7416046648289938165}
   - component: {fileID: 330339259683173950}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BigGarbageWheel.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 8575792124861865116}
   - component: {fileID: 4807748402081230564}
   - component: {fileID: 1639885590487247417}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BigGarbageWheel.007
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -347,7 +347,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5655357841251446327}
   - component: {fileID: 5367746410303811034}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GarbagePailBig_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -364,7 +364,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.03531193, y: 0.03531193, z: 0.0513612}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6068243427329889560}
@@ -409,7 +409,7 @@ GameObject:
   - component: {fileID: 2445786867277082200}
   - component: {fileID: 1473790836934990705}
   - component: {fileID: 329994684943970766}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BigGarbageWheel.005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -521,7 +521,7 @@ GameObject:
   - component: {fileID: 1224132793673046005}
   - component: {fileID: 2722271014124339877}
   - component: {fileID: 2035889978432349476}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BigGarbageCap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -634,7 +634,7 @@ GameObject:
   - component: {fileID: 8112340188759193915}
   - component: {fileID: 5952821848396946290}
   - component: {fileID: 5959324502037375299}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BigGarbageWheel.006
   m_TagString: Untagged
   m_Icon: {fileID: 0}

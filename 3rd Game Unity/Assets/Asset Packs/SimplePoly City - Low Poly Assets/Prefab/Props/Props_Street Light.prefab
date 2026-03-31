@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3300000}
   - component: {fileID: 2300000}
   - component: {fileID: 2048185285527837802}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Props_Street Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.03531193, y: 0.03531193, z: 0.03531193}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6224169644893344834}
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 1610365349440646053}
   - component: {fileID: 6225120885287628742}
   - component: {fileID: 6070600788969299616}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 829010703441336589}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 12
   m_Type: 2
   m_Color: {r: 0.94056606, g: 1, b: 0.504717, a: 1}
@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 6224169644893344834}
   - component: {fileID: 8558530341551220023}
   - component: {fileID: 8370496968175251815}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -282,7 +282,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6282521782846305873}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 12
   m_Type: 0
   m_Color: {r: 0.98759896, g: 1, b: 0.9009434, a: 1}
