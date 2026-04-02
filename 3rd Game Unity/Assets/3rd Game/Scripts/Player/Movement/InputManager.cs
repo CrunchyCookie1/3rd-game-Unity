@@ -21,6 +21,8 @@ public class InputManager : MonoBehaviour
     public bool jumpInput;
 
     public bool interactInput;
+    public bool exitInput;
+    public bool gameMenuInput;
 
     private void Awake()
     {
@@ -43,6 +45,12 @@ public class InputManager : MonoBehaviour
 
             playerControls.PlayerActions.Interact.performed += i => interactInput = true;
             playerControls.PlayerActions.Interact.canceled += i => interactInput = false;
+
+            playerControls.PlayerActions.Exit.performed += i => exitInput = true;
+            playerControls.PlayerActions.Exit.canceled += i => exitInput = false;
+
+            playerControls.PlayerActions.GameMenu.performed += i => gameMenuInput = true;
+            playerControls.PlayerActions.GameMenu.canceled += i => gameMenuInput = false;
         }
 
         playerControls.Enable();

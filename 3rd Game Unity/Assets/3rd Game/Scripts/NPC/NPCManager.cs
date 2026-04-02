@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using QuestSystem;
 
 public class NPCManager : MonoBehaviour
 {
@@ -40,12 +41,6 @@ public class NPCManager : MonoBehaviour
     private AnimatorManager animatorManager;
     private PlayerManager playerManager;
     private Rigidbody playerRigidbody;
-
-    public bool isAQuest = false;
-    public bool disabler = false;
-    public bool enabler = false;
-    public GameObject[] disableObjects;
-    public GameObject[] enableObjects;
 
     [System.Serializable]
     public class Dialogue
@@ -490,11 +485,13 @@ public class NPCManager : MonoBehaviour
         }
     }
 
+    [Header("Quest Settings")]
+    public string questToGive;
+
     private void EndConversation()
     {
         isInConversation = false;
 
-        // Reset player interacting state
         if (playerManager != null)
         {
             playerManager.isInteracting = false;
@@ -506,52 +503,38 @@ public class NPCManager : MonoBehaviour
 
         interactionPanel.SetActive(true);
 
-        // Enable player camera
         if (playerCamera != null)
         {
             playerCamera.SetActive(true);
         }
 
-        // Enable player visuals
         if (playerVisualDisabled != null)
         {
             playerVisualDisabled.SetActive(true);
         }
 
-        // Disable NPC conversation camera
         if (cameraPos != null)
         {
             cameraPos.SetActive(false);
         }
 
-        // Re-enable player input
         if (playerInputManager != null)
         {
             playerInputManager.enabled = true;
         }
-        // Return cursor to game state
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        Debug.Log("Ended conversation with NPC");
-
-        if (isAQuest == true)
+        if (!string.IsNullOrEmpty(questToGive))
         {
-            if (disabler == true)
+            if (QuestManager.Instance != null)
             {
-                foreach (GameObject obj in disableObjects)
-                {
-                    obj.SetActive(false);
-                }
-            }
-            if (enabler == true)
-            {
-                foreach (GameObject obj in enableObjects)
-                {
-                    obj.SetActive(true);
-                }
+                QuestManager.Instance.AcceptQuest(questToGive);
             }
         }
+
+        Debug.Log("Ended conversation with NPC");
     }
 
     private void OnDestroy()
