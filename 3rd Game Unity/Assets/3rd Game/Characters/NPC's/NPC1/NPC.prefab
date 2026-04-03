@@ -1603,10 +1603,10 @@ PrefabInstance:
       addedObject: {fileID: 6486057984290947650}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8fc29ec73e655b947bb365d449fd1f78, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3044368936824762364}
+      addedObject: {fileID: 2098490281702331640}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8fc29ec73e655b947bb365d449fd1f78, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8839261495754882339}
+      addedObject: {fileID: 7867874687787715051}
   m_SourcePrefab: {fileID: 100100000, guid: 8fc29ec73e655b947bb365d449fd1f78, type: 3}
 --- !u!4 &8134411583893605610 stripped
 Transform:
@@ -1641,7 +1641,7 @@ CapsuleCollider:
   m_Height: 1.9640236
   m_Direction: 1
   m_Center: {x: 0.0047388077, y: 1.0775285, z: -0.0031917691}
---- !u!82 &3044368936824762364
+--- !u!82 &2098490281702331640
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1662,7 +1662,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 0.9838203
+  MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -1698,7 +1698,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1738,7 +1738,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8839261495754882339
+--- !u!114 &7867874687787715051
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1757,14 +1757,14 @@ MonoBehaviour:
   playerVisualDisabled: {fileID: 0}
   displayDialogue: {fileID: 6426434448085955312}
   interactionPanel: {fileID: 1031581567853554283}
-  audioSource: {fileID: 3044368936824762364}
+  audioSource: {fileID: 2098490281702331640}
   dialogueAdvanceSound: {fileID: 8300000, guid: 675df02ce93a93549abc93638b3ead2c, type: 3}
   playSoundOnNewLine: 1
-  conversationIndex: 3
+  conversationIndex: 0
   NpcDialogue:
   - lines:
-    - Hello there today I'll be giving you a test quest.
-    - Ok get ready... Here's the quest
-    name: Test Quest
+    - Test quest
+    name: Test Bot
     lineSounds: []
   playerDialogue: []
+  questToGive: TestQuest

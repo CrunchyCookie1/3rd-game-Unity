@@ -1,8 +1,9 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace QuestSystem
 {
@@ -11,7 +12,9 @@ namespace QuestSystem
         public static QuestManager Instance { get; private set; }
 
         [Header("Quest UI Elements")]
-        public GameObject questContainer;
+        public GameObject activeQuestContainer;
+        public GameObject completedQuestContainer;
+        public GameObject questPanelPrefab; // Optional: use a prefab instead of individual panels
 
         [Header("Quest List")]
         public Quest[] availableQuests;
@@ -19,30 +22,28 @@ namespace QuestSystem
         [Header("Save Settings")]
         public string saveFileName = "questsave.dat";
         public bool autoSave = true;
+        public bool showCompletedQuests = true;
 
-        private List<Quest> activeQuests = new List<Quest>();
-        private List<string> completedQuestIDs = new List<string>();
+        private List<ActiveQuest> activeQuests = new List<ActiveQuest>();
+        private List<CompletedQuest> completedQuests = new List<CompletedQuest>();
 
         [System.Serializable]
         public class Quest
         {
             public string questID;
             public string questTitle;
+            public string completedTitle;
             public string questDescription;
+            public string completedDescription;
             public QuestType questType;
             public int requiredAmount;
             public string targetItem;
             public string targetNPC;
 
-            [Header("UI Elements")]
-            public GameObject questPanel;
+            [Header("UI Elements (Optional)")]
+            public GameObject questPanelPrefab;
             public TextMeshProUGUI titleText;
             public TextMeshProUGUI descriptionText;
-
-            [HideInInspector]
-            public int currentAmount;
-            [HideInInspector]
-            public bool isCompleted;
 
             public enum QuestType
             {
@@ -51,6 +52,52 @@ namespace QuestSystem
                 Kill,
                 Interaction
             }
+        }
+
+        [System.Serializable]
+        public class ActiveQuest
+        {
+            public string questID;
+            public int currentAmount;
+            public bool isCompleted;
+            public GameObject questPanel;
+            public TextMeshProUGUI titleText;
+            public TextMeshProUGUI descriptionText;
+
+            public ActiveQuest(Quest original)
+            {
+                questID = original.questID;
+                currentAmount = 0;
+                isCompleted = false;
+            }
+        }
+
+        [System.Serializable]
+        public class CompletedQuest
+        {
+            public string questID;
+            public string completionDate;
+
+            public CompletedQuest(string id)
+            {
+                questID = id;
+                completionDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            }
+        }
+
+        [System.Serializable]
+        private class SaveData
+        {
+            public List<string> completedQuestIDs = new List<string>();
+            public List<SavedActiveQuest> activeQuests = new List<SavedActiveQuest>();
+        }
+
+        [System.Serializable]
+        private class SavedActiveQuest
+        {
+            public string questID;
+            public int currentAmount;
+            public bool isCompleted;
         }
 
         private void Awake()
@@ -63,6 +110,7 @@ namespace QuestSystem
             else
             {
                 Destroy(gameObject);
+                return;
             }
         }
 
@@ -75,107 +123,182 @@ namespace QuestSystem
         public bool AcceptQuest(string questID)
         {
             if (IsQuestActive(questID) || IsQuestCompleted(questID))
-                return false;
-
-            Quest newQuest = GetQuestByID(questID);
-            if (newQuest != null)
             {
-                GameObject newPanel = null;
-                TextMeshProUGUI newTitle = null;
-                TextMeshProUGUI newDescription = null;
-
-                if (newQuest.questPanel != null)
-                {
-                    newPanel = Instantiate(newQuest.questPanel, questContainer != null ? questContainer.transform : null);
-                    newTitle = newPanel.GetComponentInChildren<TextMeshProUGUI>();
-
-                    TextMeshProUGUI[] allTexts = newPanel.GetComponentsInChildren<TextMeshProUGUI>();
-                    if (allTexts.Length >= 2)
-                    {
-                        newTitle = allTexts[0];
-                        newDescription = allTexts[1];
-                    }
-                }
-
-                Quest activeQuest = new Quest
-                {
-                    questID = newQuest.questID,
-                    questTitle = newQuest.questTitle,
-                    questDescription = newQuest.questDescription,
-                    questType = newQuest.questType,
-                    requiredAmount = newQuest.requiredAmount,
-                    targetItem = newQuest.targetItem,
-                    targetNPC = newQuest.targetNPC,
-                    currentAmount = 0,
-                    isCompleted = false,
-                    questPanel = newPanel,
-                    titleText = newTitle,
-                    descriptionText = newDescription
-                };
-
-                activeQuests.Add(activeQuest);
-                UpdateSingleQuestUI(activeQuest);
-
-                if (autoSave) SaveQuests();
-                return true;
+                Debug.Log($"Quest {questID} is already {(IsQuestActive(questID) ? "active" : "completed")}");
+                return false;
             }
-            return false;
+
+            Quest questData = GetQuestByID(questID);
+            if (questData == null)
+            {
+                Debug.LogError($"Quest with ID {questID} not found!");
+                return false;
+            }
+
+            ActiveQuest newQuest = new ActiveQuest(questData);
+
+            // Create UI for the quest
+            CreateQuestUI(newQuest, questData);
+
+            activeQuests.Add(newQuest);
+            UpdateSingleQuestUI(newQuest, questData);
+
+            if (autoSave) SaveQuests();
+            Debug.Log($"Accepted quest: {questData.questTitle}");
+            return true;
+        }
+
+        private void CreateQuestUI(ActiveQuest quest, Quest questData)
+        {
+            // Determine which container to use
+            Transform targetContainer = activeQuestContainer != null ? activeQuestContainer.transform : null;
+
+            // Use the quest's specific prefab if available, otherwise use the general prefab
+            GameObject prefabToUse = questData.questPanelPrefab != null ? questData.questPanelPrefab : questPanelPrefab;
+
+            if (prefabToUse != null && targetContainer != null)
+            {
+                quest.questPanel = Instantiate(prefabToUse, targetContainer);
+                quest.questPanel.SetActive(true);
+
+                // Find text components
+                TextMeshProUGUI[] textComponents = quest.questPanel.GetComponentsInChildren<TextMeshProUGUI>();
+                if (textComponents.Length >= 2)
+                {
+                    quest.titleText = textComponents[0];
+                    quest.descriptionText = textComponents[1];
+                }
+                else if (textComponents.Length == 1)
+                {
+                    quest.titleText = textComponents[0];
+                }
+            }
+            else if (questData.titleText != null && questData.descriptionText != null)
+            {
+                // Use direct references if provided
+                quest.titleText = questData.titleText;
+                quest.descriptionText = questData.descriptionText;
+                if (questData.questPanelPrefab != null)
+                    quest.questPanel = questData.questPanelPrefab;
+            }
         }
 
         private Quest GetQuestByID(string questID)
         {
-            foreach (Quest quest in availableQuests)
-            {
-                if (quest.questID == questID)
-                    return quest;
-            }
-            return null;
+            return availableQuests.FirstOrDefault(q => q.questID == questID);
         }
 
         public void UpdateQuestProgress(string questID, int amount)
         {
-            Quest quest = GetActiveQuest(questID);
-            if (quest == null) return;
+            ActiveQuest quest = GetActiveQuest(questID);
+            if (quest == null || quest.isCompleted) return;
+
+            Quest questData = GetQuestByID(questID);
+            if (questData == null) return;
 
             quest.currentAmount += amount;
-            if (quest.currentAmount >= quest.requiredAmount)
+
+            if (quest.currentAmount >= questData.requiredAmount)
             {
                 CompleteQuest(questID);
             }
+            else
+            {
+                UpdateSingleQuestUI(quest, questData);
+            }
 
-            UpdateSingleQuestUI(quest);
+            if (autoSave) SaveQuests();
+        }
+
+        public void SetQuestProgress(string questID, int amount)
+        {
+            ActiveQuest quest = GetActiveQuest(questID);
+            if (quest == null || quest.isCompleted) return;
+
+            Quest questData = GetQuestByID(questID);
+            if (questData == null) return;
+
+            quest.currentAmount = Mathf.Min(amount, questData.requiredAmount);
+
+            if (quest.currentAmount >= questData.requiredAmount)
+            {
+                CompleteQuest(questID);
+            }
+            else
+            {
+                UpdateSingleQuestUI(quest, questData);
+            }
+
             if (autoSave) SaveQuests();
         }
 
         public void CompleteInteraction(string questID, string npcName)
         {
-            Quest quest = GetActiveQuest(questID);
-            if (quest != null && quest.questType == Quest.QuestType.Interaction && quest.targetNPC == npcName)
+            ActiveQuest quest = GetActiveQuest(questID);
+            if (quest == null || quest.isCompleted) return;
+
+            Quest questData = GetQuestByID(questID);
+            if (questData != null && questData.questType == Quest.QuestType.Interaction && questData.targetNPC == npcName)
             {
-                if (!quest.isCompleted)
-                {
-                    CompleteQuest(questID);
-                    if (autoSave) SaveQuests();
-                }
+                CompleteQuest(questID);
+                if (autoSave) SaveQuests();
+            }
+        }
+
+        public void ForceCompleteQuest(string questID)
+        {
+            ActiveQuest quest = GetActiveQuest(questID);
+            if (quest != null && !quest.isCompleted)
+            {
+                CompleteQuest(questID);
+                if (autoSave) SaveQuests();
             }
         }
 
         private void CompleteQuest(string questID)
         {
-            Quest quest = GetActiveQuest(questID);
-            if (quest != null)
+            ActiveQuest quest = GetActiveQuest(questID);
+            if (quest == null) return;
+
+            Quest questData = GetQuestByID(questID);
+            if (questData == null) return;
+
+            quest.isCompleted = true;
+            quest.currentAmount = questData.requiredAmount;
+
+            UpdateSingleQuestUI(quest, questData);
+
+            // Move to completed quests list
+            activeQuests.Remove(quest);
+
+            // Only add to completed if not already there
+            if (!IsQuestCompleted(questID))
             {
-                quest.isCompleted = true;
-                activeQuests.Remove(quest);
-                completedQuestIDs.Add(quest.questID);
-
-                if (quest.questPanel != null)
-                {
-                    Destroy(quest.questPanel);
-                }
-
-                if (autoSave) SaveQuests();
+                completedQuests.Add(new CompletedQuest(questID));
             }
+
+            // Optionally move UI to completed container
+            if (showCompletedQuests && completedQuestContainer != null && quest.questPanel != null)
+            {
+                quest.questPanel.transform.SetParent(completedQuestContainer.transform);
+            }
+            else if (quest.questPanel != null)
+            {
+                // Keep it in active container but mark as completed visually
+                UpdateSingleQuestUI(quest, questData);
+            }
+
+            if (autoSave) SaveQuests();
+            Debug.Log($"Quest completed: {questData.questTitle}");
+
+            // Optional: Trigger any completion events
+            OnQuestCompleted(questID);
+        }
+
+        private void OnQuestCompleted(string questID)
+        {
+            // You can add additional logic here, like giving rewards
+            Debug.Log($"Quest {questID} completed! Add rewards here.");
         }
 
         public bool IsQuestActive(string questID)
@@ -185,36 +308,64 @@ namespace QuestSystem
 
         public bool IsQuestCompleted(string questID)
         {
-            return completedQuestIDs.Contains(questID);
+            return completedQuests.Any(q => q.questID == questID);
         }
 
-        private Quest GetActiveQuest(string questID)
+        public int GetQuestProgress(string questID)
         {
-            return activeQuests.Find(q => q.questID == questID);
+            ActiveQuest quest = GetActiveQuest(questID);
+            return quest != null ? quest.currentAmount : 0;
+        }
+
+        private ActiveQuest GetActiveQuest(string questID)
+        {
+            return activeQuests.FirstOrDefault(q => q.questID == questID);
         }
 
         private void UpdateAllQuestUI()
         {
-            foreach (Quest quest in activeQuests)
+            foreach (ActiveQuest quest in activeQuests)
             {
-                UpdateSingleQuestUI(quest);
+                Quest questData = GetQuestByID(quest.questID);
+                if (questData != null)
+                {
+                    UpdateSingleQuestUI(quest, questData);
+                }
             }
         }
 
-        private void UpdateSingleQuestUI(Quest quest)
+        private void UpdateSingleQuestUI(ActiveQuest quest, Quest questData)
         {
-            if (quest == null) return;
+            if (quest == null || questData == null) return;
 
             if (quest.titleText != null)
-                quest.titleText.text = quest.questTitle;
+            {
+                quest.titleText.text = quest.isCompleted && !string.IsNullOrEmpty(questData.completedTitle)
+                    ? questData.completedTitle
+                    : questData.questTitle;
+
+                // Optional: add strikethrough for completed quests
+                if (quest.isCompleted && showCompletedQuests)
+                {
+                    quest.titleText.fontStyle = FontStyles.Strikethrough;
+                }
+            }
 
             if (quest.descriptionText != null)
             {
-                string description = quest.questDescription;
-                if (quest.questType == Quest.QuestType.Gather || quest.questType == Quest.QuestType.Kill)
+                string description = quest.isCompleted && !string.IsNullOrEmpty(questData.completedDescription)
+                    ? questData.completedDescription
+                    : questData.questDescription;
+
+                if (!quest.isCompleted && (questData.questType == Quest.QuestType.Gather || questData.questType == Quest.QuestType.Kill))
                 {
-                    description += $"\nProgress: {quest.currentAmount}/{quest.requiredAmount}";
+                    description += $"\n<color=yellow>Progress: {quest.currentAmount}/{questData.requiredAmount}</color>";
                 }
+                else if (quest.isCompleted)
+                {
+                    description = $"<color=green> {description}</color>";
+                }
+
                 quest.descriptionText.text = description;
             }
 
@@ -222,32 +373,19 @@ namespace QuestSystem
                 quest.questPanel.SetActive(true);
         }
 
-        [System.Serializable]
-        private class SaveData
-        {
-            public string[] completedQuestIDs;
-            public List<SavedQuest> activeQuests;
-        }
-
-        [System.Serializable]
-        private class SavedQuest
-        {
-            public string questID;
-            public int currentAmount;
-            public bool isCompleted;
-        }
-
         public void SaveQuests()
         {
             try
             {
                 SaveData saveData = new SaveData();
-                saveData.completedQuestIDs = completedQuestIDs.ToArray();
-                saveData.activeQuests = new List<SavedQuest>();
 
-                foreach (Quest quest in activeQuests)
+                // Save completed quest IDs
+                saveData.completedQuestIDs = completedQuests.Select(q => q.questID).ToList();
+
+                // Save active quests
+                foreach (ActiveQuest quest in activeQuests)
                 {
-                    SavedQuest savedQuest = new SavedQuest
+                    SavedActiveQuest savedQuest = new SavedActiveQuest
                     {
                         questID = quest.questID,
                         currentAmount = quest.currentAmount,
@@ -259,6 +397,8 @@ namespace QuestSystem
                 string filePath = Path.Combine(Application.persistentDataPath, saveFileName);
                 string json = JsonUtility.ToJson(saveData);
                 File.WriteAllText(filePath, json);
+
+                Debug.Log($"Quests saved to {filePath}. Active: {activeQuests.Count}, Completed: {completedQuests.Count}");
             }
             catch (Exception e)
             {
@@ -271,56 +411,61 @@ namespace QuestSystem
             try
             {
                 string filePath = Path.Combine(Application.persistentDataPath, saveFileName);
-                if (File.Exists(filePath))
+                if (!File.Exists(filePath))
                 {
-                    string json = File.ReadAllText(filePath);
-                    SaveData saveData = JsonUtility.FromJson<SaveData>(json);
+                    Debug.Log("No save file found, starting fresh.");
+                    return;
+                }
 
-                    if (saveData != null)
+                string json = File.ReadAllText(filePath);
+                SaveData saveData = JsonUtility.FromJson<SaveData>(json);
+
+                if (saveData != null)
+                {
+                    // Clear existing data
+                    ClearAllQuestUI();
+                    activeQuests.Clear();
+                    completedQuests.Clear();
+
+                    // Load completed quests
+                    foreach (string questID in saveData.completedQuestIDs)
                     {
-                        completedQuestIDs = new List<string>(saveData.completedQuestIDs);
-                        activeQuests.Clear();
+                        completedQuests.Add(new CompletedQuest(questID));
+                    }
 
-                        foreach (SavedQuest savedQuest in saveData.activeQuests)
+                    // Load active quests
+                    foreach (SavedActiveQuest savedQuest in saveData.activeQuests)
+                    {
+                        Quest originalQuest = GetQuestByID(savedQuest.questID);
+                        if (originalQuest != null)
                         {
-                            Quest originalQuest = GetQuestByID(savedQuest.questID);
-                            if (originalQuest != null)
+                            ActiveQuest loadedQuest = new ActiveQuest(originalQuest)
                             {
-                                GameObject newPanel = null;
-                                TextMeshProUGUI newTitle = null;
-                                TextMeshProUGUI newDescription = null;
+                                currentAmount = savedQuest.currentAmount,
+                                isCompleted = savedQuest.isCompleted
+                            };
 
-                                if (originalQuest.questPanel != null)
+                            CreateQuestUI(loadedQuest, originalQuest);
+
+                            if (loadedQuest.isCompleted)
+                            {
+                                // Move to completed if it was completed
+                                completedQuests.Add(new CompletedQuest(loadedQuest.questID));
+                                if (showCompletedQuests && completedQuestContainer != null && loadedQuest.questPanel != null)
                                 {
-                                    newPanel = Instantiate(originalQuest.questPanel, questContainer != null ? questContainer.transform : null);
-                                    TextMeshProUGUI[] allTexts = newPanel.GetComponentsInChildren<TextMeshProUGUI>();
-                                    if (allTexts.Length >= 2)
-                                    {
-                                        newTitle = allTexts[0];
-                                        newDescription = allTexts[1];
-                                    }
+                                    loadedQuest.questPanel.transform.SetParent(completedQuestContainer.transform);
                                 }
-
-                                Quest loadedQuest = new Quest
-                                {
-                                    questID = originalQuest.questID,
-                                    questTitle = originalQuest.questTitle,
-                                    questDescription = originalQuest.questDescription,
-                                    questType = originalQuest.questType,
-                                    requiredAmount = originalQuest.requiredAmount,
-                                    targetItem = originalQuest.targetItem,
-                                    targetNPC = originalQuest.targetNPC,
-                                    currentAmount = savedQuest.currentAmount,
-                                    isCompleted = savedQuest.isCompleted,
-                                    questPanel = newPanel,
-                                    titleText = newTitle,
-                                    descriptionText = newDescription
-                                };
-                                activeQuests.Add(loadedQuest);
-                                UpdateSingleQuestUI(loadedQuest);
                             }
+                            else
+                            {
+                                activeQuests.Add(loadedQuest);
+                            }
+
+                            UpdateSingleQuestUI(loadedQuest, originalQuest);
                         }
                     }
+
+                    Debug.Log($"Quests loaded. Active: {activeQuests.Count}, Completed: {completedQuests.Count}");
                 }
             }
             catch (Exception e)
@@ -329,23 +474,64 @@ namespace QuestSystem
             }
         }
 
-        public void ResetAllQuests()
+        private void ClearAllQuestUI()
         {
-            foreach (Quest quest in activeQuests)
+            // Clear active quest UI
+            foreach (ActiveQuest quest in activeQuests)
             {
                 if (quest.questPanel != null)
                     Destroy(quest.questPanel);
             }
 
+            // Clear any remaining UI in containers
+            if (activeQuestContainer != null)
+            {
+                foreach (Transform child in activeQuestContainer.transform)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+
+            if (completedQuestContainer != null)
+            {
+                foreach (Transform child in completedQuestContainer.transform)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+        }
+
+        public void ResetAllQuests()
+        {
+            ClearAllQuestUI();
             activeQuests.Clear();
-            completedQuestIDs.Clear();
+            completedQuests.Clear();
 
             if (autoSave) SaveQuests();
+            Debug.Log("All quests reset");
+        }
+
+        public List<string> GetCompletedQuestIDs()
+        {
+            return completedQuests.Select(q => q.questID).ToList();
+        }
+
+        public List<string> GetActiveQuestIDs()
+        {
+            return activeQuests.Select(q => q.questID).ToList();
+        }
+
+        private void OnApplicationQuit()
+        {
+            if (autoSave)
+            {
+                SaveQuests();
+            }
         }
 
         private void OnDestroy()
         {
-            if (autoSave)
+            if (autoSave && Instance == this)
             {
                 SaveQuests();
             }

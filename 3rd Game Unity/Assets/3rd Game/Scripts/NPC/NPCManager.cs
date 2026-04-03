@@ -83,19 +83,34 @@ public class NPCManager : MonoBehaviour
     {
         playerControls = new PlayerControls();
 
-        // Ensure the NPC camera is disabled at start
+        // Validate dialogue arrays before building sequence
+        if (NpcDialogue == null || NpcDialogue.Length == 0)
+        {
+            Debug.LogError($"{gameObject.name}: No NPC dialogue assigned! Please assign dialogue in the inspector.");
+        }
+
+        if (playerDialogue == null || playerDialogue.Length == 0)
+        {
+            Debug.LogError($"{gameObject.name}: No player dialogue assigned! Please assign dialogue in the inspector.");
+        }
+
+        if (conversationIndex <= 0)
+        {
+            Debug.LogWarning($"{gameObject.name}: conversationIndex is {conversationIndex}. Setting to default value of 2.");
+            conversationIndex = 2; // Set a safe default
+        }
+
+        // Rest of your Awake code...
         if (cameraPos != null)
         {
             cameraPos.SetActive(false);
         }
 
-        // Ensure display dialogue is disabled at start
         if (displayDialogue != null)
         {
             displayDialogue.SetActive(false);
         }
 
-        // Try to get or add AudioSource if not assigned
         if (audioSource == null)
         {
             audioSource = GetComponent<AudioSource>();
@@ -105,84 +120,177 @@ public class NPCManager : MonoBehaviour
             }
         }
 
-        // Build the conversation sequence
         BuildConversationSequence();
     }
 
     private void BuildConversationSequence()
     {
-        // Example sequence: NPC says first 2 lines, then player says 1 line, then NPC says next 2 lines, etc.
-        // You can modify this to match your desired conversation flow
+        // Safety checks to prevent crashes
+        if (NpcDialogue == null || NpcDialogue.Length == 0)
+        {
+            Debug.LogError($"{gameObject.name}: NpcDialogue is null or empty! Cannot build conversation sequence.");
+            conversationSequence = new ConversationSequence[0];
+            return;
+        }
+
+        if (playerDialogue == null || playerDialogue.Length == 0)
+        {
+            Debug.LogError($"{gameObject.name}: playerDialogue is null or empty! Cannot build conversation sequence.");
+            conversationSequence = new ConversationSequence[0];
+            return;
+        }
 
         int totalLines = 0;
 
-        // Count total NPC lines
+        // Safe counting with null checks
         for (int i = 0; i < NpcDialogue.Length; i++)
         {
-            totalLines += NpcDialogue[i].lines.Length;
+            if (NpcDialogue[i] != null && NpcDialogue[i].lines != null)
+                totalLines += NpcDialogue[i].lines.Length;
+            else
+                Debug.LogWarning($"NpcDialogue[{i}] has null lines array");
         }
 
-        // Count total player lines
         for (int i = 0; i < playerDialogue.Length; i++)
         {
-            totalLines += playerDialogue[i].lines.Length;
+            if (playerDialogue[i] != null && playerDialogue[i].lines != null)
+                totalLines += playerDialogue[i].lines.Length;
+            else
+                Debug.LogWarning($"playerDialogue[{i}] has null lines array");
+        }
+
+        if (totalLines == 0)
+        {
+            Debug.LogError($"{gameObject.name}: No dialogue lines found! Cannot build conversation sequence.");
+            conversationSequence = new ConversationSequence[0];
+            return;
         }
 
         conversationSequence = new ConversationSequence[totalLines];
         int sequenceIndex = 0;
 
-        // Example pattern: 2 NPC lines, then 1 player line, repeat
         int npcIndex = 0;
         int playerIndex = 0;
         int npcLineInDialogue = 0;
         int playerLineInDialogue = 0;
 
-        while (sequenceIndex < totalLines)
-        {
-            // Add 2 NPC lines
-            for (int i = 0; i < conversationIndex && sequenceIndex < totalLines && npcIndex < NpcDialogue.Length; i++)
-            {
-                conversationSequence[sequenceIndex] = new ConversationSequence
-                {
-                    speaker = SpeakerType.NPC,
-                    dialogueIndex = npcIndex,
-                    lineIndex = npcLineInDialogue
-                };
+        int maxIterations = totalLines * 2; // Safety limit to prevent infinite loops
+        int iterations = 0;
 
-                npcLineInDialogue++;
+        // Use conversationIndex with a safe default
+        int npcLinesPerTurn = Mathf.Max(1, conversationIndex); // Ensure at least 1 line per turn
+
+        while (sequenceIndex < totalLines && iterations < maxIterations)
+        {
+            iterations++;
+
+            // Safety check: break if we've exhausted all NPC dialogue
+            if (npcIndex >= NpcDialogue.Length || NpcDialogue[npcIndex] == null || NpcDialogue[npcIndex].lines == null)
+            {
+                Debug.LogWarning("Exhausted NPC dialogue or found null entry");
+                break;
+            }
+
+            // Add NPC lines
+            int npcLinesAdded = 0;
+            for (int i = 0; i < npcLinesPerTurn && sequenceIndex < totalLines && npcIndex < NpcDialogue.Length; i++)
+            {
+                // Additional safety check for current NPC dialogue
+                if (NpcDialogue[npcIndex] == null || NpcDialogue[npcIndex].lines == null)
+                {
+                    Debug.LogError($"NpcDialogue[{npcIndex}] is null or has null lines! Skipping.");
+                    npcIndex++;
+                    break;
+                }
+
                 if (npcLineInDialogue >= NpcDialogue[npcIndex].lines.Length)
                 {
                     npcLineInDialogue = 0;
                     npcIndex++;
-                    if (npcIndex >= NpcDialogue.Length)
+                    if (npcIndex >= NpcDialogue.Length) break;
+
+                    // Check next NPC dialogue
+                    if (NpcDialogue[npcIndex] == null || NpcDialogue[npcIndex].lines == null)
+                    {
+                        Debug.LogError($"NpcDialogue[{npcIndex}] is null or has null lines after increment! Breaking.");
                         break;
+                    }
                 }
-                sequenceIndex++;
+
+                if (npcIndex < NpcDialogue.Length && npcLineInDialogue < NpcDialogue[npcIndex].lines.Length)
+                {
+                    conversationSequence[sequenceIndex] = new ConversationSequence
+                    {
+                        speaker = SpeakerType.NPC,
+                        dialogueIndex = npcIndex,
+                        lineIndex = npcLineInDialogue
+                    };
+
+                    npcLineInDialogue++;
+                    sequenceIndex++;
+                    npcLinesAdded++;
+                }
+                else
+                {
+                    break;
+                }
             }
 
-            // Add 1 player line
+            // Add player line (only if we added at least one NPC line and haven't reached the end)
             if (sequenceIndex < totalLines && playerIndex < playerDialogue.Length)
             {
-                conversationSequence[sequenceIndex] = new ConversationSequence
+                // Safety check for player dialogue
+                if (playerDialogue[playerIndex] == null || playerDialogue[playerIndex].lines == null)
                 {
-                    speaker = SpeakerType.Player,
-                    dialogueIndex = playerIndex,
-                    lineIndex = playerLineInDialogue
-                };
-
-                playerLineInDialogue++;
-                if (playerLineInDialogue >= playerDialogue[playerIndex].lines.Length)
+                    Debug.LogError($"playerDialogue[{playerIndex}] is null or has null lines! Skipping.");
+                    playerIndex++;
+                }
+                else if (playerLineInDialogue >= playerDialogue[playerIndex].lines.Length)
                 {
                     playerLineInDialogue = 0;
                     playerIndex++;
+                    if (playerIndex < playerDialogue.Length && (playerDialogue[playerIndex] == null || playerDialogue[playerIndex].lines == null))
+                    {
+                        Debug.LogError($"playerDialogue[{playerIndex}] is null or has null lines after increment! Breaking.");
+                        break;
+                    }
                 }
-                sequenceIndex++;
+
+                if (playerIndex < playerDialogue.Length &&
+                    playerDialogue[playerIndex] != null &&
+                    playerDialogue[playerIndex].lines != null &&
+                    playerLineInDialogue < playerDialogue[playerIndex].lines.Length)
+                {
+                    conversationSequence[sequenceIndex] = new ConversationSequence
+                    {
+                        speaker = SpeakerType.Player,
+                        dialogueIndex = playerIndex,
+                        lineIndex = playerLineInDialogue
+                    };
+
+                    playerLineInDialogue++;
+                    sequenceIndex++;
+                }
             }
 
-            // Break if we've exhausted either array
+            // Break if we've exhausted both arrays
             if (npcIndex >= NpcDialogue.Length && playerIndex >= playerDialogue.Length)
                 break;
+
+            // Prevent infinite loop if no progress was made
+            if (npcLinesAdded == 0 && sequenceIndex < totalLines)
+            {
+                Debug.LogError($"{gameObject.name}: No progress made in conversation building! Breaking to prevent crash.");
+                break;
+            }
         }
+
+        if (iterations >= maxIterations)
+        {
+            Debug.LogError($"{gameObject.name}: Maximum iterations reached while building conversation! Check your dialogue configuration.");
+        }
+
+        Debug.Log($"Built conversation sequence with {conversationSequence.Length} total lines");
     }
 
     private void OnEnable()
