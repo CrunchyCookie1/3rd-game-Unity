@@ -6,30 +6,30 @@ using QuestSystem;
 public class NPCManager : MonoBehaviour
 {
     PlayerControls playerControls;
+    QuestProgression questProgression;
+    QuestManager2 questManager2;
 
     [Header("Dialogue Options")]
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI nameText;
 
     [Header("NPC Interactions")]
-    public GameObject interactionZone; // Reference to the zone object
-    public GameObject cameraPos; // This should be a camera GameObject, not just a position
+    public GameObject interactionZone;
+    public GameObject cameraPos;
     public GameObject playerVisualDisabled;
     public GameObject displayDialogue;
     public GameObject interactionPanel;
 
     [Header("Audio Settings")]
-    public AudioSource audioSource; // Reference to an AudioSource component
-    public AudioClip dialogueAdvanceSound; // Sound to play when advancing to new line
-    public bool playSoundOnNewLine = true; // Toggle to enable/disable sound
+    public AudioSource audioSource;
+    public AudioClip dialogueAdvanceSound;
+    public bool playSoundOnNewLine = true;
 
     // Dialogue tracking variables
     private int currentDialogueIndex = 0;
-    private int currentLineIndex = 0;
-    private int currentSpeakerIndex = 0; // 0 = NPC, 1 = Player
+    private int currentSequenceIndex = 0; // Track which sequence we're on
     private bool conversationEnded = false;
     private bool isInConversation = false;
-    public int conversationIndex;
 
     private bool isPlayerInZone = false;
 
@@ -43,254 +43,53 @@ public class NPCManager : MonoBehaviour
     private Rigidbody playerRigidbody;
 
     [System.Serializable]
-    public class Dialogue
+    public class DialogueEntry
     {
-        public string[] lines;
-        public string name;
-        public AudioClip[] lineSounds; // Optional: different sound per line
+        public string speakerName;
+        [TextArea(3, 10)]
+        public string line;
+        public AudioClip lineSound;
     }
 
     [System.Serializable]
-    public class PlayerDialogue
+    public class DialogueSequence
     {
-        public string[] lines;
-        public string name;
-        public AudioClip[] lineSounds; // Optional: different sound per line
+        public string sequenceName;
+        public DialogueEntry[] dialogueEntries;
     }
 
-    public Dialogue[] NpcDialogue;
-    public PlayerDialogue[] playerDialogue;
+    public DialogueSequence[] dialogueSequences;
 
-    // New structure to organize the conversation sequence
-    [System.Serializable]
-    public class ConversationSequence
-    {
-        public SpeakerType speaker;
-        public int dialogueIndex; // Which dialogue array to use
-        public int lineIndex; // Which line in that dialogue
-    }
+    [Header("Quest Settings")]
+    public string questToGive;
+    public string questID;
+    public bool giveQuestOnConversationEnd = true;
+    public QuestManager2 theQuestManager2;
 
-    public enum SpeakerType
-    {
-        NPC,
-        Player
-    }
-
-    // Build this sequence programmatically or define it in the inspector
-    private ConversationSequence[] conversationSequence;
+    public GameObject npcDisable;
+    public GameObject npcEnable;
 
     private void Awake()
     {
         playerControls = new PlayerControls();
 
-        // Validate dialogue arrays before building sequence
-        if (NpcDialogue == null || NpcDialogue.Length == 0)
+        if (dialogueSequences == null || dialogueSequences.Length == 0)
         {
-            Debug.LogError($"{gameObject.name}: No NPC dialogue assigned! Please assign dialogue in the inspector.");
+            Debug.LogError($"{gameObject.name}: No dialogue sequences assigned!");
         }
 
-        if (playerDialogue == null || playerDialogue.Length == 0)
-        {
-            Debug.LogError($"{gameObject.name}: No player dialogue assigned! Please assign dialogue in the inspector.");
-        }
-
-        if (conversationIndex <= 0)
-        {
-            Debug.LogWarning($"{gameObject.name}: conversationIndex is {conversationIndex}. Setting to default value of 2.");
-            conversationIndex = 2; // Set a safe default
-        }
-
-        // Rest of your Awake code...
         if (cameraPos != null)
-        {
             cameraPos.SetActive(false);
-        }
 
         if (displayDialogue != null)
-        {
             displayDialogue.SetActive(false);
-        }
 
         if (audioSource == null)
         {
             audioSource = GetComponent<AudioSource>();
             if (audioSource == null)
-            {
                 audioSource = gameObject.AddComponent<AudioSource>();
-            }
         }
-
-        BuildConversationSequence();
-    }
-
-    private void BuildConversationSequence()
-    {
-        // Safety checks to prevent crashes
-        if (NpcDialogue == null || NpcDialogue.Length == 0)
-        {
-            Debug.LogError($"{gameObject.name}: NpcDialogue is null or empty! Cannot build conversation sequence.");
-            conversationSequence = new ConversationSequence[0];
-            return;
-        }
-
-        if (playerDialogue == null || playerDialogue.Length == 0)
-        {
-            Debug.LogError($"{gameObject.name}: playerDialogue is null or empty! Cannot build conversation sequence.");
-            conversationSequence = new ConversationSequence[0];
-            return;
-        }
-
-        int totalLines = 0;
-
-        // Safe counting with null checks
-        for (int i = 0; i < NpcDialogue.Length; i++)
-        {
-            if (NpcDialogue[i] != null && NpcDialogue[i].lines != null)
-                totalLines += NpcDialogue[i].lines.Length;
-            else
-                Debug.LogWarning($"NpcDialogue[{i}] has null lines array");
-        }
-
-        for (int i = 0; i < playerDialogue.Length; i++)
-        {
-            if (playerDialogue[i] != null && playerDialogue[i].lines != null)
-                totalLines += playerDialogue[i].lines.Length;
-            else
-                Debug.LogWarning($"playerDialogue[{i}] has null lines array");
-        }
-
-        if (totalLines == 0)
-        {
-            Debug.LogError($"{gameObject.name}: No dialogue lines found! Cannot build conversation sequence.");
-            conversationSequence = new ConversationSequence[0];
-            return;
-        }
-
-        conversationSequence = new ConversationSequence[totalLines];
-        int sequenceIndex = 0;
-
-        int npcIndex = 0;
-        int playerIndex = 0;
-        int npcLineInDialogue = 0;
-        int playerLineInDialogue = 0;
-
-        int maxIterations = totalLines * 2; // Safety limit to prevent infinite loops
-        int iterations = 0;
-
-        // Use conversationIndex with a safe default
-        int npcLinesPerTurn = Mathf.Max(1, conversationIndex); // Ensure at least 1 line per turn
-
-        while (sequenceIndex < totalLines && iterations < maxIterations)
-        {
-            iterations++;
-
-            // Safety check: break if we've exhausted all NPC dialogue
-            if (npcIndex >= NpcDialogue.Length || NpcDialogue[npcIndex] == null || NpcDialogue[npcIndex].lines == null)
-            {
-                Debug.LogWarning("Exhausted NPC dialogue or found null entry");
-                break;
-            }
-
-            // Add NPC lines
-            int npcLinesAdded = 0;
-            for (int i = 0; i < npcLinesPerTurn && sequenceIndex < totalLines && npcIndex < NpcDialogue.Length; i++)
-            {
-                // Additional safety check for current NPC dialogue
-                if (NpcDialogue[npcIndex] == null || NpcDialogue[npcIndex].lines == null)
-                {
-                    Debug.LogError($"NpcDialogue[{npcIndex}] is null or has null lines! Skipping.");
-                    npcIndex++;
-                    break;
-                }
-
-                if (npcLineInDialogue >= NpcDialogue[npcIndex].lines.Length)
-                {
-                    npcLineInDialogue = 0;
-                    npcIndex++;
-                    if (npcIndex >= NpcDialogue.Length) break;
-
-                    // Check next NPC dialogue
-                    if (NpcDialogue[npcIndex] == null || NpcDialogue[npcIndex].lines == null)
-                    {
-                        Debug.LogError($"NpcDialogue[{npcIndex}] is null or has null lines after increment! Breaking.");
-                        break;
-                    }
-                }
-
-                if (npcIndex < NpcDialogue.Length && npcLineInDialogue < NpcDialogue[npcIndex].lines.Length)
-                {
-                    conversationSequence[sequenceIndex] = new ConversationSequence
-                    {
-                        speaker = SpeakerType.NPC,
-                        dialogueIndex = npcIndex,
-                        lineIndex = npcLineInDialogue
-                    };
-
-                    npcLineInDialogue++;
-                    sequenceIndex++;
-                    npcLinesAdded++;
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            // Add player line (only if we added at least one NPC line and haven't reached the end)
-            if (sequenceIndex < totalLines && playerIndex < playerDialogue.Length)
-            {
-                // Safety check for player dialogue
-                if (playerDialogue[playerIndex] == null || playerDialogue[playerIndex].lines == null)
-                {
-                    Debug.LogError($"playerDialogue[{playerIndex}] is null or has null lines! Skipping.");
-                    playerIndex++;
-                }
-                else if (playerLineInDialogue >= playerDialogue[playerIndex].lines.Length)
-                {
-                    playerLineInDialogue = 0;
-                    playerIndex++;
-                    if (playerIndex < playerDialogue.Length && (playerDialogue[playerIndex] == null || playerDialogue[playerIndex].lines == null))
-                    {
-                        Debug.LogError($"playerDialogue[{playerIndex}] is null or has null lines after increment! Breaking.");
-                        break;
-                    }
-                }
-
-                if (playerIndex < playerDialogue.Length &&
-                    playerDialogue[playerIndex] != null &&
-                    playerDialogue[playerIndex].lines != null &&
-                    playerLineInDialogue < playerDialogue[playerIndex].lines.Length)
-                {
-                    conversationSequence[sequenceIndex] = new ConversationSequence
-                    {
-                        speaker = SpeakerType.Player,
-                        dialogueIndex = playerIndex,
-                        lineIndex = playerLineInDialogue
-                    };
-
-                    playerLineInDialogue++;
-                    sequenceIndex++;
-                }
-            }
-
-            // Break if we've exhausted both arrays
-            if (npcIndex >= NpcDialogue.Length && playerIndex >= playerDialogue.Length)
-                break;
-
-            // Prevent infinite loop if no progress was made
-            if (npcLinesAdded == 0 && sequenceIndex < totalLines)
-            {
-                Debug.LogError($"{gameObject.name}: No progress made in conversation building! Breaking to prevent crash.");
-                break;
-            }
-        }
-
-        if (iterations >= maxIterations)
-        {
-            Debug.LogError($"{gameObject.name}: Maximum iterations reached while building conversation! Check your dialogue configuration.");
-        }
-
-        Debug.Log($"Built conversation sequence with {conversationSequence.Length} total lines");
     }
 
     private void OnEnable()
@@ -321,7 +120,6 @@ public class NPCManager : MonoBehaviour
             playerControls.Enable();
             interactionPanel.SetActive(true);
 
-            // Find player components
             if (player != null)
             {
                 playerCamera = player.GetComponentInChildren<Camera>()?.gameObject;
@@ -360,10 +158,6 @@ public class NPCManager : MonoBehaviour
         {
             AdvanceDialogue();
         }
-        else
-        {
-            Debug.Log("Interact pressed but player is not in interaction zone");
-        }
     }
 
     private void OnExitPerformed(InputAction.CallbackContext context)
@@ -377,50 +171,42 @@ public class NPCManager : MonoBehaviour
 
     private void StartConversation()
     {
-        isInConversation = true;
-
-        // Reset dialogue indices
+        // Reset to first sequence
+        currentSequenceIndex = 0;
         currentDialogueIndex = 0;
-        currentLineIndex = 0;
-        currentSpeakerIndex = 0;
+
+        // Check if we have a valid sequence
+        if (!IsValidSequence())
+        {
+            Debug.LogError("No dialogue entries to display!");
+            return;
+        }
+
+        isInConversation = true;
         conversationEnded = false;
 
         interactionPanel.SetActive(false);
 
-        // Set player as interacting to stop movement
         if (playerManager != null)
-        {
             playerManager.isInteracting = true;
-        }
 
         displayDialogue.SetActive(true);
 
-        // Disable player camera
         if (playerCamera != null)
-        {
             playerCamera.SetActive(false);
-        }
 
-        // Disable player visuals
         if (playerVisualDisabled != null)
-        {
             playerVisualDisabled.SetActive(false);
-        }
 
-        // Enable NPC conversation camera
         if (cameraPos != null)
-        {
             cameraPos.SetActive(true);
-        }
 
-        // Completely stop all movement
         if (playerRigidbody != null)
         {
             playerRigidbody.linearVelocity = Vector3.zero;
             playerRigidbody.angularVelocity = Vector3.zero;
         }
 
-        // Reset all input values in InputManager
         if (playerInputManager != null)
         {
             playerInputManager.movementInput = Vector2.zero;
@@ -434,18 +220,12 @@ public class NPCManager : MonoBehaviour
             playerInputManager.cameraInputY = 0;
         }
 
-        // Reset locomotion values
         if (playerLocomotion != null)
-        {
             playerLocomotion.isSprinting = false;
-            playerLocomotion.isJumping = false;
-        }
 
-        // Reset animations to idle
         if (animatorManager != null)
         {
             animatorManager.UpdatedAnimatorValues(0, 0, false);
-
             Animator animator = animatorManager.GetComponent<Animator>();
             if (animator != null)
             {
@@ -454,94 +234,119 @@ public class NPCManager : MonoBehaviour
             }
         }
 
-        // Disable the InputManager script
         if (playerInputManager != null)
-        {
             playerInputManager.enabled = false;
-        }
 
-        // Unlock and show cursor for conversation
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = false;
 
-        // Display the first line of dialogue
         DisplayCurrentLine();
-
-        // Play sound for first line
         PlayLineSound();
 
-        Debug.Log("Started conversation with NPC");
+        Debug.Log($"Started conversation with sequence: {dialogueSequences[currentSequenceIndex].sequenceName}");
+    }
+
+    private bool IsValidSequence()
+    {
+        return dialogueSequences != null &&
+               dialogueSequences.Length > 0 &&
+               currentSequenceIndex < dialogueSequences.Length &&
+               dialogueSequences[currentSequenceIndex].dialogueEntries != null &&
+               dialogueSequences[currentSequenceIndex].dialogueEntries.Length > 0;
     }
 
     private void AdvanceDialogue()
     {
         if (conversationEnded) return;
 
-        // Move to next line in sequence
-        if (currentSpeakerIndex < conversationSequence.Length - 1)
+        DialogueEntry[] currentEntries = dialogueSequences[currentSequenceIndex].dialogueEntries;
+
+        // Check if we have more lines in the current sequence
+        if (currentDialogueIndex < currentEntries.Length - 1)
         {
-            currentSpeakerIndex++;
+            // Move to next line in current sequence
+            currentDialogueIndex++;
             DisplayCurrentLine();
 
-            audioSource.Stop();
-            PlayLineSound();
+            if (audioSource != null)
+                audioSource.Stop();
 
-            Debug.Log($"Advanced to line {currentSpeakerIndex}, Speaker: {conversationSequence[currentSpeakerIndex].speaker}");
+            PlayLineSound();
+            Debug.Log($"Advanced to dialogue index {currentDialogueIndex + 1} in sequence {currentSequenceIndex + 1}");
         }
         else
         {
-            // Reached the end of all dialogues - end conversation
-            Debug.Log("Reached end of all dialogues, ending conversation");
-            conversationEnded = true;
-            EndConversation();
+            // We've finished the current sequence, try to move to the next sequence
+            if (currentSequenceIndex < dialogueSequences.Length - 1)
+            {
+                // Move to next sequence
+                currentSequenceIndex++;
+                currentDialogueIndex = 0;
+
+                // Check if the next sequence is valid
+                if (IsValidSequence())
+                {
+                    DisplayCurrentLine();
+
+                    if (audioSource != null)
+                        audioSource.Stop();
+
+                    PlayLineSound();
+                    Debug.Log($"Moved to next sequence: {dialogueSequences[currentSequenceIndex].sequenceName}");
+                }
+                else
+                {
+                    Debug.Log("Next sequence is invalid, ending conversation");
+                    conversationEnded = true;
+                    EndConversation();
+                }
+            }
+            else
+            {
+                // No more sequences, end conversation
+                Debug.Log("Reached end of all dialogue sequences, ending conversation");
+                conversationEnded = true;
+                EndConversation();
+            }
         }
     }
 
     private void DisplayCurrentLine()
     {
-        if (conversationSequence == null || conversationSequence.Length == 0)
+        if (!IsValidSequence())
         {
-            Debug.LogWarning("No conversation sequence built!");
+            Debug.LogWarning("No valid dialogue sequence to display!");
             return;
         }
 
-        ConversationSequence current = conversationSequence[currentSpeakerIndex];
+        DialogueEntry[] currentEntries = dialogueSequences[currentSequenceIndex].dialogueEntries;
 
-        if (current.speaker == SpeakerType.NPC)
+        if (currentEntries == null || currentDialogueIndex >= currentEntries.Length)
         {
-            // Display NPC dialogue
-            if (NpcDialogue != null && current.dialogueIndex < NpcDialogue.Length)
-            {
-                Dialogue npcDialogue = NpcDialogue[current.dialogueIndex];
-
-                if (nameText != null)
-                {
-                    nameText.text = npcDialogue.name;
-                }
-
-                if (dialogueText != null && current.lineIndex < npcDialogue.lines.Length)
-                {
-                    dialogueText.text = npcDialogue.lines[current.lineIndex];
-                }
-            }
+            Debug.LogWarning("No dialogue entry to display!");
+            return;
         }
-        else if (current.speaker == SpeakerType.Player)
+
+        DialogueEntry currentEntry = currentEntries[currentDialogueIndex];
+
+        if (nameText != null)
         {
-            // Display player dialogue
-            if (playerDialogue != null && current.dialogueIndex < playerDialogue.Length)
-            {
-                PlayerDialogue playerDialogueObj = playerDialogue[current.dialogueIndex];
+            nameText.text = currentEntry.speakerName;
+            Debug.Log($"Set name to: {currentEntry.speakerName}");
+        }
+        else
+        {
+            Debug.LogError("nameText is not assigned in inspector!");
+        }
 
-                if (nameText != null)
-                {
-                    nameText.text = playerDialogueObj.name;
-                }
-
-                if (dialogueText != null && current.lineIndex < playerDialogueObj.lines.Length)
-                {
-                    dialogueText.text = playerDialogueObj.lines[current.lineIndex];
-                }
-            }
+        if (dialogueText != null)
+        {
+            dialogueText.text = currentEntry.line;
+            Debug.Log($"Set dialogue to: {currentEntry.line}");
+        }
+        else
+        {
+            Debug.LogError("dialogueText is not assigned in inspector!");
         }
     }
 
@@ -549,40 +354,19 @@ public class NPCManager : MonoBehaviour
     {
         if (!playSoundOnNewLine || audioSource == null) return;
 
-        ConversationSequence current = conversationSequence[currentSpeakerIndex];
+        if (!IsValidSequence()) return;
 
-        if (current.speaker == SpeakerType.NPC)
+        DialogueEntry[] currentEntries = dialogueSequences[currentSequenceIndex].dialogueEntries;
+
+        if (currentEntries != null && currentDialogueIndex < currentEntries.Length)
         {
-            // Play NPC line sound
-            if (NpcDialogue != null && current.dialogueIndex < NpcDialogue.Length)
-            {
-                Dialogue npcDialogue = NpcDialogue[current.dialogueIndex];
+            DialogueEntry currentEntry = currentEntries[currentDialogueIndex];
 
-                if (npcDialogue.lineSounds != null &&
-                    npcDialogue.lineSounds.Length > current.lineIndex &&
-                    npcDialogue.lineSounds[current.lineIndex] != null)
-                {
-                    audioSource.Stop();
-                    audioSource.PlayOneShot(npcDialogue.lineSounds[current.lineIndex]);
-                    return;
-                }
-            }
-        }
-        else if (current.speaker == SpeakerType.Player)
-        {
-            // Play player line sound
-            if (playerDialogue != null && current.dialogueIndex < playerDialogue.Length)
+            if (currentEntry.lineSound != null)
             {
-                PlayerDialogue playerDialogueObj = playerDialogue[current.dialogueIndex];
-
-                if (playerDialogueObj.lineSounds != null &&
-                    playerDialogueObj.lineSounds.Length > current.lineIndex &&
-                    playerDialogueObj.lineSounds[current.lineIndex] != null)
-                {
-                    audioSource.Stop();
-                    audioSource.PlayOneShot(playerDialogueObj.lineSounds[current.lineIndex]);
-                    return;
-                }
+                audioSource.PlayOneShot(currentEntry.lineSound);
+                Debug.Log($"Playing specific sound for line: {currentEntry.line}");
+                return;
             }
         }
 
@@ -593,54 +377,78 @@ public class NPCManager : MonoBehaviour
         }
     }
 
-    [Header("Quest Settings")]
-    public string questToGive;
+    // Helper method to jump to a specific sequence
+    public void SetDialogueSequence(int sequenceIndex)
+    {
+        if (sequenceIndex >= 0 && sequenceIndex < dialogueSequences.Length)
+        {
+            currentSequenceIndex = sequenceIndex;
+            currentDialogueIndex = 0;
+            Debug.Log($"Set to dialogue sequence: {dialogueSequences[sequenceIndex].sequenceName}");
+
+            // Update display if in conversation
+            if (isInConversation)
+            {
+                DisplayCurrentLine();
+                PlayLineSound();
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"Invalid sequence index: {sequenceIndex}");
+        }
+    }
+
+    // Helper method to get current sequence name
+    public string GetCurrentSequenceName()
+    {
+        if (currentSequenceIndex < dialogueSequences.Length)
+            return dialogueSequences[currentSequenceIndex].sequenceName;
+        return "None";
+    }
 
     private void EndConversation()
     {
         isInConversation = false;
 
         if (playerManager != null)
-        {
             playerManager.isInteracting = false;
-        }
 
         displayDialogue.SetActive(false);
 
-        audioSource.Stop();
+        if (audioSource != null)
+            audioSource.Stop();
 
         interactionPanel.SetActive(true);
 
         if (playerCamera != null)
-        {
             playerCamera.SetActive(true);
-        }
 
         if (playerVisualDisabled != null)
-        {
             playerVisualDisabled.SetActive(true);
-        }
 
         if (cameraPos != null)
-        {
             cameraPos.SetActive(false);
-        }
 
         if (playerInputManager != null)
-        {
             playerInputManager.enabled = true;
+
+        // Give quest if assigned
+        if (theQuestManager2 != null && !string.IsNullOrEmpty(questToGive))
+        {
+            theQuestManager2.questID = questToGive;
+            theQuestManager2.AssignQuest();
+            Debug.Log($"Quest given: {questToGive}");
         }
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        if (!string.IsNullOrEmpty(questToGive))
-        {
-            if (QuestManager.Instance != null)
-            {
-                QuestManager.Instance.AcceptQuest(questToGive);
-            }
-        }
+        if (npcEnable != null)
+            npcEnable.SetActive(true);
+
+        if (npcDisable != null)
+            npcDisable.SetActive(false);
 
         Debug.Log("Ended conversation with NPC");
     }

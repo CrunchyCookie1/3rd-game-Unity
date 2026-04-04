@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b384a93334d83b42bfec15a0dfcb3c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractionZone
-  npcManager: {fileID: 0}
+  npcManager: {fileID: 7867874687787715051}
 --- !u!1 &1031581567853554283
 GameObject:
   m_ObjectHideFlags: 0
@@ -1531,7 +1531,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 8fc29ec73e655b947bb365d449fd1f78, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -45.130386
+      value: -45.19288
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8fc29ec73e655b947bb365d449fd1f78, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1539,7 +1539,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8fc29ec73e655b947bb365d449fd1f78, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -55.124058
+      value: -54.90491
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8fc29ec73e655b947bb365d449fd1f78, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1760,7 +1760,7 @@ MonoBehaviour:
   audioSource: {fileID: 2098490281702331640}
   dialogueAdvanceSound: {fileID: 8300000, guid: 675df02ce93a93549abc93638b3ead2c, type: 3}
   playSoundOnNewLine: 1
-  conversationIndex: 0
+  conversationIndex: 1
   NpcDialogue:
   - lines:
     - Test quest
@@ -1768,3 +1768,6 @@ MonoBehaviour:
     lineSounds: []
   playerDialogue: []
   questToGive: TestQuest
+  questID: TestQuest
+  giveQuestOnConversationEnd: 1
+  theQuestManager2: {fileID: 0}
