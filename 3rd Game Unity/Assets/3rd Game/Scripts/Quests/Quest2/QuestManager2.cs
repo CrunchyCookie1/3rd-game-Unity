@@ -18,18 +18,8 @@ public class QuestManager2 : MonoBehaviour
     [TextArea(3, 10)]
     public string questDescriptionComplete;
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+    // Track the currently active quest ID for this UI element
+    private string currentActiveQuestID = "";
 
     private void Start()
     {
@@ -38,9 +28,18 @@ public class QuestManager2 : MonoBehaviour
 
     public void AssignQuest()
     {
-        // Update UI
+        // Clear previous quest from UI if it exists and is different
+        if (!string.IsNullOrEmpty(currentActiveQuestID) && currentActiveQuestID != questID)
+        {
+            ClearPreviousQuestFromUI();
+        }
+
+        // Update UI with new quest
         questTitleText.text = questTitle;
         questDescriptionText.text = questDescription;
+
+        // Update current active quest
+        currentActiveQuestID = questID;
 
         // Save to QuestProgression
         if (QuestProgression.Instance != null)
@@ -56,20 +55,39 @@ public class QuestManager2 : MonoBehaviour
 
     public void CompleteQuestText()
     {
-        // Update UI
-        questTitleText.text = questTitleComplete;
-        questDescriptionText.text = questDescriptionComplete;
-
-        // Save to QuestProgression
-        if (QuestProgression.Instance != null)
+        // Only complete if this is the currently active quest
+        if (currentActiveQuestID == questID)
         {
-            QuestProgression.Instance.CompleteQuest(questID);
+            // Update UI
+            questTitleText.text = questTitleComplete;
+            questDescriptionText.text = questDescriptionComplete;
+
+            // Save to QuestProgression
+            if (QuestProgression.Instance != null)
+            {
+                QuestProgression.Instance.CompleteQuest(questID);
+            }
+
+            // Save locally
+            SaveQuest();
+
+            Debug.Log("Quest completed: " + questTitleComplete);
         }
+        else
+        {
+            Debug.LogWarning($"Cannot complete quest {questID} - it's not the active quest. Active quest is: {currentActiveQuestID}");
+        }
+    }
 
-        // Save locally
-        SaveQuest();
+    private void ClearPreviousQuestFromUI()
+    {
+        // Clear the UI text elements
+        if (questTitleText != null)
+            questTitleText.text = "";
+        if (questDescriptionText != null)
+            questDescriptionText.text = "";
 
-        Debug.Log("Quest completed: " + questTitleComplete);
+        Debug.Log($"Cleared previous quest {currentActiveQuestID} from UI");
     }
 
     public void SaveQuest()
@@ -88,12 +106,19 @@ public class QuestManager2 : MonoBehaviour
         PlayerPrefs.SetString("QuestDescriptionComplete_" + questID, questDescriptionComplete);
         PlayerPrefs.SetInt("QuestIsCompleted_" + questID, isCompleted ? 1 : 0);
         PlayerPrefs.SetInt("QuestHasQuest_" + questID, QuestProgression.Instance.HasQuest(questID) ? 1 : 0);
+        PlayerPrefs.SetString("CurrentActiveQuestID", currentActiveQuestID);
 
         Debug.Log("Quest saved: " + questTitle);
     }
 
     public void LoadSave()
     {
+        // Load the currently active quest ID
+        if (PlayerPrefs.HasKey("CurrentActiveQuestID"))
+        {
+            currentActiveQuestID = PlayerPrefs.GetString("CurrentActiveQuestID");
+        }
+
         if (PlayerPrefs.HasKey("QuestID_" + questID))
         {
             // Load saved data
@@ -140,35 +165,44 @@ public class QuestManager2 : MonoBehaviour
                 }
             }
 
-            // Load the appropriate text onto the UI
-            if (isCompleted)
+            // Only load the text onto UI if this is the active quest
+            if (currentActiveQuestID == questID)
             {
-                questTitleText.text = questTitleComplete;
-                questDescriptionText.text = questDescriptionComplete;
-                Debug.Log("Loaded completed quest: " + questTitleComplete);
-            }
-            else if (hasQuest)
-            {
-                questTitleText.text = questTitle;
-                questDescriptionText.text = questDescription;
-                Debug.Log("Loaded active quest: " + questTitle);
+                if (isCompleted)
+                {
+                    questTitleText.text = questTitleComplete;
+                    questDescriptionText.text = questDescriptionComplete;
+                    Debug.Log("Loaded completed quest: " + questTitleComplete);
+                }
+                else if (hasQuest)
+                {
+                    questTitleText.text = questTitle;
+                    questDescriptionText.text = questDescription;
+                    Debug.Log("Loaded active quest: " + questTitle);
+                }
+                else
+                {
+                    // Quest was reset
+                    questTitleText.text = "";
+                    questDescriptionText.text = "";
+                    Debug.Log("Quest was reset, UI cleared");
+                }
             }
             else
             {
-                // Quest was reset
-                questTitleText.text = "";
-                questDescriptionText.text = "";
-                Debug.Log("Quest was reset, UI cleared");
+                Debug.Log($"Quest {questID} is saved but not active. Active quest is: {currentActiveQuestID}");
             }
         }
         else
         {
             Debug.Log("No saved quest found for ID: " + questID);
-            // Clear the UI text if no quest is saved
-            if (questTitleText != null)
+            // Clear the UI text if no quest is saved and this is the active quest
+            if (currentActiveQuestID == questID && questTitleText != null)
+            {
                 questTitleText.text = "";
-            if (questDescriptionText != null)
                 questDescriptionText.text = "";
+                currentActiveQuestID = "";
+            }
         }
     }
 
@@ -199,11 +233,15 @@ public class QuestManager2 : MonoBehaviour
                 }
             }
 
-            // Clear the UI text
-            if (questTitleText != null)
-                questTitleText.text = "";
-            if (questDescriptionText != null)
-                questDescriptionText.text = "";
+            // Clear the UI text if this is the active quest
+            if (currentActiveQuestID == questID)
+            {
+                if (questTitleText != null)
+                    questTitleText.text = "";
+                if (questDescriptionText != null)
+                    questDescriptionText.text = "";
+                currentActiveQuestID = "";
+            }
 
             Debug.Log("Quest save data reset for ID: " + questID);
         }
@@ -211,5 +249,22 @@ public class QuestManager2 : MonoBehaviour
         {
             Debug.LogWarning("No saved quest found to reset for ID: " + questID);
         }
+    }
+
+    // Public method to get the currently active quest ID
+    public string GetCurrentActiveQuestID()
+    {
+        return currentActiveQuestID;
+    }
+
+    // Optional: Method to manually clear the UI without resetting quest data
+    public void ClearUI()
+    {
+        if (questTitleText != null)
+            questTitleText.text = "";
+        if (questDescriptionText != null)
+            questDescriptionText.text = "";
+        currentActiveQuestID = "";
+        Debug.Log("UI manually cleared");
     }
 }

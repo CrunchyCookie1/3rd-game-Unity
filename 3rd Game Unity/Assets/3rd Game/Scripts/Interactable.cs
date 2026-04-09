@@ -84,10 +84,19 @@ public class Interactable : MonoBehaviour
             player.transform.position = tpLocation.position;
         }
 
-            // Invoke the Unity Event (you can hook up functions in the Inspector)
             onInteract?.Invoke();
+        foreach (GameObject obj in objectsToEnable)
+        {
+            if (obj != null)
+                obj.SetActive(true);
+        }
 
-        // Reset the input flag so we don't trigger multiple times
+        foreach (GameObject obj in objectsToDisable)
+        {
+            if (obj != null)
+                obj.SetActive(false);
+        }
+
         if (inputManager != null)
             inputManager.interactInput = false;
     }

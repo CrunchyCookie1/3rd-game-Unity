@@ -9,6 +9,10 @@ public class NPCManager : MonoBehaviour
     QuestProgression questProgression;
     QuestManager2 questManager2;
 
+    [Header("Object Settings")]
+    public GameObject[] objectsEnable;
+    public GameObject[] objectsDisable;
+
     [Header("Dialogue Options")]
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI nameText;
@@ -432,6 +436,24 @@ public class NPCManager : MonoBehaviour
 
         if (playerInputManager != null)
             playerInputManager.enabled = true;
+
+        if (objectsEnable != null)
+        {
+            foreach (GameObject obj in objectsEnable)
+            {
+                if (obj != null)
+                    obj.SetActive(true);
+            }
+        }
+
+        if (objectsDisable != null)
+        {
+            foreach (GameObject obj in objectsDisable)
+            {
+                if (obj != null)
+                    obj.SetActive(false);
+            }
+        }
 
         // Give quest if assigned
         if (theQuestManager2 != null && !string.IsNullOrEmpty(questToGive))
