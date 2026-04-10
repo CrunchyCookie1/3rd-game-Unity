@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using QuestSystem;
+using UnityEngine.Events;
 
 public class NPCManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class NPCManager : MonoBehaviour
     [Header("Object Settings")]
     public GameObject[] objectsEnable;
     public GameObject[] objectsDisable;
+    public UnityEvent onConversationEnd;
+    public UnityEvent onConversationStart;
 
     [Header("Dialogue Options")]
     public TextMeshProUGUI dialogueText;
@@ -173,7 +176,7 @@ public class NPCManager : MonoBehaviour
         }
     }
 
-    private void StartConversation()
+    public void StartConversation()
     {
         // Reset to first sequence
         currentSequenceIndex = 0;
@@ -190,6 +193,8 @@ public class NPCManager : MonoBehaviour
         conversationEnded = false;
 
         interactionPanel.SetActive(false);
+
+        onConversationStart?.Invoke();
 
         if (playerManager != null)
             playerManager.isInteracting = true;
@@ -454,6 +459,8 @@ public class NPCManager : MonoBehaviour
                     obj.SetActive(false);
             }
         }
+
+        onConversationEnd?.Invoke();
 
         // Give quest if assigned
         if (theQuestManager2 != null && !string.IsNullOrEmpty(questToGive))

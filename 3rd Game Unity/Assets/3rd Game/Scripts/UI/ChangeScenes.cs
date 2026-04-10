@@ -3,10 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class ChangeScenes : MonoBehaviour
 {
-    public void ChangeToScene(string sceneName)
+    [SerializeField] private string sceneToLoad = "SceneName";
+
+    public void ChangeToScene()
     {
         Invoke(nameof(DelayedSceneChange), 0.5f);
-        _targetScene = sceneName;
+        _targetScene = sceneToLoad;
+        Debug.Log("Scene Changed");
     }
 
     private string _targetScene;
@@ -15,5 +18,4 @@ public class ChangeScenes : MonoBehaviour
     {
         SceneManager.LoadScene(_targetScene);
     }
-
 }

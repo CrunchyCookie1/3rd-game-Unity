@@ -30,6 +30,31 @@ public class InputManager : MonoBehaviour
         playerLocomotion = GetComponent<PlayerLocomotion>();
     }
 
+    public void EnablePlayerControls()
+    {
+        this.enabled = true;
+        Debug.Log("InputManager enabled");
+    }
+
+    public void DisablePlayerControls()
+    {
+        this.enabled = false;
+
+        // Reset input values when disabled
+        movementInput = Vector2.zero;
+        cameraInput = Vector2.zero;
+        sprintInput = false;
+        jumpInput = false;
+        interactInput = false;
+        exitInput = false;
+        gameMenuInput = false;
+        verticlalInput = 0;
+        horizontalInput = 0;
+        moveAmount = 0;
+
+        Debug.Log("InputManager disabled");
+    }
+
     private void OnEnable()
     {
         if (playerControls == null)

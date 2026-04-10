@@ -10,8 +10,9 @@ public class LightingManager : MonoBehaviour
     [SerializeField] private Light directionalLight;
     [SerializeField] private LightingPreset preset;
     //Variables
-    [SerializeField, Range(0, 24)] private float timeOfDay;
+    [Range(0, 24)] public float timeOfDay;
     public bool nightTime = false;
+    public bool timePaused;
 
     private List<Light> allLights = new List<Light>();
 
@@ -139,7 +140,7 @@ public class LightingManager : MonoBehaviour
         if (preset == null)
             return;
 
-        if (Application.isPlaying)
+        if (Application.isPlaying && timePaused == false)
         {
             timeOfDay += Time.deltaTime * timeMultiplier;
             timeOfDay %= 24; //Clamp between 0 - 24
@@ -193,5 +194,27 @@ public class LightingManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void ChangeToNight()
+    {
+        timePaused = true;
+        timeOfDay = 20;
+    }
+
+    public void ChangeToDay()
+    {
+        timePaused = false;
+        timeOfDay = 10;
+    }
+
+    public void PauseTime()
+    {
+        timePaused = true;
+    }
+
+    public void UnPauseTime()
+    {
+        timePaused = false;
     }
 }

@@ -31,6 +31,51 @@ public class OpenUI : MonoBehaviour
         }
     }
 
+    // NEW METHOD: Force close UI and unfreeze everything (call this when puzzle is solved)
+    public void ForceCloseAndUnfreeze()
+    {
+        if (isUIOpen)
+        {
+            CloseUIElement();
+        }
+        else
+        {
+            // If UI isn't open but game might still be frozen, manually unfreeze
+            UnfreezeGame();
+        }
+    }
+
+    // NEW METHOD: Manually unfreeze the game without UI checks
+    private void UnfreezeGame()
+    {
+        Debug.Log("Force unfreezing game!");
+
+        // Unpause the game
+        Time.timeScale = 1f;
+
+        // Re-enable player controls and movement scripts
+        if (scriptsToDisable != null)
+        {
+            foreach (MonoBehaviour script in scriptsToDisable)
+            {
+                if (script != null)
+                    script.enabled = true;
+            }
+        }
+
+        // Re-enable mouse look/camera control if assigned
+        if (mouseLookScript != null)
+            mouseLookScript.enabled = true;
+
+        // Restore cursor state
+        Cursor.lockState = previousCursorLockMode;
+        Cursor.visible = previousCursorVisibility;
+
+        // Re-enable the InputManager
+        if (inputManager != null)
+            inputManager.enabled = true;
+    }
+
     // Public method to toggle the UI (call this from events/other scripts if needed)
     public void ToggleUI()
     {

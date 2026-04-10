@@ -5,6 +5,9 @@ using UnityEngine.Events;
 
 public class EBox : MonoBehaviour
 {
+    public InputManager inputManager;
+    public OpenUI openUI;
+
     public Slider slider1;
     public Slider slider2;
     public Slider slider3;
@@ -12,33 +15,30 @@ public class EBox : MonoBehaviour
     public UnityEvent correctValueEvent;
     public UnityEvent incorrectValueEvent;
 
-    // Individual events for each slider
     public UnityEvent slider1CorrectEvent;
     public UnityEvent slider2CorrectEvent;
     public UnityEvent slider3CorrectEvent;
+
+    public UnityEvent soundsCorrectEvent;
 
     public float correctValue1 = 50f;
     public float correctValue2 = 75f;
     public float correctValue3 = 100f;
     public float tolerance = 0.01f;
 
-    // Sound settings
     public AudioSource audioSource;
     public AudioClip correctSound;
     public AudioClip incorrectSound;
 
-    // Objects to enable/disable
     public GameObject[] objectsToEnableOnCorrect;
     public GameObject[] objectsToDisableOnCorrect;
     public GameObject[] objectsToEnableOnIncorrect;
     public GameObject[] objectsToDisableOnIncorrect;
 
-    // Track states for each slider
     private bool slider1WasCorrect = false;
     private bool slider2WasCorrect = false;
     private bool slider3WasCorrect = false;
 
-    // Track if we've already triggered to prevent spam
     private bool lastCorrectState = false;
 
     void Start()
@@ -124,7 +124,6 @@ public class EBox : MonoBehaviour
         TestAllSliders();
     }
 
-    // Public function that can be called from other scripts or UI buttons
     public void TestAllSliders()
     {
         bool allCorrect = AreAllSlidersCorrect();
@@ -145,27 +144,42 @@ public class EBox : MonoBehaviour
         }
     }
 
-    // Check if all sliders are at their correct values
     public bool AreAllSlidersCorrect()
     {
         return slider1WasCorrect && slider2WasCorrect && slider3WasCorrect;
     }
 
-    // Called when all sliders are at correct values
     private void OnAllSlidersCorrect()
     {
         Debug.Log("ALL sliders are correct! Playing success sound and enabling/disabling objects.");
 
-        // Enable objects for correct state
         EnableObjects(objectsToEnableOnCorrect);
         DisableObjects(objectsToDisableOnCorrect);
 
-        // Clean up incorrect state objects
         EnableObjects(objectsToEnableOnIncorrect, false);
         DisableObjects(objectsToDisableOnIncorrect, false);
+
+        soundsCorrectEvent?.Invoke();
+
+        // FORCE CLOSE UI AND UNFREEZE THE GAME
+        if (openUI != null)
+        {
+            openUI.ForceCloseAndUnfreeze();
+            Debug.Log("UI forced closed and game unfrozen!");
+        }
+        else
+        {
+            Debug.LogWarning("OpenUI reference not set in EBox!");
+        }
+
+        // Also ensure InputManager is enabled as backup
+        if (inputManager != null)
+        {
+            inputManager.EnablePlayerControls();
+            Debug.Log("Player input enabled - Game unfrozen!");
+        }
     }
 
-    // Called when sliders are NOT all at correct values
     private void OnSlidersIncorrect()
     {
         Debug.Log("Sliders are NOT all correct. Playing fail sound and enabling/disabling objects.");
@@ -185,7 +199,6 @@ public class EBox : MonoBehaviour
         DisableObjects(objectsToDisableOnCorrect, false);
     }
 
-    // Helper method to play sounds
     private void PlaySound(AudioClip clip)
     {
         if (audioSource != null && clip != null)
@@ -202,7 +215,6 @@ public class EBox : MonoBehaviour
         }
     }
 
-    // Helper method to enable objects
     private void EnableObjects(GameObject[] objects, bool enable = true)
     {
         if (objects == null) return;
@@ -216,7 +228,6 @@ public class EBox : MonoBehaviour
         }
     }
 
-    // Helper method to disable objects
     private void DisableObjects(GameObject[] objects, bool disable = true)
     {
         if (objects == null) return;
@@ -230,13 +241,11 @@ public class EBox : MonoBehaviour
         }
     }
 
-    // Optional: Function to manually force a check (can be called from UI button)
     public void ForceCheckSliders()
     {
         TestAllSliders();
     }
 
-    // Optional: Function to get current slider status as a string
     public string GetSlidersStatus()
     {
         return $"Slider1: {slider1.value}/{correctValue1}, " +
@@ -244,7 +253,6 @@ public class EBox : MonoBehaviour
                $"Slider3: {slider3.value}/{correctValue3}";
     }
 
-    // Optional: Reset all slider states
     public void ResetSliderStates()
     {
         slider1WasCorrect = false;
