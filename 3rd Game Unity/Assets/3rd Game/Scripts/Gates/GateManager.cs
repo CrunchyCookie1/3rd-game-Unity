@@ -10,11 +10,6 @@ public class GateManager : MonoBehaviour
 
     public float gateNumberValue;
 
-    private void Awake()
-    {
-        loadSave();
-    }
-
     private void Start()
     {
         gateNumber.text = gateNumberValue.ToString();

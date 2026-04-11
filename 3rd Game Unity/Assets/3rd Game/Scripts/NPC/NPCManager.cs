@@ -26,6 +26,7 @@ public class NPCManager : MonoBehaviour
     public GameObject playerVisualDisabled;
     public GameObject displayDialogue;
     public GameObject interactionPanel;
+    public bool allowExit;
 
     [Header("Audio Settings")]
     public AudioSource audioSource;
