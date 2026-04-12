@@ -13,6 +13,7 @@ public class LightingManager : MonoBehaviour
     [Range(0, 24)] public float timeOfDay;
     public bool nightTime = false;
     public bool timePaused;
+    public int day;
 
     private List<Light> allLights = new List<Light>();
 
@@ -137,6 +138,10 @@ public class LightingManager : MonoBehaviour
 
     private void Update()
     {
+        if (day == 0 && timeOfDay >= 20)
+        {
+            timePaused = true;
+        }
         if (preset == null)
             return;
 
@@ -216,5 +221,10 @@ public class LightingManager : MonoBehaviour
     public void UnPauseTime()
     {
         timePaused = false;
+    }
+
+    public void UpdateDay(int setDay)
+    {
+        day = setDay;
     }
 }

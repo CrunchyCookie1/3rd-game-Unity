@@ -1,12 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class UiButtons : MonoBehaviour
 {
     [Header("Button Settings")]
     [SerializeField] private Button button;
     [SerializeField] private ButtonActionType actionType;
+
+    [Header("Scene Loading Settings")]
+    [SerializeField] private string sceneName = "NextScene";
+    [SerializeField] private LoadSceneMode sceneLoadMode = LoadSceneMode.Single;
 
     [Header("Custom Action (Optional)")]
     [SerializeField] private UnityEvent onButtonPressed;
@@ -18,6 +23,8 @@ public class UiButtons : MonoBehaviour
     {
         ResumeGame,
         QuitGame,
+        LoadScene,
+        LoadSceneAdditive,
         Custom
     }
 
@@ -37,6 +44,12 @@ public class UiButtons : MonoBehaviour
                     break;
                 case ButtonActionType.QuitGame:
                     button.onClick.AddListener(QuitGame);
+                    break;
+                case ButtonActionType.LoadScene:
+                    button.onClick.AddListener(LoadScene);
+                    break;
+                case ButtonActionType.LoadSceneAdditive:
+                    button.onClick.AddListener(LoadSceneAdditive);
                     break;
                 case ButtonActionType.Custom:
                     button.onClick.AddListener(() => onButtonPressed?.Invoke());
@@ -62,8 +75,48 @@ public class UiButtons : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
-            Application.Quit();
+        Application.Quit();
 #endif
+    }
+
+    private void LoadScene()
+    {
+        if (!string.IsNullOrEmpty(sceneName))
+        {
+            SceneManager.LoadScene(sceneName);
+        }
+        else
+        {
+            Debug.LogError("Scene name is not set! Please assign a scene name in the inspector.");
+        }
+    }
+
+    private void LoadSceneAdditive()
+    {
+        if (!string.IsNullOrEmpty(sceneName))
+        {
+            SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+        }
+        else
+        {
+            Debug.LogError("Scene name is not set! Please assign a scene name in the inspector.");
+        }
+    }
+
+    // Optional: Async loading with loading screen support
+    public void LoadSceneAsync(string sceneToLoad, bool useLoadingScreen = false)
+    {
+        if (!string.IsNullOrEmpty(sceneToLoad))
+        {
+            if (useLoadingScreen)
+            {
+                // You can implement loading screen logic here
+                // Example: SceneManager.LoadSceneAsync("LoadingScene");
+                Debug.Log("Loading screen would appear here");
+            }
+
+            SceneManager.LoadSceneAsync(sceneToLoad);
+        }
     }
 
     private void OnDestroy()

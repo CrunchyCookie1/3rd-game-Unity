@@ -1661,6 +1661,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 417579850}
   m_CullTransparentMesh: 1
+--- !u!1 &547594194
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 547594196}
+  - component: {fileID: 547594195}
+  m_Layer: 0
+  m_Name: EnableMouseMovement
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &547594195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547594194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7df8a80ee80f3b44e8ca10890b846d83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  showCursor: 1
+  cursorLockMode: 0
+  inputManagerTag: Player
+  disablePlayerInputOnMenu: 1
+--- !u!4 &547594196
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547594194}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -53.43608, y: -27.39005, z: -46.47222}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &752570823
 GameObject:
   m_ObjectHideFlags: 0
@@ -1757,18 +1805,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 752570828}
-        m_TargetAssemblyTypeName: ExitGame, Assembly-CSharp
-        m_MethodName: QuitApplication
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &752570826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1816,10 +1852,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 752570823}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e2c2720dc5372f4b96442068b9a0528, type: 3}
+  m_Script: {fileID: 11500000, guid: 0462b11929146d646bd9870a74f5b56d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ExitGame
-  quitDelay: 0.5
+  m_EditorClassIdentifier: Assembly-CSharp::UiButtons
+  button: {fileID: 752570825}
+  actionType: 1
+  sceneName: NextScene
+  sceneLoadMode: 0
+  onButtonPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  openMenu: {fileID: 0}
 --- !u!1 &981376673
 GameObject:
   m_ObjectHideFlags: 0
@@ -2338,18 +2381,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1298209224}
-        m_TargetAssemblyTypeName: ChangeScenes, Assembly-CSharp
-        m_MethodName: ChangeToScene
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: MainCity
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 4518562510463429063}
         m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
         m_MethodName: Play
@@ -2409,10 +2440,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1298209219}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1c4ff6e61c7bd14c8a19df4abfb2cc4, type: 3}
+  m_Script: {fileID: 11500000, guid: 0462b11929146d646bd9870a74f5b56d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ChangeScenes
-  sceneToLoad: MainCity
+  m_EditorClassIdentifier: Assembly-CSharp::UiButtons
+  button: {fileID: 1298209221}
+  actionType: 2
+  sceneName: MainCity
+  sceneLoadMode: 0
+  onButtonPressed:
+    m_PersistentCalls:
+      m_Calls: []
+  openMenu: {fileID: 0}
 --- !u!1 &1640371030
 GameObject:
   m_ObjectHideFlags: 0
@@ -2589,6 +2627,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1706260096}
   m_CullTransparentMesh: 1
+--- !u!1 &1857837121
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1857837123}
+  - component: {fileID: 1857837122}
+  m_Layer: 0
+  m_Name: InputManager
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1857837122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857837121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9712a65df50e728458fe56af18beaad8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputManager
+  movementInput: {x: 0, y: 0}
+  cameraInput: {x: 0, y: 0}
+  cameraInputX: 0
+  cameraInputY: 0
+  moveAmount: 0
+  verticlalInput: 0
+  horizontalInput: 0
+  sprintInput: 0
+  jumpInput: 0
+  interactInput: 0
+  exitInput: 0
+  gameMenuInput: 0
+--- !u!4 &1857837123
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857837121}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -53.43608, y: -27.39005, z: -46.47222}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1942737497
 GameObject:
   m_ObjectHideFlags: 0
@@ -3775,7 +3869,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: H
+  m_text: Space
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4476,7 +4570,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: K
+  m_text: Esc
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10407,3 +10501,5 @@ SceneRoots:
   - {fileID: 1224666431}
   - {fileID: 16026193}
   - {fileID: 189581892}
+  - {fileID: 1857837123}
+  - {fileID: 547594196}

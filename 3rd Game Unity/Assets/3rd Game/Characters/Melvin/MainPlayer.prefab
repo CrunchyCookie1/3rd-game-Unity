@@ -511,9 +511,6 @@ PrefabInstance:
       addedObject: {fileID: 6403565511990084894}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a231731ccde54204f93fc4686d923b40, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3930651801032963991}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a231731ccde54204f93fc4686d923b40, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 3749626593560450012}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a231731ccde54204f93fc4686d923b40, type: 3}
       insertIndex: -1
@@ -691,23 +688,6 @@ MonoBehaviour:
   groundCheckDistance: 0.5
   raycastOffset: 0.2
   isGrounded: 0
---- !u!114 &3930651801032963991
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1860211136583764802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8678e9b38f05a4e499680aa46d49b275, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PersistentObject
-  objectID: Player
-  resetPositionOnSceneLoad: 0
-  resetPosition: {x: 0, y: 0, z: 0}
-  resetRotation: 0
-  resetScale: 0
 --- !u!114 &3749626593560450012
 MonoBehaviour:
   m_ObjectHideFlags: 0

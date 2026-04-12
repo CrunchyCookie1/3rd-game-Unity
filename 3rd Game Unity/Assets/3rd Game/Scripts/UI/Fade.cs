@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.Events;
 
 public class Fade : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Fade : MonoBehaviour
     [SerializeField] private RawImage rawImage;
     [SerializeField] private float fadeDuration = 1f;
     [SerializeField] private bool startVisible = true;
+    public UnityEvent onFadeEndEvent;
 
     private Color originalColor;
     private Coroutine activeFadeCoroutine;
@@ -26,7 +28,6 @@ public class Fade : MonoBehaviour
             SetAlpha(0f);
     }
 
-    // Public functions to trigger fades
 
     public void FadeIn()
     {
@@ -94,6 +95,8 @@ public class Fade : MonoBehaviour
 
         SetAlpha(endAlpha);
         activeFadeCoroutine = null;
+
+        onFadeEndEvent.Invoke();
     }
 
     private void SetAlpha(float alpha)
