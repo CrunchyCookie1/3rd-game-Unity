@@ -8,8 +8,13 @@ public class OpenMenu : MonoBehaviour
     private bool isMenuOpen = false;
     private float originalTimeScale = 1f;
 
+    public GameObject mainCanvas;
+    public Canvas[] allCanvases;
+
     private void Start()
     {
+        allCanvases = FindObjectsByType<Canvas>(FindObjectsSortMode.None);
+
         // Ensure menu starts closed
         if (gameMenuPanel != null)
             gameMenuPanel.SetActive(false);
@@ -54,6 +59,14 @@ public class OpenMenu : MonoBehaviour
         if (gameMenuPanel != null)
             gameMenuPanel.SetActive(true);
 
+        foreach (Canvas canvas in allCanvases)
+        {
+            if (canvas.gameObject != mainCanvas)
+            {
+                canvas.gameObject.SetActive(false);
+            }
+        }
+
         // Unlock and hide cursor
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -70,6 +83,15 @@ public class OpenMenu : MonoBehaviour
         // Hide menu
         if (gameMenuPanel != null)
             gameMenuPanel.SetActive(false);
+
+        foreach (Canvas canvas in allCanvases)
+        {
+            if (canvas.gameObject != mainCanvas)
+            {
+
+                canvas.gameObject.SetActive(true);
+            }
+        }
 
         // Lock and hide cursor back for gameplay
         Cursor.lockState = CursorLockMode.Locked;
