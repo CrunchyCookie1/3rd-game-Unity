@@ -6,6 +6,8 @@ public class OpenUI : MonoBehaviour
     [SerializeField] private InputManager inputManager; // Assign your InputManager reference
     [SerializeField] private MonoBehaviour[] scriptsToDisable; // Add scripts you want to disable (movement, camera, etc.)
 
+    public bool freezeGame = false;
+
     private bool isUIOpen = false;
     private CursorLockMode previousCursorLockMode;
     private bool previousCursorVisibility;
@@ -103,7 +105,10 @@ public class OpenUI : MonoBehaviour
         uiElement.SetActive(true);
 
         // Pause the game
-        Time.timeScale = 0f;
+        if (freezeGame == true)
+        {
+            Time.timeScale = 0f;
+        }
 
         // Disable player controls and movement scripts
         if (scriptsToDisable != null)
