@@ -4,6 +4,7 @@ public class OpenMenu : MonoBehaviour
 {
     [SerializeField] private GameObject gameMenuPanel; // Assign your menu UI panel in the inspector
     [SerializeField] private InputManager inputManager;
+    [SerializeField] private GameObject tutorialTip;
 
     private bool isMenuOpen = false;
     private float originalTimeScale = 1f;
@@ -56,6 +57,7 @@ public class OpenMenu : MonoBehaviour
         Time.timeScale = 0f;
 
         // Show menu
+        tutorialTip.SetActive(false);
         if (gameMenuPanel != null)
             gameMenuPanel.SetActive(true);
 
