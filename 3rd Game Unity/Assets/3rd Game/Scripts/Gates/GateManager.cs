@@ -12,7 +12,8 @@ public class GateManager : MonoBehaviour
 
     private void Start()
     {
-        gateNumber.text = gateNumberValue.ToString();
+        if (gateNumberObj != null)
+            gateNumber.text = gateNumberValue.ToString();
     }
 
     private void Update()
@@ -25,14 +26,16 @@ public class GateManager : MonoBehaviour
         {
             saveGateNumber();
             gate.SetActive(false);
-            gateNumberObj.SetActive(false);
+            if (gateNumberObj != null)
+                gateNumberObj.SetActive(false);
         }
     }
 
     public void decreaseGateNumber()
     {
         gateNumberValue--;
-        gateNumber.text = gateNumberValue.ToString();
+        if (gateNumber != null)
+            gateNumber.text = gateNumberValue.ToString();
     }
 
     public void saveGateNumber()

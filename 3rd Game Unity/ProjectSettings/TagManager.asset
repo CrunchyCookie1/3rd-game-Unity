@@ -6,6 +6,8 @@ TagManager:
   tags:
   - AudioManager
   - ExcludedLight
+  - PuzzleBox
+  - NPC
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - Buildings
   - Props
   - SuperMarket
-  - 
+  - Lab
   - 
   - 
   - 

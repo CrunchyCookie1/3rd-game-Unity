@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 [ExecuteAlways]
 public class LightingManager : MonoBehaviour
@@ -14,6 +15,9 @@ public class LightingManager : MonoBehaviour
     public bool nightTime = false;
     public bool timePaused;
     public int day;
+
+    public UnityEvent onNightEvent;
+    public UnityEvent onDayEvent;
 
     private List<Light> allLights = new List<Light>();
 
@@ -204,12 +208,21 @@ public class LightingManager : MonoBehaviour
     public void ChangeToNight()
     {
         timePaused = true;
+        onNightEvent?.Invoke();
         timeOfDay = 20;
+    }
+
+    public void ChangeToMidday()
+    {
+        timePaused = false;
+        onNightEvent?.Invoke();
+        timeOfDay = 18;
     }
 
     public void ChangeToDay()
     {
         timePaused = false;
+        onDayEvent?.Invoke();
         timeOfDay = 10;
     }
 
