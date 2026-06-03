@@ -1,10 +1,14 @@
 using UnityEngine;
+using UnityEngine.Events;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class OpenMenu : MonoBehaviour
 {
     [SerializeField] private GameObject gameMenuPanel; // Assign your menu UI panel in the inspector
     [SerializeField] private InputManager inputManager;
     [SerializeField] private GameObject tutorialTip;
+    public UnityEvent onMenuOpen;
+    public UnityEvent onMenuClose;
 
     private bool isMenuOpen = false;
     private float originalTimeScale = 1f;
@@ -38,6 +42,7 @@ public class OpenMenu : MonoBehaviour
 
     private void ToggleMenu()
     {
+
         isMenuOpen = !isMenuOpen;
 
         if (isMenuOpen)
@@ -54,6 +59,7 @@ public class OpenMenu : MonoBehaviour
     {
         // Freeze the game
         originalTimeScale = Time.timeScale;
+        onMenuOpen?.Invoke();
         Time.timeScale = 0f;
 
         // Show menu
@@ -81,6 +87,7 @@ public class OpenMenu : MonoBehaviour
     {
         // Unfreeze the game
         Time.timeScale = originalTimeScale;
+        onMenuClose?.Invoke();
 
         // Hide menu
         if (gameMenuPanel != null)
