@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
-using QuestSystem;
 using UnityEngine.Events;
 
 public class NPCManager : MonoBehaviour
@@ -56,6 +55,7 @@ public class NPCManager : MonoBehaviour
         public string speakerName;
         [TextArea(3, 10)]
         public string line;
+        public UnityEvent onLineStart;
         public AudioClip lineSound;
     }
 
@@ -67,12 +67,6 @@ public class NPCManager : MonoBehaviour
     }
 
     public DialogueSequence[] dialogueSequences;
-
-    [Header("Quest Settings")]
-    public string questToGive;
-    public string questID;
-    public bool giveQuestOnConversationEnd = true;
-    public QuestManager2 theQuestManager2;
 
     public GameObject npcDisable;
     public GameObject npcEnable;
@@ -276,6 +270,10 @@ public class NPCManager : MonoBehaviour
         {
             // Move to next line in current sequence
             currentDialogueIndex++;
+
+            DialogueEntry currentEntry = currentEntries[currentDialogueIndex];
+            currentEntry.onLineStart?.Invoke();
+
             DisplayCurrentLine();
 
             if (audioSource != null)
@@ -296,11 +294,13 @@ public class NPCManager : MonoBehaviour
                 // Check if the next sequence is valid
                 if (IsValidSequence())
                 {
+                    DialogueEntry currentEntry = dialogueSequences[currentSequenceIndex].dialogueEntries[currentDialogueIndex];
+                    currentEntry.onLineStart?.Invoke();
+
                     DisplayCurrentLine();
 
                     if (audioSource != null)
                         audioSource.Stop();
-
                     PlayLineSound();
                     Debug.Log($"Moved to next sequence: {dialogueSequences[currentSequenceIndex].sequenceName}");
                 }
@@ -462,14 +462,6 @@ public class NPCManager : MonoBehaviour
         }
 
         onConversationEnd?.Invoke();
-
-        // Give quest if assigned
-        if (theQuestManager2 != null && !string.IsNullOrEmpty(questToGive))
-        {
-            theQuestManager2.questID = questToGive;
-            theQuestManager2.AssignQuest();
-            Debug.Log($"Quest given: {questToGive}");
-        }
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

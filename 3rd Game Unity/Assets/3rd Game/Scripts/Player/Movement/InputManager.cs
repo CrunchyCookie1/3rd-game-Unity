@@ -6,7 +6,6 @@ public class InputManager : MonoBehaviour
     PlayerLocomotion playerLocomotion;
     AnimatorManager animatorManager;
 
-
     public Vector2 movementInput;
     public Vector2 cameraInput;
 
@@ -24,6 +23,8 @@ public class InputManager : MonoBehaviour
     public bool exitInput;
     public bool gameMenuInput;
 
+    private bool gameplayInputEnabled = true;
+
     private void Awake()
     {
         animatorManager = GetComponent<AnimatorManager>();
@@ -32,27 +33,25 @@ public class InputManager : MonoBehaviour
 
     public void EnablePlayerControls()
     {
-        this.enabled = true;
-        Debug.Log("InputManager enabled");
+        gameplayInputEnabled = true;
+        Debug.Log("InputManager gameplay controls enabled");
     }
 
     public void DisablePlayerControls()
     {
-        this.enabled = false;
+        gameplayInputEnabled = false;
 
-        // Reset input values when disabled
         movementInput = Vector2.zero;
         cameraInput = Vector2.zero;
         sprintInput = false;
         jumpInput = false;
         interactInput = false;
         exitInput = false;
-        gameMenuInput = false;
         verticlalInput = 0;
         horizontalInput = 0;
         moveAmount = 0;
 
-        Debug.Log("InputManager disabled");
+        Debug.Log("InputManager gameplay controls disabled");
     }
 
     private void OnEnable()
@@ -86,12 +85,21 @@ public class InputManager : MonoBehaviour
         playerControls.Disable();
     }
 
+    private void Update()
+    {
+        if (gameMenuInput)
+        {
+            gameMenuInput = false;
+        }
+    }
+
     public void HandleAllInputs()
     {
+        if (!gameplayInputEnabled) return;
+
         HandleMovementInput();
         HandleSprintInput();
         HandleJumpingInput();
-        //HandleActionInput();
     }
 
     private void HandleMovementInput()
@@ -108,7 +116,7 @@ public class InputManager : MonoBehaviour
 
     private void HandleSprintInput()
     {
-        if (sprintInput && moveAmount > 0.5f) 
+        if (sprintInput && moveAmount > 0.5f)
         {
             playerLocomotion.isSprinting = true;
         }
