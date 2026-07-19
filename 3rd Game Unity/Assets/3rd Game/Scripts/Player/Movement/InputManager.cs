@@ -6,6 +6,7 @@ public class InputManager : MonoBehaviour
     PlayerLocomotion playerLocomotion;
     AnimatorManager animatorManager;
 
+
     public Vector2 movementInput;
     public Vector2 cameraInput;
 
@@ -23,7 +24,7 @@ public class InputManager : MonoBehaviour
     public bool exitInput;
     public bool gameMenuInput;
 
-    private bool gameplayInputEnabled = true;
+    private bool cameraControlsEnabled = true;
 
     private void Awake()
     {
@@ -33,25 +34,46 @@ public class InputManager : MonoBehaviour
 
     public void EnablePlayerControls()
     {
-        gameplayInputEnabled = true;
-        Debug.Log("InputManager gameplay controls enabled");
+        this.enabled = true;
+        Debug.Log("InputManager enabled");
     }
 
     public void DisablePlayerControls()
     {
-        gameplayInputEnabled = false;
+        this.enabled = false;
 
+        // Reset input values when disabled
         movementInput = Vector2.zero;
         cameraInput = Vector2.zero;
         sprintInput = false;
         jumpInput = false;
         interactInput = false;
         exitInput = false;
+        gameMenuInput = false;
         verticlalInput = 0;
         horizontalInput = 0;
         moveAmount = 0;
 
-        Debug.Log("InputManager gameplay controls disabled");
+        Debug.Log("InputManager disabled");
+    }
+
+    public void DisableCameraControls()
+    {
+        cameraControlsEnabled = false;
+
+        // Reset camera input values
+        cameraInput = Vector2.zero;
+        cameraInputX = 0;
+        cameraInputY = 0;
+
+        Debug.Log("Camera controls disabled");
+    }
+
+    public void EnableCameraControls()
+    {
+        cameraControlsEnabled = true;
+
+        Debug.Log("Camera controls enabled");
     }
 
     private void OnEnable()
@@ -85,21 +107,12 @@ public class InputManager : MonoBehaviour
         playerControls.Disable();
     }
 
-    private void Update()
-    {
-        if (gameMenuInput)
-        {
-            gameMenuInput = false;
-        }
-    }
-
     public void HandleAllInputs()
     {
-        if (!gameplayInputEnabled) return;
-
         HandleMovementInput();
         HandleSprintInput();
         HandleJumpingInput();
+        //HandleActionInput();
     }
 
     private void HandleMovementInput()
@@ -107,8 +120,17 @@ public class InputManager : MonoBehaviour
         verticlalInput = movementInput.y;
         horizontalInput = movementInput.x;
 
-        cameraInputY = cameraInput.y;
-        cameraInputX = cameraInput.x;
+        if (cameraControlsEnabled)
+        {
+            cameraInputY = cameraInput.y;
+            cameraInputX = cameraInput.x;
+        }
+        else
+        {
+            // Ensure camera values are zero when disabled
+            cameraInputY = 0;
+            cameraInputX = 0;
+        }
 
         moveAmount = Mathf.Clamp01(Mathf.Abs(horizontalInput) + Mathf.Abs(verticlalInput));
         animatorManager.UpdatedAnimatorValues(0, moveAmount, playerLocomotion.isSprinting);

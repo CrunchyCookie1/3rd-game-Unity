@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.Events;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class OpenMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject gameMenuPanel;
+    [SerializeField] private GameObject gameMenuPanel; // Assign your menu UI panel in the inspector
     [SerializeField] private InputManager inputManager;
     [SerializeField] private GameObject tutorialTip;
     public UnityEvent onMenuOpen;
@@ -19,24 +20,29 @@ public class OpenMenu : MonoBehaviour
     {
         allCanvases = FindObjectsByType<Canvas>(FindObjectsSortMode.None);
 
+        // Ensure menu starts closed
         if (gameMenuPanel != null)
             gameMenuPanel.SetActive(false);
 
+        // Find InputManager if not assigned
         if (inputManager == null)
             inputManager = GetComponent<InputManager>();
     }
 
     private void Update()
     {
+        // Check for GameMenu input
         if (inputManager != null && inputManager.gameMenuInput)
         {
             ToggleMenu();
+            // Reset the input flag to prevent multiple toggles
             inputManager.gameMenuInput = false;
         }
     }
 
     private void ToggleMenu()
     {
+
         isMenuOpen = !isMenuOpen;
 
         if (isMenuOpen)
@@ -51,10 +57,12 @@ public class OpenMenu : MonoBehaviour
 
     private void OpenMenu2()
     {
+        // Freeze the game
         originalTimeScale = Time.timeScale;
         onMenuOpen?.Invoke();
         Time.timeScale = 0f;
 
+        // Show menu
         tutorialTip.SetActive(false);
         if (gameMenuPanel != null)
             gameMenuPanel.SetActive(true);
@@ -67,17 +75,21 @@ public class OpenMenu : MonoBehaviour
             }
         }
 
+        // Unlock and hide cursor
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        DisableGameplayInput();
+        // Optionally disable player input components
+        DisablePlayerInput();
     }
 
     private void CloseMenu()
     {
+        // Unfreeze the game
         Time.timeScale = originalTimeScale;
         onMenuClose?.Invoke();
 
+        // Hide menu
         if (gameMenuPanel != null)
             gameMenuPanel.SetActive(false);
 
@@ -85,20 +97,24 @@ public class OpenMenu : MonoBehaviour
         {
             if (canvas.gameObject != mainCanvas)
             {
+
                 canvas.gameObject.SetActive(true);
             }
         }
 
+        // Lock and hide cursor back for gameplay
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        EnableGameplayInput();
+        // Re-enable player input
+        EnablePlayerInput();
     }
 
-    private void DisableGameplayInput()
+    private void DisablePlayerInput()
     {
+        // Disable scripts that control player movement/actions
         if (inputManager != null)
-            inputManager.DisablePlayerControls();
+            inputManager.enabled = false;
 
         PlayerLocomotion playerLocomotion = GetComponent<PlayerLocomotion>();
         if (playerLocomotion != null)
@@ -109,10 +125,11 @@ public class OpenMenu : MonoBehaviour
             animatorManager.enabled = false;
     }
 
-    private void EnableGameplayInput()
+    private void EnablePlayerInput()
     {
+        // Re-enable scripts
         if (inputManager != null)
-            inputManager.EnablePlayerControls();
+            inputManager.enabled = true;
 
         PlayerLocomotion playerLocomotion = GetComponent<PlayerLocomotion>();
         if (playerLocomotion != null)
@@ -123,6 +140,7 @@ public class OpenMenu : MonoBehaviour
             animatorManager.enabled = true;
     }
 
+    // Public method to close menu from UI buttons (like "Resume" button)
     public void CloseMenuFromButton()
     {
         if (isMenuOpen)
