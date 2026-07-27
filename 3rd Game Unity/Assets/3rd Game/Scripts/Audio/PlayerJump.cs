@@ -39,7 +39,7 @@ public class PlayerJump : MonoBehaviour
         }
 
         // Set up ground layer - add "Ground" layer if you have one
-        groundLayer = LayerMask.GetMask("Default", "Ground", "Terrain");
+        groundLayer = LayerMask.GetMask("Default", "Ground", "Terrain", "Props", "SuperMarket", "Lab", "Melvins Home", "Pathway", "Buildings");
     }
 
     void Update()

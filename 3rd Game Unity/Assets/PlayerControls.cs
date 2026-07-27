@@ -338,6 +338,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MiniMap"",
+                    ""type"": ""Button"",
+                    ""id"": ""3945d521-c2ab-4c26-bdbd-8c096c72740f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -450,6 +459,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""GameMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4908e09b-6c81-4d87-a235-eb726f77e1c6"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MiniMap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c423f277-1aa6-49dc-a28a-4ab80cc97857"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MiniMap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -517,6 +548,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_PlayerActions_Interact = m_PlayerActions.FindAction("Interact", throwIfNotFound: true);
         m_PlayerActions_Exit = m_PlayerActions.FindAction("Exit", throwIfNotFound: true);
         m_PlayerActions_GameMenu = m_PlayerActions.FindAction("GameMenu", throwIfNotFound: true);
+        m_PlayerActions_MiniMap = m_PlayerActions.FindAction("MiniMap", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -710,6 +742,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_Interact;
     private readonly InputAction m_PlayerActions_Exit;
     private readonly InputAction m_PlayerActions_GameMenu;
+    private readonly InputAction m_PlayerActions_MiniMap;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player Actions".
     /// </summary>
@@ -741,6 +774,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "PlayerActions/GameMenu".
         /// </summary>
         public InputAction @GameMenu => m_Wrapper.m_PlayerActions_GameMenu;
+        /// <summary>
+        /// Provides access to the underlying input action "PlayerActions/MiniMap".
+        /// </summary>
+        public InputAction @MiniMap => m_Wrapper.m_PlayerActions_MiniMap;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -782,6 +819,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @GameMenu.started += instance.OnGameMenu;
             @GameMenu.performed += instance.OnGameMenu;
             @GameMenu.canceled += instance.OnGameMenu;
+            @MiniMap.started += instance.OnMiniMap;
+            @MiniMap.performed += instance.OnMiniMap;
+            @MiniMap.canceled += instance.OnMiniMap;
         }
 
         /// <summary>
@@ -808,6 +848,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @GameMenu.started -= instance.OnGameMenu;
             @GameMenu.performed -= instance.OnGameMenu;
             @GameMenu.canceled -= instance.OnGameMenu;
+            @MiniMap.started -= instance.OnMiniMap;
+            @MiniMap.performed -= instance.OnMiniMap;
+            @MiniMap.canceled -= instance.OnMiniMap;
         }
 
         /// <summary>
@@ -957,5 +1000,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnGameMenu(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "MiniMap" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMiniMap(InputAction.CallbackContext context);
     }
 }

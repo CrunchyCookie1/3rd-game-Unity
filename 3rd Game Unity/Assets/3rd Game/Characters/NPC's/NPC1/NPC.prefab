@@ -1770,9 +1770,5 @@ MonoBehaviour:
   dialogueAdvanceSound: {fileID: 0}
   playSoundOnNewLine: 1
   dialogueSequences: []
-  questToGive: 
-  questID: 
-  giveQuestOnConversationEnd: 0
-  theQuestManager2: {fileID: 0}
   npcDisable: {fileID: 0}
   npcEnable: {fileID: 0}

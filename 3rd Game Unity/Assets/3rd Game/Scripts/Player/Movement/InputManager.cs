@@ -5,6 +5,7 @@ public class InputManager : MonoBehaviour
     PlayerControls playerControls;
     PlayerLocomotion playerLocomotion;
     AnimatorManager animatorManager;
+    OpenMiniMap openMiniMap;
 
 
     public Vector2 movementInput;
@@ -24,12 +25,15 @@ public class InputManager : MonoBehaviour
     public bool exitInput;
     public bool gameMenuInput;
 
+    public bool miniMapInput;   
+
     private bool cameraControlsEnabled = true;
 
     private void Awake()
     {
         animatorManager = GetComponent<AnimatorManager>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
+        openMiniMap = GetComponent<OpenMiniMap>();
     }
 
     public void EnablePlayerControls()
@@ -45,6 +49,8 @@ public class InputManager : MonoBehaviour
         // Reset input values when disabled
         movementInput = Vector2.zero;
         cameraInput = Vector2.zero;
+        openMiniMap.ForceCloseMiniMap(); // Ensure the mini-map is closed when controls are disabled
+        miniMapInput = false;
         sprintInput = false;
         jumpInput = false;
         interactInput = false;
@@ -97,6 +103,9 @@ public class InputManager : MonoBehaviour
 
             playerControls.PlayerActions.GameMenu.performed += i => gameMenuInput = true;
             playerControls.PlayerActions.GameMenu.canceled += i => gameMenuInput = false;
+
+            playerControls.PlayerActions.MiniMap.performed += i => miniMapInput = true;
+            playerControls.PlayerActions.MiniMap.canceled += i => miniMapInput = false;
         }
 
         playerControls.Enable();

@@ -5,9 +5,11 @@ using UnityEngine.Events;
 
 public class NPCManager : MonoBehaviour
 {
+
     PlayerControls playerControls;
     QuestProgression questProgression;
     QuestManager2 questManager2;
+    OpenMiniMap openMiniMap;
 
     [Header("Object Settings")]
     public GameObject[] objectsEnable;
@@ -73,6 +75,8 @@ public class NPCManager : MonoBehaviour
 
     private void Awake()
     {
+        OpenMiniMap openMiniMap = FindAnyObjectByType<OpenMiniMap>();
+
         playerControls = new PlayerControls();
 
         if (dialogueSequences == null || dialogueSequences.Length == 0)
@@ -190,6 +194,11 @@ public class NPCManager : MonoBehaviour
         interactionPanel.SetActive(false);
 
         onConversationStart?.Invoke();
+
+        OpenMiniMap openMiniMap = FindAnyObjectByType<OpenMiniMap>();
+        if (openMiniMap != null) {
+            openMiniMap.ForceCloseMiniMap();
+        }
 
         if (playerManager != null)
             playerManager.isInteracting = true;
