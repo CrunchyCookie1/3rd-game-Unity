@@ -27,6 +27,8 @@ public class InputManager : MonoBehaviour
 
     public bool miniMapInput;   
 
+    public bool miniMapUnlocked = false; // Flag to track if the mini-map is unlocked
+
     private bool cameraControlsEnabled = true;
 
     private void Awake()
@@ -104,8 +106,11 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.GameMenu.performed += i => gameMenuInput = true;
             playerControls.PlayerActions.GameMenu.canceled += i => gameMenuInput = false;
 
-            playerControls.PlayerActions.MiniMap.performed += i => miniMapInput = true;
-            playerControls.PlayerActions.MiniMap.canceled += i => miniMapInput = false;
+            if (miniMapUnlocked == true)
+            {
+                playerControls.PlayerActions.MiniMap.performed += i => miniMapInput = true;
+                playerControls.PlayerActions.MiniMap.canceled += i => miniMapInput = false;
+            }
         }
 
         playerControls.Enable();
@@ -164,5 +169,13 @@ public class InputManager : MonoBehaviour
             jumpInput = false;
             playerLocomotion.HandleJumping();
         }
+    }
+
+    public void UnlockMiniMap()
+    {
+        miniMapUnlocked = true;
+        playerControls.PlayerActions.MiniMap.performed += i => miniMapInput = true;
+        playerControls.PlayerActions.MiniMap.canceled += i => miniMapInput = false;
+        Debug.Log("Mini-map unlocked and input enabled.");
     }
 }
