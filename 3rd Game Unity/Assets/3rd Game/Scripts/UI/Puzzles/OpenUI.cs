@@ -166,7 +166,7 @@ public class OpenUI : MonoBehaviour
 
         // Restore cursor state
         Cursor.lockState = previousCursorLockMode;
-        Cursor.visible = previousCursorVisibility;
+        Cursor.visible = false;
 
         // Re-enable the InputManager
         if (inputManager != null)
