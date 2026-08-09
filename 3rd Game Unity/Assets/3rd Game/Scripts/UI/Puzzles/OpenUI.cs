@@ -30,6 +30,7 @@ public class OpenUI : MonoBehaviour
         if (isUIOpen)
         {
             CloseUIElement();
+            Cursor.visible = false;
         }
     }
 
@@ -139,6 +140,7 @@ public class OpenUI : MonoBehaviour
 
     private void CloseUIElement()
     {
+        Cursor.visible = false;
         if (uiElement == null)
             return;
 
