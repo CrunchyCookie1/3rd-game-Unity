@@ -8,6 +8,7 @@ TagManager:
   - ExcludedLight
   - PuzzleBox
   - NPC
+  - Box
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - SuperMarket
   - Lab
   - Marker
-  - 
+  - Outfit
   - 
   - 
   - 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5098913292217335204}
   - component: {fileID: 4123796391294086177}
   - component: {fileID: 4924750099669214125}
-  m_Layer: 5
+  m_Layer: 15
   m_Name: Point Light
   m_TagString: ExcludedLight
   m_Icon: {fileID: 0}
@@ -201,7 +201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b68f0b8019434084882eae661cc4f9ad, type: 3}
       propertyPath: m_Layer
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -314,6 +314,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  tpLocation: {fileID: 0}
+  TpOnTrigger: 1
 --- !u!135 &1100724040247048650
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -1,9 +1,8 @@
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class SwitchAnimations : MonoBehaviour
 {
-    public AnimatorController animatorController1;
+    public RuntimeAnimatorController animatorController1;
 
     public void switchAnimations()
     {

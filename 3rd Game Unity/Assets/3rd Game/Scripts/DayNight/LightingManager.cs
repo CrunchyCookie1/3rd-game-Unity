@@ -142,9 +142,10 @@ public class LightingManager : MonoBehaviour
 
     private void Update()
     {
-        if (day == 0 && timeOfDay >= 20)
+        if (day == 0 && timeOfDay >= 18)
         {
             timePaused = true;
+            onNightEvent?.Invoke();
         }
         if (preset == null)
             return;
@@ -163,10 +164,12 @@ public class LightingManager : MonoBehaviour
         if (timeOfDay >= 0 && timeOfDay <= 6 || timeOfDay >= 18 && timeOfDay <= 24)
         {
             TurnOnAllLights();
+            onNightEvent?.Invoke();
         }
         else
         {
             TurnOffAllLights();
+            onDayEvent?.Invoke();
         }
     }
 
