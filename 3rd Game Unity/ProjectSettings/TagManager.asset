@@ -9,6 +9,7 @@ TagManager:
   - PuzzleBox
   - NPC
   - Box
+  - hittingWall
   layers:
   - Default
   - TransparentFX

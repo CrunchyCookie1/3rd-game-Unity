@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbc0a1c1c7befcd46bff6892e522b19c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlaysoundOnHit
-  hitSound: {fileID: 8300000, guid: e4d4bb4bc0c637745bc470af3dd033a1, type: 3}
+  hitSound: {fileID: 8300000, guid: 31910776f6c5d4643be46f674e44b8e5, type: 3}
 --- !u!82 &5753054079573849114
 AudioSource:
   m_ObjectHideFlags: 0
@@ -173,17 +173,17 @@ AudioSource:
   m_GameObject: {fileID: 5195398482100396623}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8868215892390595238, guid: 21fdff60180de2849aaa4abac5e043cf, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -221,7 +221,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

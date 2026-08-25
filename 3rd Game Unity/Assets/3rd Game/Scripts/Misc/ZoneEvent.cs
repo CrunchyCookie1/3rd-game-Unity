@@ -16,6 +16,7 @@ public class ZoneEvent : MonoBehaviour
             if (tpLocation != null && TpOnTrigger == true)
             {
                 other.transform.position = tpLocation.position;
+                other.transform.rotation = tpLocation.rotation;
             }
         }
     }
@@ -28,6 +29,7 @@ public class ZoneEvent : MonoBehaviour
             if (player != null)
             {
                 player.transform.position = tpLocation.position;
+                player.transform.rotation = tpLocation.rotation;
             }
         }
     }
