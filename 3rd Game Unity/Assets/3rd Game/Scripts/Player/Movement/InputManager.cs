@@ -36,6 +36,9 @@ public class InputManager : MonoBehaviour
         animatorManager = GetComponent<AnimatorManager>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
         openMiniMap = GetComponent<OpenMiniMap>();
+
+        // Load miniMapUnlocked state
+        miniMapUnlocked = PlayerPrefs.GetInt("MiniMapUnlocked", 0) == 1;
     }
 
     public void EnablePlayerControls()

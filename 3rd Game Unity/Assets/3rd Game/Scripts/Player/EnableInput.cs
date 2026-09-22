@@ -20,6 +20,7 @@ public class EnableInput : MonoBehaviour
         if (disablePlayerInputOnMenu)
         {
             DisablePlayerInput();
+            Debug.LogWarning("Player input disabled in menu");
         }
 
         Debug.Log($"Menu input enabled - Cursor visible: {showCursor}, Lock state: {cursorLockMode}");
