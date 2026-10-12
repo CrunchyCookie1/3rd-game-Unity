@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class AnimationChanger : MonoBehaviour
 {
-    [SerializeField] private AnimationClip animationClip;
     [SerializeField] private Animator animator;
 
     private void Start()
@@ -11,9 +10,8 @@ public class AnimationChanger : MonoBehaviour
 
     }
 
-    void PlaySelectedAnimation()
+    public void ChangeAnimationController(RuntimeAnimatorController _controller)
     {
-        if (animationClip == null) return;
-        animator.Play(animationClip.name);
+        animator.runtimeAnimatorController = _controller;
     }
 }
