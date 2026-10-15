@@ -7,6 +7,7 @@ public class ZoneEvent : MonoBehaviour
     public Transform tpLocation;
 
     public bool TpOnTrigger = true;
+    [SerializeField] bool destroyAfterTrigger = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -17,6 +18,10 @@ public class ZoneEvent : MonoBehaviour
             {
                 other.transform.position = tpLocation.position;
                 other.transform.rotation = tpLocation.rotation;
+            }
+            if (destroyAfterTrigger == true)
+            {
+                Destroy(gameObject);
             }
         }
     }

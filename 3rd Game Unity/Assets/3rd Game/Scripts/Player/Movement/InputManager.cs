@@ -8,6 +8,7 @@ public class InputManager : MonoBehaviour
     OpenMiniMap openMiniMap;
 
 
+
     public Vector2 movementInput;
     public Vector2 cameraInput;
 
@@ -24,6 +25,7 @@ public class InputManager : MonoBehaviour
     public bool interactInput;
     public bool exitInput;
     public bool gameMenuInput;
+    public bool minigameInput;
 
     public bool miniMapInput;   
 
@@ -54,7 +56,7 @@ public class InputManager : MonoBehaviour
         // Reset input values when disabled
         movementInput = Vector2.zero;
         cameraInput = Vector2.zero;
-        openMiniMap.ForceCloseMiniMap(); // Ensure the mini-map is closed when controls are disabled
+        openMiniMap.ForceCloseMiniMap();
         miniMapInput = false;
         sprintInput = false;
         jumpInput = false;
@@ -67,6 +69,8 @@ public class InputManager : MonoBehaviour
 
         Debug.Log("InputManager disabled");
     }
+
+
 
     public void DisableCameraControls()
     {
@@ -108,6 +112,9 @@ public class InputManager : MonoBehaviour
 
             playerControls.PlayerActions.GameMenu.performed += i => gameMenuInput = true;
             playerControls.PlayerActions.GameMenu.canceled += i => gameMenuInput = false;
+
+            playerControls.PlayerActions.Minigame.performed += i => minigameInput = true;
+            playerControls.PlayerActions.Minigame.canceled += i => minigameInput = false;
 
             if (miniMapUnlocked == true)
             {

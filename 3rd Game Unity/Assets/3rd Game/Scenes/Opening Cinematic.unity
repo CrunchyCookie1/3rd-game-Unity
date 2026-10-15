@@ -465,7 +465,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VideoManager
   videoPlayer: {fileID: 1959771526}
-  nextSceneName: MainCity
+  nextSceneName: Tutorial
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

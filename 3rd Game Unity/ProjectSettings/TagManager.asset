@@ -10,6 +10,9 @@ TagManager:
   - NPC
   - Box
   - hittingWall
+  - EndPoint
+  - dm_Input
+  - dm_TriggerLine
   layers:
   - Default
   - TransparentFX

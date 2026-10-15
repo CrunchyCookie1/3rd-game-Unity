@@ -3643,7 +3643,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UiButtons
   button: {fileID: 1454009533}
   actionType: 2
-  sceneName: MainCity
+  sceneName: Tutorial
   sceneLoadMode: 0
   onButtonPressed:
     m_PersistentCalls:
@@ -4757,6 +4757,7 @@ MonoBehaviour:
   interactInput: 0
   exitInput: 0
   gameMenuInput: 0
+  minigameInput: 0
   miniMapInput: 0
   miniMapUnlocked: 0
 --- !u!4 &1857837123

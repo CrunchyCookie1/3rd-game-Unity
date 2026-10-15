@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4192550887318069338}
+  - component: {fileID: 412110770111862979}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -32,6 +33,27 @@ Transform:
   - {fileID: 397108493476438015}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &412110770111862979
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1515810966547251504}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.03691952, y: 0.08276573, z: 0.03591078}
+  m_Center: {x: 0.00048496897, y: 0.011025333, z: 0.00021323549}
 --- !u!1001 &146482914900146196
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -347,6 +347,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Minigame"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""85d4e724-1381-45bc-9758-719e2f68cdd8"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -371,6 +380,116 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Arrow Keys"",
+                    ""id"": ""b3e40d1f-f08e-48fe-81f4-d1a0173bbd41"",
+                    ""path"": ""2DVector(mode=2)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Minigame"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""cceb10ad-e71c-42a8-bdb2-d103e273a9a8"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Minigame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""28202e1e-729b-42e2-a627-abefcdae3854"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Minigame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""1073a3f3-58c3-45ef-b2a6-ab03e6710d23"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Minigame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""09219c61-e31d-4453-b356-b0d464900294"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Minigame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""DPad"",
+                    ""id"": ""39ddd747-6974-4b35-87db-f10436cd045c"",
+                    ""path"": ""2DVector(mode=2)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Minigame"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""8ae7f8e1-9dcf-4ad6-9eed-d9868e79728a"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Minigame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""ac4088f5-b975-4ad6-af2f-192db16fc9e2"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Minigame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""4bca30b2-7b58-4bd9-9e5e-4d1b72f6e48d"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Minigame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""36b9f707-ee12-4f0e-8665-76aee1c0590a"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Minigame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
@@ -549,6 +668,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_PlayerActions_Exit = m_PlayerActions.FindAction("Exit", throwIfNotFound: true);
         m_PlayerActions_GameMenu = m_PlayerActions.FindAction("GameMenu", throwIfNotFound: true);
         m_PlayerActions_MiniMap = m_PlayerActions.FindAction("MiniMap", throwIfNotFound: true);
+        m_PlayerActions_Minigame = m_PlayerActions.FindAction("Minigame", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -743,6 +863,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_Exit;
     private readonly InputAction m_PlayerActions_GameMenu;
     private readonly InputAction m_PlayerActions_MiniMap;
+    private readonly InputAction m_PlayerActions_Minigame;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player Actions".
     /// </summary>
@@ -778,6 +899,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "PlayerActions/MiniMap".
         /// </summary>
         public InputAction @MiniMap => m_Wrapper.m_PlayerActions_MiniMap;
+        /// <summary>
+        /// Provides access to the underlying input action "PlayerActions/Minigame".
+        /// </summary>
+        public InputAction @Minigame => m_Wrapper.m_PlayerActions_Minigame;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -822,6 +947,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @MiniMap.started += instance.OnMiniMap;
             @MiniMap.performed += instance.OnMiniMap;
             @MiniMap.canceled += instance.OnMiniMap;
+            @Minigame.started += instance.OnMinigame;
+            @Minigame.performed += instance.OnMinigame;
+            @Minigame.canceled += instance.OnMinigame;
         }
 
         /// <summary>
@@ -851,6 +979,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @MiniMap.started -= instance.OnMiniMap;
             @MiniMap.performed -= instance.OnMiniMap;
             @MiniMap.canceled -= instance.OnMiniMap;
+            @Minigame.started -= instance.OnMinigame;
+            @Minigame.performed -= instance.OnMinigame;
+            @Minigame.canceled -= instance.OnMinigame;
         }
 
         /// <summary>
@@ -1007,5 +1138,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMiniMap(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Minigame" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMinigame(InputAction.CallbackContext context);
     }
 }

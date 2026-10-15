@@ -16,7 +16,10 @@ public class OutfitGrantSave : MonoBehaviour
         if (TriggerSaveManager.IsTriggered(uniqueID))
         {
             if (objectToDisable != null)
+            {
                 objectToDisable.SetActive(false);
+                Destroy(gameObject);
+            }
             else
                 gameObject.SetActive(false);
         }
