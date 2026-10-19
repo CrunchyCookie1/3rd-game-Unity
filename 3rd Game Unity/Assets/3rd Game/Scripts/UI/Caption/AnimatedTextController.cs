@@ -13,8 +13,15 @@ public class AnimatedTextController : MonoBehaviour
 
         public AudioClip audioClip;
 
+        [Header("Sentence Finished Event")]
         [Tooltip("Fires when this specific sentence finishes typing.")]
         public UnityEvent onSentenceFinished;
+
+        [Tooltip("If true, the On Sentence Finished event will be delayed by the value below.")]
+        public bool delaySentenceFinishedEvent = false;
+
+        [Tooltip("How long to wait (in seconds) before firing On Sentence Finished. Only used if Delay Sentence Finished Event is true.")]
+        public float sentenceFinishedEventDelay = 0.5f;
 
         [Header("Auto Advance")]
         [Tooltip("If true, this sentence will automatically move to the next one when it finishes.")]
@@ -48,6 +55,7 @@ public class AnimatedTextController : MonoBehaviour
 
     private Coroutine typingCoroutine;
     private Coroutine autoAdvanceCoroutine;
+    private Coroutine sentenceEventCoroutine;
     private string currentSentence = "";
 
     public void OpenCaption()
@@ -81,8 +89,9 @@ public class AnimatedTextController : MonoBehaviour
 
     private void HandleInteract()
     {
-        // Cancel any pending auto-advance since the player is manually advancing
+        // Cancel any pending auto-advance or delayed sentence event since the player is advancing manually
         CancelAutoAdvance();
+        CancelDelayedSentenceEvent();
 
         // If the sentence is still typing, complete it instantly
         if (typingCoroutine != null)
@@ -95,7 +104,7 @@ public class AnimatedTextController : MonoBehaviour
             if (dialogueAudioSource != null && dialogueAudioSource.isPlaying)
                 dialogueAudioSource.Stop();
 
-            // Fire this sentence's finished event
+            // Fire this sentence's finished event immediately (no delay, since player skipped)
             FireSentenceFinishedEvent(Index);
 
             Index++;
@@ -142,7 +151,35 @@ public class AnimatedTextController : MonoBehaviour
         if (sentences == null) return;
         if (sentenceIndex < 0 || sentenceIndex >= sentences.Length) return;
 
-        sentences[sentenceIndex].onSentenceFinished?.Invoke();
+        DialogueSentence entry = sentences[sentenceIndex];
+
+        // If the entry wants a delay, schedule it; otherwise fire immediately
+        if (entry.delaySentenceFinishedEvent)
+        {
+            CancelDelayedSentenceEvent();
+            sentenceEventCoroutine = StartCoroutine(FireSentenceEventAfterDelay(entry, entry.sentenceFinishedEventDelay));
+        }
+        else
+        {
+            entry.onSentenceFinished?.Invoke();
+        }
+    }
+
+    private IEnumerator FireSentenceEventAfterDelay(DialogueSentence entry, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        sentenceEventCoroutine = null;
+        entry.onSentenceFinished?.Invoke();
+    }
+
+    private void CancelDelayedSentenceEvent()
+    {
+        if (sentenceEventCoroutine != null)
+        {
+            StopCoroutine(sentenceEventCoroutine);
+            sentenceEventCoroutine = null;
+        }
     }
 
     private void TryScheduleAutoAdvance(int sentenceIndex)
@@ -175,6 +212,7 @@ public class AnimatedTextController : MonoBehaviour
     public void ExitCaption()
     {
         CancelAutoAdvance();
+        CancelDelayedSentenceEvent();
 
         dialogueText.text = "";
         dialogueAnimator.SetTrigger("Exit");
@@ -199,6 +237,7 @@ public class AnimatedTextController : MonoBehaviour
         }
 
         // Fire this sentence's event now that it's finished typing naturally
+        // (may be delayed depending on the sentence's settings)
         FireSentenceFinishedEvent(Index);
 
         // Check if this sentence should auto-advance

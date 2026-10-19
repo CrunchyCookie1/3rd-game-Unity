@@ -37954,6 +37954,7 @@ Transform:
   - {fileID: 1647457801}
   - {fileID: 854584936}
   - {fileID: 1721028969}
+  - {fileID: 255031174}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &254108540
@@ -38205,6 +38206,105 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 254535050}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &255031173
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 253460894}
+    m_Modifications:
+    - target: {fileID: 2900127768619713760, guid: 90e6c8199e486ea408fa796ad255a436, type: 3}
+      propertyPath: m_Name
+      value: Change Scene Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196504622803358207, guid: 90e6c8199e486ea408fa796ad255a436, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.6486419
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196504622803358207, guid: 90e6c8199e486ea408fa796ad255a436, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196504622803358207, guid: 90e6c8199e486ea408fa796ad255a436, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -15.371582
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196504622803358207, guid: 90e6c8199e486ea408fa796ad255a436, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196504622803358207, guid: 90e6c8199e486ea408fa796ad255a436, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196504622803358207, guid: 90e6c8199e486ea408fa796ad255a436, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196504622803358207, guid: 90e6c8199e486ea408fa796ad255a436, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196504622803358207, guid: 90e6c8199e486ea408fa796ad255a436, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196504622803358207, guid: 90e6c8199e486ea408fa796ad255a436, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6196504622803358207, guid: 90e6c8199e486ea408fa796ad255a436, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7582308785790531689, guid: 90e6c8199e486ea408fa796ad255a436, type: 3}
+      propertyPath: interactText
+      value: DEV - Go to main city
+      objectReference: {fileID: 0}
+    - target: {fileID: 7582308785790531689, guid: 90e6c8199e486ea408fa796ad255a436, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 255031176}
+    - target: {fileID: 7582308785790531689, guid: 90e6c8199e486ea408fa796ad255a436, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeToScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 7582308785790531689, guid: 90e6c8199e486ea408fa796ad255a436, type: 3}
+      propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ChangeScenes, Assembly-CSharp
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2900127768619713760, guid: 90e6c8199e486ea408fa796ad255a436, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 255031176}
+  m_SourcePrefab: {fileID: 100100000, guid: 90e6c8199e486ea408fa796ad255a436, type: 3}
+--- !u!4 &255031174 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6196504622803358207, guid: 90e6c8199e486ea408fa796ad255a436, type: 3}
+  m_PrefabInstance: {fileID: 255031173}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &255031175 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2900127768619713760, guid: 90e6c8199e486ea408fa796ad255a436, type: 3}
+  m_PrefabInstance: {fileID: 255031173}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &255031176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255031175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1c4ff6e61c7bd14c8a19df4abfb2cc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChangeScenes
+  sceneToLoad: MainCity
 --- !u!1 &255172455
 GameObject:
   m_ObjectHideFlags: 0
@@ -391266,6 +391366,8 @@ MonoBehaviour:
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls: []
+    delaySentenceFinishedEvent: 0
+    sentenceFinishedEventDelay: 0.5
     autoAdvance: 1
     autoAdvanceDelay: 3
   - sentence: "My name is Redacted and I\u2019ll be here to guide you through how
@@ -391274,6 +391376,8 @@ MonoBehaviour:
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls: []
+    delaySentenceFinishedEvent: 0
+    sentenceFinishedEventDelay: 0.5
     autoAdvance: 1
     autoAdvanceDelay: 3
   - sentence: "If you do not wish to continue with this tutorial just let me know
@@ -391281,9 +391385,35 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: 675df02ce93a93549abc93638b3ead2c, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
-        m_Calls: []
-    autoAdvance: 1
-    autoAdvanceDelay: 3
+        m_Calls:
+        - m_Target: {fileID: 60636177}
+          m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+          m_MethodName: EnablePlayerControls
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1721028970}
+          m_TargetAssemblyTypeName: AnimatedTextController, Assembly-CSharp
+          m_MethodName: ExitCaption
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    delaySentenceFinishedEvent: 1
+    sentenceFinishedEventDelay: 2
+    autoAdvance: 0
+    autoAdvanceDelay: 0
   Index: 0
   dialogueSpeed: 0.05
   dialogueAnimator: {fileID: 1293475877}
