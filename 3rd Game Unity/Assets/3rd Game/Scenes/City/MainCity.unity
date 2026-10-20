@@ -99750,6 +99750,18 @@ PrefabInstance:
       value: SetActive
       objectReference: {fileID: 0}
     - target: {fileID: 7867874687787715051, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
+      propertyPath: dialogueSequences.Array.data[0].dialogueEntries.Array.data[0].lineSound
+      value: 
+      objectReference: {fileID: 8300000, guid: e07a7d06da01a8d42abdaf0b3ee2145d, type: 3}
+    - target: {fileID: 7867874687787715051, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
+      propertyPath: dialogueSequences.Array.data[1].dialogueEntries.Array.data[0].lineSound
+      value: 
+      objectReference: {fileID: 8300000, guid: a173a643267d74142a00ee4e71f60bfa, type: 3}
+    - target: {fileID: 7867874687787715051, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
+      propertyPath: dialogueSequences.Array.data[3].dialogueEntries.Array.data[0].lineSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 376562ff37999674093633e5b7b4cd0e, type: 3}
+    - target: {fileID: 7867874687787715051, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
       propertyPath: dialogueSequences.Array.data[0].dialogueEntries.Array.data[0].speakerName
       value: Disco Dave
       objectReference: {fileID: 0}
@@ -225374,6 +225386,66 @@ PrefabInstance:
       propertyPath: onConversationEnd.m_PersistentCalls.m_Calls.Array.data[6].m_MethodName
       value: SetActive
       objectReference: {fileID: 0}
+    - target: {fileID: 7867874687787715051, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
+      propertyPath: dialogueSequences.Array.data[0].dialogueEntries.Array.data[0].lineSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 15715e44a205a3643ae78fbf65351a45, type: 3}
+    - target: {fileID: 7867874687787715051, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
+      propertyPath: dialogueSequences.Array.data[1].dialogueEntries.Array.data[0].lineSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 9a5f709c9239f814bb005bdfb479747f, type: 3}
+    - target: {fileID: 7867874687787715051, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
+      propertyPath: dialogueSequences.Array.data[3].dialogueEntries.Array.data[0].lineSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 505ca576e52107041aa3fe1ee6c8b6aa, type: 3}
+    - target: {fileID: 7867874687787715051, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
+      propertyPath: dialogueSequences.Array.data[5].dialogueEntries.Array.data[0].lineSound
+      value: 
+      objectReference: {fileID: 8300000, guid: cc7e17086f4081740bba960b9c4da1ed, type: 3}
+    - target: {fileID: 7867874687787715051, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
+      propertyPath: dialogueSequences.Array.data[6].dialogueEntries.Array.data[0].lineSound
+      value: 
+      objectReference: {fileID: 8300000, guid: aa569b678cc9b0c47971f286105bb0d6, type: 3}
+    - target: {fileID: 7867874687787715051, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
+      propertyPath: dialogueSequences.Array.data[7].dialogueEntries.Array.data[0].lineSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 18b4d0d389b94324eaaed2f3dcc453c2, type: 3}
+    - target: {fileID: 7867874687787715051, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
+      propertyPath: dialogueSequences.Array.data[8].dialogueEntries.Array.data[0].lineSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 9677125faba15484c94416a200eb85c5, type: 3}
+    - target: {fileID: 7867874687787715051, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
+      propertyPath: dialogueSequences.Array.data[10].dialogueEntries.Array.data[0].lineSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 6a367da5a29f7c1419c331a5b67a0b41, type: 3}
+    - target: {fileID: 7867874687787715051, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
+      propertyPath: dialogueSequences.Array.data[12].dialogueEntries.Array.data[0].lineSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 8766cae03f174c74c8d72e3abec83b12, type: 3}
+    - target: {fileID: 7867874687787715051, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
+      propertyPath: dialogueSequences.Array.data[14].dialogueEntries.Array.data[0].lineSound
+      value: 
+      objectReference: {fileID: 8300000, guid: e9153981f425b324dad241f888ee3ae7, type: 3}
+    - target: {fileID: 7867874687787715051, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
+      propertyPath: dialogueSequences.Array.data[16].dialogueEntries.Array.data[0].lineSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 1a5252c6e17b45c448074ae7abf918a4, type: 3}
+    - target: {fileID: 7867874687787715051, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
+      propertyPath: dialogueSequences.Array.data[18].dialogueEntries.Array.data[0].lineSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 5ad640e6eec97eb40b43719009345767, type: 3}
+    - target: {fileID: 7867874687787715051, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
+      propertyPath: dialogueSequences.Array.data[20].dialogueEntries.Array.data[0].lineSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 71c509d224c1149469c5030554793e75, type: 3}
+    - target: {fileID: 7867874687787715051, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
+      propertyPath: dialogueSequences.Array.data[23].dialogueEntries.Array.data[0].lineSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 4db2894bf00eb3a43b834afdb9e844a3, type: 3}
+    - target: {fileID: 7867874687787715051, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
+      propertyPath: dialogueSequences.Array.data[24].dialogueEntries.Array.data[0].lineSound
+      value: 
+      objectReference: {fileID: 8300000, guid: bb3b1f33d5cfb7c4180d30ea8668437e, type: 3}
     - target: {fileID: 7867874687787715051, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
       propertyPath: dialogueSequences.Array.data[0].dialogueEntries.Array.data[0].speakerName
       value: Disco Dave
@@ -388624,7 +388696,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4494070486120546777, guid: e1bc59de2c05988489855cb824ccbad1, type: 3}
     m_RemovedGameObjects:
     - {fileID: 7077557330154100758, guid: e1bc59de2c05988489855cb824ccbad1, type: 3}
     - {fileID: 7776930194920662164, guid: e1bc59de2c05988489855cb824ccbad1, type: 3}
@@ -435993,7 +436066,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1750031980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -536885,7 +536958,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Escape
+  m_text: Esc
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -538990,7 +539063,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Escape
+  m_text: Esc
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
