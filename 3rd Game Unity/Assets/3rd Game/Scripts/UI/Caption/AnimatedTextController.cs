@@ -58,11 +58,31 @@ public class AnimatedTextController : MonoBehaviour
     private Coroutine sentenceEventCoroutine;
     private string currentSentence = "";
 
+    [Header("Open Caption Delay")]
+    [Tooltip("How long to wait (in seconds) after OpenCaption is called before the caption animation starts.")]
+    public float openCaptionDelay = 1f;
+
+    private Coroutine openCaptionCoroutine;
+
     public void OpenCaption()
     {
+        // Prevent stacking multiple open requests
+        if (openCaptionCoroutine != null)
+            StopCoroutine(openCaptionCoroutine);
+
+        openCaptionCoroutine = StartCoroutine(OpenCaptionDelayed());
+    }
+
+    private IEnumerator OpenCaptionDelayed()
+    {
+        if (openCaptionDelay > 0f)
+            yield return new WaitForSeconds(openCaptionDelay);
+
         dialogueAnimator.SetTrigger("Enter");
         isAnimationPlaying = true;
         dialogueActive = true;
+
+        openCaptionCoroutine = null;
     }
 
     private void Update()
@@ -233,7 +253,7 @@ public class AnimatedTextController : MonoBehaviour
         foreach (char character in currentSentence.ToCharArray())
         {
             dialogueText.text += character;
-            yield return new WaitForSeconds(dialogueSpeed);
+            yield return new WaitForSecondsRealtime(dialogueSpeed);
         }
 
         // Fire this sentence's event now that it's finished typing naturally

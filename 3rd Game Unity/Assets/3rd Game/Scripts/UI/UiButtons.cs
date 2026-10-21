@@ -58,7 +58,7 @@ public class UiButtons : MonoBehaviour
         }
     }
 
-    private void ResumeGame()
+    public void ResumeGame()
     {
         if (openMenu != null)
         {
