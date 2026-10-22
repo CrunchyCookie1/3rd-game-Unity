@@ -11,6 +11,7 @@ public class OnAnimationEnded : MonoBehaviour
         if (animator != null && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
         {
             onAnimationEnded?.Invoke();
+            enabled = false;
         }
     }
 }
