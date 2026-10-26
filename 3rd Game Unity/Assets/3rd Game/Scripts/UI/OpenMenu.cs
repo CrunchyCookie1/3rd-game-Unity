@@ -4,7 +4,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 
 public class OpenMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject gameMenuPanel; // Assign your menu UI panel in the inspector
+    [SerializeField] private GameObject gameMenuPanel;
     [SerializeField] private InputManager inputManager;
     [SerializeField] private GameObject tutorialTip;
     public UnityEvent onMenuOpen;
@@ -20,49 +20,38 @@ public class OpenMenu : MonoBehaviour
     {
         allCanvases = FindObjectsByType<Canvas>(FindObjectsSortMode.None);
 
-        // Ensure menu starts closed
         if (gameMenuPanel != null)
             gameMenuPanel.SetActive(false);
 
-        // Find InputManager if not assigned
         if (inputManager == null)
             inputManager = GetComponent<InputManager>();
     }
 
     private void Update()
     {
-        // Check for GameMenu input
         if (inputManager != null && inputManager.gameMenuInput)
         {
             ToggleMenu();
-            // Reset the input flag to prevent multiple toggles
             inputManager.gameMenuInput = false;
         }
     }
 
     private void ToggleMenu()
     {
-
         isMenuOpen = !isMenuOpen;
 
         if (isMenuOpen)
-        {
             OpenMenu2();
-        }
         else
-        {
             CloseMenu();
-        }
     }
 
     private void OpenMenu2()
     {
-        // Freeze the game
         originalTimeScale = Time.timeScale;
         onMenuOpen?.Invoke();
         Time.timeScale = 0f;
 
-        // Show menu
         tutorialTip.SetActive(false);
         if (gameMenuPanel != null)
             gameMenuPanel.SetActive(true);
@@ -70,51 +59,42 @@ public class OpenMenu : MonoBehaviour
         foreach (Canvas canvas in allCanvases)
         {
             if (canvas.gameObject != mainCanvas)
-            {
                 canvas.gameObject.SetActive(false);
-            }
         }
 
-        // Unlock and hide cursor
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        // Optionally disable player input components
         DisablePlayerInput();
     }
 
     private void CloseMenu()
     {
-        // Unfreeze the game
         Time.timeScale = originalTimeScale;
         onMenuClose?.Invoke();
 
-        // Hide menu
         if (gameMenuPanel != null)
             gameMenuPanel.SetActive(false);
 
         foreach (Canvas canvas in allCanvases)
         {
             if (canvas.gameObject != mainCanvas)
-            {
-
                 canvas.gameObject.SetActive(true);
-            }
         }
 
-        // Lock and hide cursor back for gameplay
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        // Re-enable player input
         EnablePlayerInput();
     }
 
     private void DisablePlayerInput()
     {
-        // Disable scripts that control player movement/actions
         if (inputManager != null)
-            inputManager.enabled = false;
+        {
+            inputManager.DisableCameraControls();
+            inputManager.BlockActionInputs();
+        }
 
         PlayerLocomotion playerLocomotion = GetComponent<PlayerLocomotion>();
         if (playerLocomotion != null)
@@ -123,13 +103,19 @@ public class OpenMenu : MonoBehaviour
         AnimatorManager animatorManager = GetComponent<AnimatorManager>();
         if (animatorManager != null)
             animatorManager.enabled = false;
+
+        CameraManager cameraManager = GetComponentInChildren<CameraManager>(true);
+        if (cameraManager != null)
+            cameraManager.enabled = false;
     }
 
     private void EnablePlayerInput()
     {
-        // Re-enable scripts
         if (inputManager != null)
-            inputManager.enabled = true;
+        {
+            inputManager.EnableCameraControls();
+            inputManager.UnblockActionInputs();
+        }
 
         PlayerLocomotion playerLocomotion = GetComponent<PlayerLocomotion>();
         if (playerLocomotion != null)
@@ -138,9 +124,12 @@ public class OpenMenu : MonoBehaviour
         AnimatorManager animatorManager = GetComponent<AnimatorManager>();
         if (animatorManager != null)
             animatorManager.enabled = true;
+
+        CameraManager cameraManager = GetComponentInChildren<CameraManager>(true);
+        if (cameraManager != null)
+            cameraManager.enabled = true;
     }
 
-    // Public method to close menu from UI buttons (like "Resume" button)
     public void CloseMenuFromButton()
     {
         if (isMenuOpen)

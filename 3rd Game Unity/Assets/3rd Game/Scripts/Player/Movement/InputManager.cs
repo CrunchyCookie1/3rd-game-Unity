@@ -7,8 +7,6 @@ public class InputManager : MonoBehaviour
     AnimatorManager animatorManager;
     OpenMiniMap openMiniMap;
 
-
-
     public Vector2 movementInput;
     public Vector2 cameraInput;
 
@@ -32,6 +30,23 @@ public class InputManager : MonoBehaviour
     public bool miniMapUnlocked = false; // Flag to track if the mini-map is unlocked
 
     private bool cameraControlsEnabled = true;
+
+    private bool actionInputsBlocked = false;
+
+    public void BlockActionInputs()
+    {
+        actionInputsBlocked = true;
+        jumpInput = false;
+        sprintInput = false;
+        interactInput = false;
+        exitInput = false;
+        minigameInput = false;
+    }
+
+    public void UnblockActionInputs()
+    {
+        actionInputsBlocked = false;
+    }
 
     private void Awake()
     {
@@ -70,8 +85,6 @@ public class InputManager : MonoBehaviour
         Debug.Log("InputManager disabled");
     }
 
-
-
     public void DisableCameraControls()
     {
         cameraControlsEnabled = false;
@@ -100,20 +113,20 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerMovement.Movement.performed += i => movementInput = i.ReadValue<Vector2>();
             playerControls.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
 
-            playerControls.PlayerActions.Sprint.performed += i => sprintInput = true;
+            playerControls.PlayerActions.Sprint.performed += i => { if (!actionInputsBlocked) sprintInput = true; };
             playerControls.PlayerActions.Sprint.canceled += i => sprintInput = false;
-            playerControls.PlayerActions.Jump.performed += i => jumpInput = true;
+            playerControls.PlayerActions.Jump.performed += i => { if (!actionInputsBlocked) jumpInput = true; };
 
-            playerControls.PlayerActions.Interact.performed += i => interactInput = true;
+            playerControls.PlayerActions.Interact.performed += i => { if (!actionInputsBlocked) interactInput = true; };
             playerControls.PlayerActions.Interact.canceled += i => interactInput = false;
 
-            playerControls.PlayerActions.Exit.performed += i => exitInput = true;
+            playerControls.PlayerActions.Exit.performed += i => { if (!actionInputsBlocked) exitInput = true; };
             playerControls.PlayerActions.Exit.canceled += i => exitInput = false;
 
             playerControls.PlayerActions.GameMenu.performed += i => gameMenuInput = true;
             playerControls.PlayerActions.GameMenu.canceled += i => gameMenuInput = false;
 
-            playerControls.PlayerActions.Minigame.performed += i => minigameInput = true;
+            playerControls.PlayerActions.Minigame.performed += i => { if (!actionInputsBlocked) minigameInput = true; };
             playerControls.PlayerActions.Minigame.canceled += i => minigameInput = false;
 
             if (miniMapUnlocked == true)

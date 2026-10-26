@@ -10,6 +10,10 @@ public class Interactable : MonoBehaviour
     [SerializeField] private GameObject[] objectsToDisable;
     [SerializeField] private GameObject[] objectsToEnable;
 
+    [Header("Save")]
+    [SerializeField] private string saveKey;
+    [SerializeField] private bool saveValue = true;
+
     [Header("Tp Settings")]
     public bool allowTp = false;
     [SerializeField] Transform tpLocation;
@@ -60,7 +64,6 @@ public class Interactable : MonoBehaviour
 
     private void Update()
     {
-        // Check for interaction input
         if (CanInteract() && inputManager != null && inputManager.interactInput)
         {
             Interact();
@@ -72,19 +75,24 @@ public class Interactable : MonoBehaviour
         if (requireTriggerZone)
             return playerInZone;
         else
-            return true; // Always can interact if no trigger zone required
+            return true;
     }
 
     private void Interact()
     {
         if (showDebugMessages)
             Debug.Log($"Interacted with {gameObject.name}");
+
         if (allowTp == true)
         {
             player.transform.position = tpLocation.position;
         }
 
-            onInteract?.Invoke();
+        if (SaveManager.Instance != null && !string.IsNullOrEmpty(saveKey))
+            SaveManager.Instance.SaveFlag(saveKey, saveValue);
+
+        onInteract?.Invoke();
+
         foreach (GameObject obj in objectsToEnable)
         {
             if (obj != null)
