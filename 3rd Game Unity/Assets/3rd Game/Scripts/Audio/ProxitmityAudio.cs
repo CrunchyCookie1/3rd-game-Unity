@@ -31,7 +31,6 @@ public class ProximityAudio : MonoBehaviour
 
         if (audioSource != null)
         {
-            audioSource.spatialBlend = 1f; // Make it 3D sound
             if (playOnAwake)
                 audioSource.Play();
         }
