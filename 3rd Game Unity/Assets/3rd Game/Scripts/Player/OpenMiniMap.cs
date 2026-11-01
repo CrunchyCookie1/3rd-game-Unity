@@ -1,9 +1,13 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class OpenMiniMap : MonoBehaviour
 {
     [SerializeField] private InputManager inputManager;
     [SerializeField] private GameObject miniMap; // Make sure to assign this in the Inspector
+
+    [SerializeField] UnityEvent onMiniMapOpened;
+    [SerializeField] UnityEvent onMiniMapClosed;
 
     private bool miniMapActive = false;
 
@@ -33,10 +37,32 @@ public class OpenMiniMap : MonoBehaviour
             return;
         }
 
-        miniMapActive = !miniMapActive;
-        miniMap.SetActive(miniMapActive);
+        if (miniMapActive)
+            CloseMinimap();
+        else
+            OpenMinimap();
+    }
 
-        Debug.Log($"MiniMap toggled: {(miniMapActive ? "ON" : "OFF")}");
+    private void CloseMinimap()
+    {
+        if (miniMap != null && miniMapActive)
+        {
+            miniMapActive = false;
+            miniMap.SetActive(false);
+            onMiniMapClosed.Invoke();
+            Debug.Log("MiniMap closed.");
+        }
+    }
+
+    private void OpenMinimap()
+    {
+        if (miniMap != null && !miniMapActive)
+        {
+            miniMapActive = true;
+            miniMap.SetActive(true);
+            onMiniMapOpened.Invoke();
+            Debug.Log("MiniMap opened.");
+        }
     }
 
     public void ForceCloseMiniMap()
@@ -45,6 +71,7 @@ public class OpenMiniMap : MonoBehaviour
         {
             miniMapActive = false;
             miniMap.SetActive(false);
+            onMiniMapClosed.Invoke();
             Debug.Log("MiniMap forcibly closed.");
         }
     }

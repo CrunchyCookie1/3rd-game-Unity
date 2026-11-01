@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InputManager : MonoBehaviour
 {
@@ -33,6 +34,8 @@ public class InputManager : MonoBehaviour
 
     private bool actionInputsBlocked = false;
 
+    [SerializeField] UnityEvent onMiniMapUnlocked;
+
     public void BlockActionInputs()
     {
         actionInputsBlocked = true;
@@ -53,9 +56,6 @@ public class InputManager : MonoBehaviour
         animatorManager = GetComponent<AnimatorManager>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
         openMiniMap = GetComponent<OpenMiniMap>();
-
-        // Load miniMapUnlocked state
-        miniMapUnlocked = PlayerPrefs.GetInt("MiniMapUnlocked", 0) == 1;
     }
 
     public void EnablePlayerControls()
@@ -197,6 +197,7 @@ public class InputManager : MonoBehaviour
     public void UnlockMiniMap()
     {
         miniMapUnlocked = true;
+        onMiniMapUnlocked.Invoke();
         playerControls.PlayerActions.MiniMap.performed += i => miniMapInput = true;
         playerControls.PlayerActions.MiniMap.canceled += i => miniMapInput = false;
         Debug.Log("Mini-map unlocked and input enabled.");

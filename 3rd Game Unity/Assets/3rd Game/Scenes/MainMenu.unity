@@ -7037,7 +7037,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1.4151001, y: -1.3375854}
+  m_AnchoredPosition: {x: 1.4150391, y: -1.3376465}
   m_SizeDelta: {x: 26.9613, y: 27.1211}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1735388205
@@ -7187,7 +7187,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1.4151001, y: -1.3375854}
+  m_AnchoredPosition: {x: 1.4150391, y: -1.3376465}
   m_SizeDelta: {x: 26.9613, y: 27.1211}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1825710578
@@ -7500,17 +7500,139 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Game Created by <b>CrunchyCookie & Max0Pax0</b>\r\n\r\nProgramming Lead
-    | <b>CrunchyCookie</b>\r\nCharacter Design | <b>CrunchyCookie & Max0Pax0</b>\r\nSFX
-    | <b>CrunchyCookie</b>\r\n\r\n<b>Characters</b>\r\nMelvin | <b>CrunchyCookie</b>\r\nTod
-    | <b>Max0Pax0</b>\r\nZedek | <b>CrunchyCookie</b>\r\nRedacted | <b>CrunchyCookie</b>\r\nDetcader
-    | <b>Luke</b>\r\nWTD Bandit Leader | <b>Max0Pax0</b>\r\nMrs Pusee | <b>Luke</b>\r\nVape
-    Shop Owner | <b>Max0Pax0</b>\r\nJohn | <b>CrunchyCookie</b>\r\nHank | <b>CrunchyCookie</b>\r\nTony
-    | <b>Max0Pax0</b>\r\nKid/Agent 1 | \r\nKid/Agent 2 | \r\nNorm | <b>CrunchyCookie</b>\r\nPraiselien
-    | <b>Max0Pax0</b>\r\nHubert | <b>Max0Pax0</b>\r\nShop Worker | <b>Evan</b>\r\nKnob
-    | <b>Max0Pax0</b>\r\nDisco Dave | <b>Max0Pax0</b>\r\nPizza Man | <b>Max0Pax0</b>\r\nKid
-    in a wheelchair | <b>CrunchyCookie</b>\r\nKid in dumpster | <b>CrunchyCookie</b>\r\nMute
-    Kid | <b>Max0Pax0</b>"
+  m_text: '<align="center"><size=100>Game Created by</size></align>
+
+    <align="center"><size=50><b>CrunchyCookie
+    & Max0Pax0</b></size></align>
+
+    ==============================================================
+
+    Programming
+    Lead | <b>CrunchyCookie</b>
+
+    Character Design | <b>CrunchyCookie & Max0Pax0</b>
+
+    SFX
+    | <b>CrunchyCookie</b>
+
+    Concept Art | <b>CrunchyCookie</b>
+
+    Story Lead
+    | <b>CrunchyCookie</b>
+
+    Sidequest story Lead | <b>Max0Pax0</b>
+
+    Interior
+    design | <b>Luke</b>
+
+    Project Management Lead | <b>CrunchyCookie</b>
+
+    Project
+    Management Co-Lead | <b>Max0Pax0</b>
+
+    Animations | <b>CrunchyCookie</b>
+
+    Cinematics
+    | <b>CrunchyCookie</b>
+
+    ==============================================================
+
+    <align="center"><size=40><b>Characters</b></size></align>
+
+    ==============================================================
+
+    Melvin
+    | <b>CrunchyCookie</b>
+
+    Tod | <b>Max0Pax0</b>
+
+    Zedek | <b>CrunchyCookie</b>
+
+    Redacted
+    | <b>CrunchyCookie</b>
+
+    Detcader | <b>Luke</b>
+
+    Narrator | <b>x</b>
+
+    WTD
+    Bandit Leader | <b>Max0Pax0</b>
+
+    Mrs Pusee | <b>Luke</b>
+
+    Vape Shop
+    Owner | <b>Max0Pax0</b>
+
+    John | <b>CrunchyCookie</b>
+
+    Hank | <b>CrunchyCookie</b>
+
+    Tony
+    | <b>Max0Pax0</b>
+
+    Kid/Agent 1 | <b>x</b>
+
+    Kid/Agent 2 | <b>x</b>
+
+    Norm
+    | <b>CrunchyCookie</b>
+
+    Praiselien | <b>Max0Pax0</b>
+
+    Hubert | <b>Max0Pax0</b>
+
+    Shop
+    Worker | <b>Evan</b>
+
+    Knob | <b>Max0Pax0</b>
+
+    Disco Dave | <b>Max0Pax0</b>
+
+    Pizza
+    Man | <b>Max0Pax0</b>
+
+    Kid in a wheelchair | <b>CrunchyCookie</b>
+
+    Kid
+    in dumpster | <b>CrunchyCookie</b>
+
+    Mute Kid | <b>Max0Pax0</b>
+
+    ==============================================================
+
+    <align="center"><size=40><b>Music</b></size></align>
+
+    ==============================================================
+
+    Main
+    Menu | <b>CrunchyCookie</b>
+
+    City Morning Theme |  <b>Funked Up - Vintage
+    Soul Jazz</b>
+
+    City Night-time Theme | <b>Beautiful Relaxing Jazz Music
+    for Stress Relief</b>
+
+    Supermarket | <b></b>
+
+    Pizzeria | <b>"Cooking"
+    by Alex Productions</b>
+
+    Agents Theme | <b>"Cool Vibes" by Kevin MacLeod</b>
+
+    Disco
+    Dave Theme | <b>Upbeat Dance Funk Pop by Infraction</b>
+
+    WTB Hideout Theme
+    | <b>Dungeon Ambience by Grimyth</b>
+
+    Club Tune1 | <b>Pursuit by Peyruis</b>
+
+    Club
+    Tune2 | <b>Funky Energetic Dance Upbeat Cool 80s Disco by Burgundy</b>
+
+    Club
+    Tune3 | <b>Invincible by DEAF KEV</b>'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -7542,7 +7664,7 @@ MonoBehaviour:
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 41.04
+  m_fontSizeMax: 29.9
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
