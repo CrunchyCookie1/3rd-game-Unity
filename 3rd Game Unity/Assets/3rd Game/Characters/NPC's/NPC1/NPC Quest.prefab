@@ -1688,7 +1688,7 @@ AudioSource:
   m_GameObject: {fileID: 2124710509267008313}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8868215892390595238, guid: 21fdff60180de2849aaa4abac5e043cf, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
@@ -1808,9 +1808,5 @@ MonoBehaviour:
   dialogueAdvanceSound: {fileID: 0}
   playSoundOnNewLine: 1
   dialogueSequences: []
-  questToGive: 
-  questID: 
-  giveQuestOnConversationEnd: 0
-  theQuestManager2: {fileID: 0}
   npcDisable: {fileID: 0}
   npcEnable: {fileID: 0}

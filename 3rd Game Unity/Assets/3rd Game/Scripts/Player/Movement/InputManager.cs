@@ -35,6 +35,17 @@ public class InputManager : MonoBehaviour
     private bool actionInputsBlocked = false;
 
     [SerializeField] UnityEvent onMiniMapUnlocked;
+    private const string MiniMapUnlocked = "MiniMapUnlocked";
+    private int miniMapInt = 0;
+
+    private void Start()
+    {
+        miniMapInt = PlayerPrefs.GetInt("MiniMapUnlocked", 0);
+        if (miniMapInt == 1)
+        {
+            LoadMinimapSave();
+        }
+    }
 
     public void BlockActionInputs()
     {
@@ -197,9 +208,21 @@ public class InputManager : MonoBehaviour
     public void UnlockMiniMap()
     {
         miniMapUnlocked = true;
-        onMiniMapUnlocked.Invoke();
         playerControls.PlayerActions.MiniMap.performed += i => miniMapInput = true;
         playerControls.PlayerActions.MiniMap.canceled += i => miniMapInput = false;
-        Debug.Log("Mini-map unlocked and input enabled.");
+        Debug.LogError("Mini-map unlocked and input enabled.");
+        //Save minimap bool
+        PlayerPrefs.SetInt(MiniMapUnlocked, miniMapUnlocked ? 1 : 0);
+        PlayerPrefs.Save();
     }
+
+    private void LoadMinimapSave()
+    {
+        miniMapUnlocked = true;
+        playerControls.PlayerActions.MiniMap.performed += i => miniMapInput = true;
+        playerControls.PlayerActions.MiniMap.canceled += i => miniMapInput = false;
+        Debug.LogError("Mini-map unlocked and input enabled.");
+        onMiniMapUnlocked.Invoke();
+    }
+
 }

@@ -919,6 +919,8 @@ MonoBehaviour:
   tpLocation: {fileID: 126629627}
   TpOnTrigger: 1
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &3738461
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7015,6 +7017,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 1
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &36959087
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10319,6 +10323,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &53504527
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10823,6 +10829,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::OpenMiniMap
   inputManager: {fileID: 60636177}
   miniMap: {fileID: 145140376}
+  onMiniMapOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  onMiniMapClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!95 &60636207 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 4934590955601824642, guid: 9f64e31f5ff4f2d46a5ab88010914b84, type: 3}
@@ -11613,6 +11625,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &71000380
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15302,6 +15316,8 @@ MonoBehaviour:
   description: Help fix the power issue with a store owner
   questNameText: {fileID: 799321752}
   descriptionText: {fileID: 1379398935}
+  saveKey: 
+  saveValue: 1
 --- !u!65 &95244180
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -73233,9 +73249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 689b50bc1da75a5459fae31685eee6c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveManager
-  onSave:
-    m_PersistentCalls:
-      m_Calls: []
+  flags: []
 --- !u!1 &378126797
 GameObject:
   m_ObjectHideFlags: 0
@@ -74833,6 +74847,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!1001 &388028031
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -75709,6 +75725,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 1
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &393303327
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -82647,6 +82665,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &411556934
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -86797,6 +86817,8 @@ MonoBehaviour:
   tpLocation: {fileID: 1883186709}
   TpOnTrigger: 1
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!1 &429509827
 GameObject:
   m_ObjectHideFlags: 0
@@ -101072,6 +101094,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &512238411
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -110553,6 +110577,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &568643979
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -119932,6 +119958,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &619427356
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -125266,6 +125294,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!114 &657671190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129637,6 +129667,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &685296140
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -136760,6 +136792,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 1
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &697119122
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -138668,6 +138702,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 1
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!135 &711911561
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -155899,6 +155935,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &811947247
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -166624,6 +166662,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &852789114
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -186499,6 +186539,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 1
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &883253897
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -198523,6 +198565,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 1
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &902442822
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -199180,6 +199224,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 1
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!4 &904455227
 Transform:
   m_ObjectHideFlags: 0
@@ -222988,6 +223034,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 1
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &1018461017
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -225251,6 +225299,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &1042036571
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -236067,6 +236117,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!1 &1097542473
 GameObject:
   m_ObjectHideFlags: 0
@@ -255697,6 +255749,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &1178908617
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -265040,6 +265094,8 @@ MonoBehaviour:
   description: Find the kids football. It should be somewhere in the area
   questNameText: {fileID: 1622645724}
   descriptionText: {fileID: 1471284316}
+  saveKey: 
+  saveValue: 1
 --- !u!65 &1203345715
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -265320,6 +265376,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &1205572743
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -269577,6 +269635,8 @@ MonoBehaviour:
   description: Find the kids football. It should be somewhere in the area
   questNameText: {fileID: 1622645724}
   descriptionText: {fileID: 1471284316}
+  saveKey: 
+  saveValue: 1
 --- !u!65 &1226464350
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -271873,6 +271933,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &1246192970
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -272837,6 +272899,8 @@ MonoBehaviour:
   tpLocation: {fileID: 1665094569}
   TpOnTrigger: 1
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &1252446866
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -290842,6 +290906,8 @@ MonoBehaviour:
     They should be close by. '
   questNameText: {fileID: 710875206}
   descriptionText: {fileID: 2082929739}
+  saveKey: 
+  saveValue: 1
 --- !u!65 &1333616498
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -304434,6 +304500,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &1382177691
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -311042,6 +311110,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &1420095671
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -339403,6 +339473,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!1001 &1518120656
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -356058,6 +356130,8 @@ MonoBehaviour:
   tpLocation: {fileID: 536680623}
   TpOnTrigger: 1
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &1583277696
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -376968,6 +377042,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &1647457798
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -400273,6 +400349,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!1001 &1723486921
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -416193,6 +416271,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &1758346576
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -419453,6 +419533,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &1773687866
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -422704,6 +422786,8 @@ MonoBehaviour:
   tpLocation: {fileID: 413123529}
   TpOnTrigger: 1
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &1799420783
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -429267,6 +429351,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!135 &1835805766
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -442469,6 +442555,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &1882857954
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -442623,6 +442711,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 1
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &1883186707
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -443436,6 +443526,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &1884524003
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -445821,6 +445913,8 @@ MonoBehaviour:
   description: Help fix the power issue with a store owner
   questNameText: {fileID: 799321752}
   descriptionText: {fileID: 1379398935}
+  saveKey: 
+  saveValue: 1
 --- !u!65 &1896402128
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -462188,6 +462282,8 @@ MonoBehaviour:
   description: Track down and find Mrs Pusee's cat...
   questNameText: {fileID: 2133082737233958510}
   descriptionText: {fileID: 5588521388206048605}
+  saveKey: 
+  saveValue: 1
 --- !u!4 &2006769718
 Transform:
   m_ObjectHideFlags: 0
@@ -470917,7 +471013,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1860211136583764802, guid: 9f64e31f5ff4f2d46a5ab88010914b84, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2918744565144716927, guid: 9f64e31f5ff4f2d46a5ab88010914b84, type: 3}
       propertyPath: m_CullingMask.m_Bits
@@ -472491,7 +472587,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &2052653523
 Animator:
   serializedVersion: 7
@@ -475768,6 +475864,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!65 &2062315109
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -480071,6 +480169,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!1 &2090596879
 GameObject:
   m_ObjectHideFlags: 0
@@ -497198,6 +497298,8 @@ MonoBehaviour:
         m_CallState: 2
   objectsToDisable: []
   objectsToEnable: []
+  saveKey: 
+  saveValue: 1
   allowTp: 0
   tpLocation: {fileID: 0}
   player: {fileID: 60636163}
@@ -499717,6 +499819,8 @@ MonoBehaviour:
         m_CallState: 2
   objectsToDisable: []
   objectsToEnable: []
+  saveKey: 
+  saveValue: 1
   allowTp: 0
   tpLocation: {fileID: 0}
   player: {fileID: 60636163}
@@ -508099,6 +508203,8 @@ MonoBehaviour:
         m_CallState: 2
   objectsToDisable: []
   objectsToEnable: []
+  saveKey: 
+  saveValue: 1
   allowTp: 0
   tpLocation: {fileID: 0}
   player: {fileID: 60636163}
@@ -517077,6 +517183,8 @@ MonoBehaviour:
   tpLocation: {fileID: 0}
   TpOnTrigger: 0
   destroyAfterTrigger: 0
+  saveKey: 
+  saveValue: 1
 --- !u!114 &6261101685439732634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519349,6 +519457,8 @@ MonoBehaviour:
         m_CallState: 2
   objectsToDisable: []
   objectsToEnable: []
+  saveKey: 
+  saveValue: 1
   allowTp: 0
   tpLocation: {fileID: 0}
   player: {fileID: 60636163}
