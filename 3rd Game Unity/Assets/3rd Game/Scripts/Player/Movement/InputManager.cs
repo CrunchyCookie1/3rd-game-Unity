@@ -216,6 +216,14 @@ public class InputManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    public void UnlockMiniMapTutorial()
+    {
+        miniMapUnlocked = true;
+        playerControls.PlayerActions.MiniMap.performed += i => miniMapInput = true;
+        playerControls.PlayerActions.MiniMap.canceled += i => miniMapInput = false;
+        Debug.LogError("Mini-map unlocked and input enabled.");
+    }
+
     private void LoadMinimapSave()
     {
         miniMapUnlocked = true;

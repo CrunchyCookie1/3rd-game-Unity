@@ -14,7 +14,7 @@ public class AnimatedTextController : MonoBehaviour
         public AudioClip audioClip;
 
         [Header("Sentence Finished Event")]
-        [Tooltip("Fires when this specific sentence finishes typing.")]
+        [Tooltip("Fires when this specific sentence finishes typing (and its audio, if any, has finished playing).")]
         public UnityEvent onSentenceFinished;
 
         [Tooltip("If true, the On Sentence Finished event will be delayed by the value below.")]
@@ -42,14 +42,14 @@ public class AnimatedTextController : MonoBehaviour
     private bool isAnimationPlaying = false;
 
     [Header("Input")]
-    public InputManager inputManager;   // Drag your InputManager here in the Inspector
-    public bool dialogueActive = false; // Set true when dialogue begins
+    public InputManager inputManager;
+    public bool dialogueActive = false;
 
     [Header("Sentence Audio")]
-    public AudioSource dialogueAudioSource;  // Assign an AudioSource in the Inspector
+    public AudioSource dialogueAudioSource;
 
     [Header("Sentence Finished Event")]
-    public bool enableSentenceFinishedEvent = true; // Toggle this to turn the events on/off
+    public bool enableSentenceFinishedEvent = true;
 
     public UnityEvent onCaptionOpened;
 
@@ -66,7 +66,6 @@ public class AnimatedTextController : MonoBehaviour
 
     public void OpenCaption()
     {
-        // Prevent stacking multiple open requests
         if (openCaptionCoroutine != null)
             StopCoroutine(openCaptionCoroutine);
 
@@ -99,32 +98,28 @@ public class AnimatedTextController : MonoBehaviour
             }
         }
 
-        // Handle interact input while dialogue is active
         if (dialogueActive && inputManager != null && inputManager.interactInput)
         {
-            inputManager.interactInput = false; // consume the press so it fires only once
+            inputManager.interactInput = false;
             HandleInteract();
         }
     }
 
     private void HandleInteract()
     {
-        // Cancel any pending auto-advance or delayed sentence event since the player is advancing manually
         CancelAutoAdvance();
         CancelDelayedSentenceEvent();
 
-        // If the sentence is still typing, complete it instantly
+        // Player skipped mid-type: instantly complete text, stop audio, fire event, advance
         if (typingCoroutine != null)
         {
             StopCoroutine(typingCoroutine);
             typingCoroutine = null;
             dialogueText.text = currentSentence;
 
-            // Stop the per-sentence audio if it's still playing
             if (dialogueAudioSource != null && dialogueAudioSource.isPlaying)
                 dialogueAudioSource.Stop();
 
-            // Fire this sentence's finished event immediately (no delay, since player skipped)
             FireSentenceFinishedEvent(Index);
 
             Index++;
@@ -132,7 +127,13 @@ public class AnimatedTextController : MonoBehaviour
             return;
         }
 
-        // Otherwise advance to the next sentence
+        // Player pressed interact while text is done but audio might still be playing:
+        // treat it as a skip of the remaining audio and advance.
+        if (dialogueAudioSource != null && dialogueAudioSource.isPlaying)
+        {
+            dialogueAudioSource.Stop();
+        }
+
         NextSentence();
     }
 
@@ -143,7 +144,6 @@ public class AnimatedTextController : MonoBehaviour
             currentSentence = sentences[Index].sentence;
             dialogueText.text = "";
 
-            // Play the audio clip tied to this sentence, if one exists
             PlaySentenceAudio(Index);
 
             typingCoroutine = StartCoroutine(WriteSentence());
@@ -173,7 +173,6 @@ public class AnimatedTextController : MonoBehaviour
 
         DialogueSentence entry = sentences[sentenceIndex];
 
-        // If the entry wants a delay, schedule it; otherwise fire immediately
         if (entry.delaySentenceFinishedEvent)
         {
             CancelDelayedSentenceEvent();
@@ -242,7 +241,6 @@ public class AnimatedTextController : MonoBehaviour
             dialogueAudioSource.Stop();
     }
 
-    // Call this to turn the sentence-finished event system on or off at runtime
     public void SetSentenceFinishedEventEnabled(bool enabled)
     {
         enableSentenceFinishedEvent = enabled;
@@ -256,15 +254,36 @@ public class AnimatedTextController : MonoBehaviour
             yield return new WaitForSecondsRealtime(dialogueSpeed);
         }
 
-        // Fire this sentence's event now that it's finished typing naturally
-        // (may be delayed depending on the sentence's settings)
-        FireSentenceFinishedEvent(Index);
+        // Text finished typing — wait for the sentence's audio (if any) to finish playing.
+        yield return WaitForSentenceAudioToFinish();
 
-        // Check if this sentence should auto-advance
+        // Both text AND audio are now complete.
+        FireSentenceFinishedEvent(Index);
         TryScheduleAutoAdvance(Index);
 
         Index++;
         nextText = true;
         typingCoroutine = null;
+    }
+
+    /// <summary>
+    /// Yields each frame while the sentence audio source is still playing.
+    /// Returns immediately if there's no AudioSource or nothing is playing.
+    /// Uses a reference to the current clip so that a clip change mid-wait
+    /// doesn't incorrectly keep us waiting on the new clip.
+    /// </summary>
+    private IEnumerator WaitForSentenceAudioToFinish()
+    {
+        if (dialogueAudioSource == null) yield break;
+
+        AudioClip clipThatMustFinish = dialogueAudioSource.isPlaying ? dialogueAudioSource.clip : null;
+        if (clipThatMustFinish == null) yield break;
+
+        while (dialogueAudioSource != null
+               && dialogueAudioSource.isPlaying
+               && dialogueAudioSource.clip == clipThatMustFinish)
+        {
+            yield return null;
+        }
     }
 }

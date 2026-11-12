@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/3rd Game/Scenes/EndCinematic.unity
     guid: c1c0a9ec1d57825439c45c1259d6cb41
+  - enabled: 1
+    path: Assets/3rd Game/Scenes/Credits.unity
+    guid: bcda4ddfcf4910f4480a4a9e7d6e5268
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -94,7 +94,7 @@ public class PlayerJump : MonoBehaviour
 
         // Do the raycast
         RaycastHit hit;
-        bool hitGround = Physics.Raycast(origin, Vector3.down, out hit, groundCheckDistance, groundLayer);
+        bool hitGround = Physics.Raycast(origin, Vector3.down, out hit, groundCheckDistance);
 
         // Draw debug ray
         Debug.DrawRay(origin, Vector3.down * groundCheckDistance, hitGround ? Color.green : Color.red);

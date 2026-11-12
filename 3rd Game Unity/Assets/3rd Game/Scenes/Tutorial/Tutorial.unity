@@ -16,8 +16,8 @@ RenderSettings:
   serializedVersion: 10
   m_Fog: 0
   m_FogColor: {r: 0.59607846, g: 0.61960787, b: 0.38431376, a: 1}
-  m_FogMode: 3
-  m_FogDensity: 0.578
+  m_FogMode: 2
+  m_FogDensity: 0.088
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.9490197, g: 0.96470594, b: 0.85098046, a: 1}
@@ -27,10 +27,10 @@ RenderSettings:
   m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.70692414, g: 0.7578302, b: 0.8867924, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
-  m_HaloStrength: 0.469
-  m_FlareStrength: 1
+  m_HaloStrength: 1
+  m_FlareStrength: 0.792
   m_FlareFadeSpeed: 3
-  m_HaloTexture: {fileID: 0}
+  m_HaloTexture: {fileID: 2800000, guid: ae70414afe9ba29438c825c21854c319, type: 3}
   m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
   m_DefaultReflectionMode: 0
   m_DefaultReflectionResolution: 128
@@ -895,8 +895,8 @@ Transform:
   m_GameObject: {fileID: 3738458}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.02273, y: -4.00376, z: 18.85}
-  m_LocalScale: {x: 17.932, y: 2.1247, z: 20.563057}
+  m_LocalPosition: {x: -0.13, y: -4.00376, z: 18.94}
+  m_LocalScale: {x: 16.40781, y: 2.1247, z: 20.306019}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 413274931}
@@ -11065,7 +11065,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 64791635}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -29868,118 +29868,6 @@ Transform:
   - {fileID: 1967980486}
   m_Father: {fileID: 1404658815}
   m_LocalEulerAnglesHint: {x: 0, y: -1.392, z: 0}
---- !u!1 &204589963
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 204589964}
-  - component: {fileID: 204589967}
-  - component: {fileID: 204589966}
-  - component: {fileID: 204589965}
-  m_Layer: 0
-  m_Name: Barrier (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &204589964
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 204589963}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.18, y: 7.15, z: 44.9}
-  m_LocalScale: {x: 17.258, y: 7.3017, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 253460894}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &204589965
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 204589963}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &204589966
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 204589963}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &204589967
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 204589963}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &204661566
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39149,6 +39037,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 139471534}
+  - {fileID: 1992193899}
   - {fileID: 1761824470}
   - {fileID: 330712208}
   - {fileID: 985921727}
@@ -39170,7 +39059,6 @@ Transform:
   - {fileID: 362823493}
   - {fileID: 845907006}
   - {fileID: 1098519706}
-  - {fileID: 204589964}
   - {fileID: 211028824}
   - {fileID: 16409065}
   - {fileID: 298928642}
@@ -66141,7 +66029,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330712207}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -114519,7 +114407,7 @@ MonoBehaviour:
   - sentence: "Ok so that's pretty much everything there is to know about this game\u2026
       There are some more controls that will come into play for some small side activities
       but nothing that ground breaking to go over\u2026"
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: aa8b21f50525f8e4eb26d3932a599927, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls: []
@@ -114529,7 +114417,7 @@ MonoBehaviour:
     autoAdvanceDelay: 3
   - sentence: "Remember if you ever get stuck just open the controllers settings
       and figure out what button does what\u2026"
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: c7857f8006499214fb81e779e03d6225, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls: []
@@ -114539,7 +114427,7 @@ MonoBehaviour:
     autoAdvanceDelay: 2
   - sentence: Ok thanks again and enjoy the game that will definitely be game of
       the year. Oh ye one more thing WAKE UPPPP!!!
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: 79c7837d0daab0a4685b511ccc427f2e, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls:
@@ -116549,8 +116437,8 @@ Transform:
   m_GameObject: {fileID: 599408040}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.17273, y: -2.46376, z: 43.65}
-  m_LocalScale: {x: 17.770327, y: 4.9275117, z: 29.332302}
+  m_LocalPosition: {x: -0.13, y: -2.46376, z: 46}
+  m_LocalScale: {x: 16.40781, y: 4.9275117, z: 34.1604}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 413274931}
@@ -219046,7 +218934,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 985921723}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -225640,7 +225528,7 @@ MonoBehaviour:
       quests in the game. My personal favourites are the side quests\u2026 Hit the
       escape key if you\u2019re on pc or the options button on the controller to
       see the game menu screen."
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: aecf3559f08c0fc45acb2db2aab0b4a0, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls: []
@@ -225649,7 +225537,7 @@ MonoBehaviour:
     autoAdvance: 1
     autoAdvanceDelay: 3
   - sentence: Head over to the quests section and check out the main quest category.
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: 2937a523cde6be14aa8c1383a3052920, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls:
@@ -225683,7 +225571,7 @@ MonoBehaviour:
     autoAdvanceDelay: 0
   - sentence: This is where any main quest will go so always check up on it to know
       what to do next.
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: 268ad3ec3ba06914eaf8b64f53439f09, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls:
@@ -225705,7 +225593,7 @@ MonoBehaviour:
     autoAdvanceDelay: 2
   - sentence: It looks like the npc wants us to go over and get a map from that vendor.
       Let's go over there now.
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: 97b777368d340944fb3b204f48d9638b, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls:
@@ -237813,8 +237701,8 @@ Transform:
   m_GameObject: {fileID: 1108135021}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.1, y: 4.33, z: 5.67}
-  m_LocalScale: {x: 18.879, y: -0.09758687, z: 1}
+  m_LocalPosition: {x: 0, y: 4.33, z: 5.67}
+  m_LocalScale: {x: 16.40781, y: -0.09758687, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 253460894}
@@ -253206,7 +253094,7 @@ MonoBehaviour:
   dialogueText: {fileID: 231173986}
   sentences:
   - sentence: "Ok you\u2019re free from this awesome tutorial, enjoy the game!"
-    audioClip: {fileID: 8300000, guid: 675df02ce93a93549abc93638b3ead2c, type: 3}
+    audioClip: {fileID: 8300000, guid: 66b34d7d31b68ca46957bcfd556a520d, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls:
@@ -266575,7 +266463,7 @@ MonoBehaviour:
   sentences:
   - sentence: "Now that you\u2019ve conquered the walls, try interacting with the
       npc ahead of you."
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: 171c1052e22c5b94ebb114fe0c253ac3, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls: []
@@ -266586,7 +266474,7 @@ MonoBehaviour:
   - sentence: You can use your E key to interact with anything that says interact
       or if a pop up option comes up. For the controller just hit the left button
       on the right side.
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: 42f34f8140060ff4e9f4ac1e470a57d2, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls:
@@ -337919,8 +337807,8 @@ Transform:
   m_GameObject: {fileID: 1508381092}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.17273, y: -2.46376, z: 6.08051}
-  m_LocalScale: {x: 17.770327, y: 4.9275117, z: 5.3601}
+  m_LocalPosition: {x: -0.13, y: -2.46376, z: 6.08051}
+  m_LocalScale: {x: 16.40781, y: 4.9275117, z: 5.3601}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 413274931}
@@ -339669,8 +339557,8 @@ Transform:
   m_GameObject: {fileID: 1518738614}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.17273, y: -2.46376, z: -2.21949}
-  m_LocalScale: {x: 17.770327, y: 4.9275117, z: 5.3601}
+  m_LocalPosition: {x: -0.13, y: -2.46376, z: -2.21949}
+  m_LocalScale: {x: 16.407814, y: 4.9275117, z: 5.3601}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 413274931}
@@ -340266,6 +340154,14 @@ PrefabInstance:
       propertyPath: onConversationEnd.m_PersistentCalls.m_Calls.Array.data[5].m_MethodName
       value: SetActive
       objectReference: {fileID: 0}
+    - target: {fileID: 7867874687787715051, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
+      propertyPath: dialogueSequences.Array.data[0].dialogueEntries.Array.data[0].lineSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 675df02ce93a93549abc93638b3ead2c, type: 3}
+    - target: {fileID: 7867874687787715051, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
+      propertyPath: dialogueSequences.Array.data[1].dialogueEntries.Array.data[0].lineSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 675df02ce93a93549abc93638b3ead2c, type: 3}
     - target: {fileID: 7867874687787715051, guid: 71ad012ba448cfc4095ba5a04e9672b6, type: 3}
       propertyPath: onConversationStart.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -341745,6 +341641,135 @@ Transform:
   - {fileID: 1042036574}
   - {fileID: 1736950489}
   m_Father: {fileID: 2036236760}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1529554606
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1529554608}
+  - component: {fileID: 1529554607}
+  m_Layer: 0
+  m_Name: BG Music
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &1529554607
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529554606}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -1404372177223574039, guid: 21fdff60180de2849aaa4abac5e043cf, type: 2}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: b2ae39341aeb5384fa46c4916af9105d, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.3
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 256
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &1529554608
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529554606}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.94957, y: 4.36376, z: 41.14983}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1530494357
 GameObject:
@@ -344352,7 +344377,7 @@ MonoBehaviour:
   sentences:
   - sentence: "Ok that\u2019s awesome to hear that you wish to continue with the
       tutorial I spent about 1 hour making"
-    audioClip: {fileID: 8300000, guid: 675df02ce93a93549abc93638b3ead2c, type: 3}
+    audioClip: {fileID: 8300000, guid: cb6303c8a995eae4aa0c6167aa21752c, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls: []
@@ -344363,7 +344388,7 @@ MonoBehaviour:
   - sentence: "The first thing every true gamer should know how to do is how to move
       around\u2026 If you don\u2019t even know how to do that, how will you explore
       the epic world of this game\u2026"
-    audioClip: {fileID: 8300000, guid: 675df02ce93a93549abc93638b3ead2c, type: 3}
+    audioClip: {fileID: 8300000, guid: 1ad0ebce63d13b949b972269a27042b2, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls: []
@@ -344373,7 +344398,7 @@ MonoBehaviour:
     autoAdvanceDelay: 2
   - sentence: "And yes I am self aware that I\u2019m apart of a game and yes I do
       not give a flying fuck about it\u2026"
-    audioClip: {fileID: 8300000, guid: 675df02ce93a93549abc93638b3ead2c, type: 3}
+    audioClip: {fileID: 8300000, guid: 6bb8beee76894f44290d90ab32393d61, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls: []
@@ -344383,7 +344408,7 @@ MonoBehaviour:
     autoAdvanceDelay: 1
   - sentence: "Ok so use your WASD keys to move around or if you\u2019re playing
       on a controller use your left thumb stick to move around\u2026"
-    audioClip: {fileID: 8300000, guid: 675df02ce93a93549abc93638b3ead2c, type: 3}
+    audioClip: {fileID: 8300000, guid: be129e0d4566d0a4dbec0d60e633b68b, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls:
@@ -344405,7 +344430,7 @@ MonoBehaviour:
     autoAdvanceDelay: 0
   - sentence: "Good job you now know how to move. You\u2019re basically as smart
       as a 12-14 month old baby"
-    audioClip: {fileID: 8300000, guid: 675df02ce93a93549abc93638b3ead2c, type: 3}
+    audioClip: {fileID: 8300000, guid: fd9df18030fab1145a63aafbff5a41f6, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls: []
@@ -344414,7 +344439,7 @@ MonoBehaviour:
     autoAdvance: 1
     autoAdvanceDelay: 2
   - sentence: "Now let's continue shall we\u2026"
-    audioClip: {fileID: 8300000, guid: 675df02ce93a93549abc93638b3ead2c, type: 3}
+    audioClip: {fileID: 8300000, guid: b9211fd198270094c915a7c80f0a4b3a, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls: []
@@ -344424,7 +344449,7 @@ MonoBehaviour:
     autoAdvanceDelay: 2
   - sentence: Now that you know how to move, how about you look around. Use your
       mouse to look around or if your on controller use your right thumbstick
-    audioClip: {fileID: 8300000, guid: 675df02ce93a93549abc93638b3ead2c, type: 3}
+    audioClip: {fileID: 8300000, guid: a624c664a9de9234fa1969473b000c95, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls:
@@ -344445,7 +344470,7 @@ MonoBehaviour:
     autoAdvance: 0
     autoAdvanceDelay: 0
   - sentence: Excellent work! Bravo BRAVO!
-    audioClip: {fileID: 8300000, guid: 675df02ce93a93549abc93638b3ead2c, type: 3}
+    audioClip: {fileID: 8300000, guid: 781af5162587e09449ce39f438fc4940, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls: []
@@ -344454,7 +344479,7 @@ MonoBehaviour:
     autoAdvance: 1
     autoAdvanceDelay: 1
   - sentence: Ok now for some extras...
-    audioClip: {fileID: 8300000, guid: 675df02ce93a93549abc93638b3ead2c, type: 3}
+    audioClip: {fileID: 8300000, guid: 94c76d6f925832e4999ebb66d1960d45, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls: []
@@ -344464,7 +344489,7 @@ MonoBehaviour:
     autoAdvanceDelay: 1
   - sentence: If you want to move around fast use your left shift key to sprint or
       on controller click and hold down your left thumbstick
-    audioClip: {fileID: 8300000, guid: 675df02ce93a93549abc93638b3ead2c, type: 3}
+    audioClip: {fileID: 8300000, guid: 0222f18448b8d3142b946edbe846af15, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls: []
@@ -344472,10 +344497,10 @@ MonoBehaviour:
     sentenceFinishedEventDelay: 0
     autoAdvance: 1
     autoAdvanceDelay: 3
-  - sentence: You can jump as well. Try getting over some of these walls. Use your
-      space bar to jump or on the controller press your bottom button on the right
-      side.
-    audioClip: {fileID: 8300000, guid: 675df02ce93a93549abc93638b3ead2c, type: 3}
+  - sentence: Of course you can jump too. Try getting over some of these walls. Use
+      your space bar to jump or on the controller press your bottom button on the
+      right side.
+    audioClip: {fileID: 8300000, guid: 39fc53cfda963d145b712fce14cb89a3, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls: []
@@ -344486,7 +344511,7 @@ MonoBehaviour:
   - sentence: Also if you want to know what button to press on different controllers
       just hit the escape key or the options button on the controller, go to settings
       and check out the controller settings section.
-    audioClip: {fileID: 8300000, guid: 675df02ce93a93549abc93638b3ead2c, type: 3}
+    audioClip: {fileID: 8300000, guid: ef2dca643dd9dac45aa76f8f0b969fd3, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls:
@@ -348688,7 +348713,7 @@ MonoBehaviour:
   sentences:
   - sentence: Now that you have a map hit the M key if your on pc or the top button
       on the right side if your on controller
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: d0b4b6475c2ebdf41b792d6badf9fc95, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls: []
@@ -348698,7 +348723,7 @@ MonoBehaviour:
     autoAdvanceDelay: 2
   - sentence: The map is quite a useful tool. It helps you find sidequests and also
       key locations and where the main quest is.
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: 6438860be290747468dc31bb69f94f85, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls: []
@@ -348709,7 +348734,7 @@ MonoBehaviour:
   - sentence: "The star icon is where your main quest is. The exclamation mark is
       a side quest. The little red arrow is you and where you\u2019re facing and
       finally any other icon should be easy to understand."
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: 6e80d34a75e35f74bbe898082984a188, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls:
@@ -357176,8 +357201,8 @@ Transform:
   m_GameObject: {fileID: 1589505767}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.1, y: -0.029999971, z: -15.49}
-  m_LocalScale: {x: 18.879, y: -0.09758687, z: 1}
+  m_LocalPosition: {x: 0, y: -0.029999971, z: -15.49}
+  m_LocalScale: {x: 16.50287, y: -0.09758687, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 253460894}
@@ -399843,7 +399868,7 @@ MonoBehaviour:
   dialogueText: {fileID: 231173986}
   sentences:
   - sentence: Welcome to the tutorial for this very epic game
-    audioClip: {fileID: 8300000, guid: 675df02ce93a93549abc93638b3ead2c, type: 3}
+    audioClip: {fileID: 8300000, guid: 6e77251c65b55f14b9123b861382b52e, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls: []
@@ -399853,7 +399878,7 @@ MonoBehaviour:
     autoAdvanceDelay: 3
   - sentence: "My name is Redacted and I\u2019ll be here to guide you through how
       to play this game like a true gamer.."
-    audioClip: {fileID: 8300000, guid: 675df02ce93a93549abc93638b3ead2c, type: 3}
+    audioClip: {fileID: 8300000, guid: 5c2975d674ee4f34daddcc0942cc70ad, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls: []
@@ -399863,7 +399888,7 @@ MonoBehaviour:
     autoAdvanceDelay: 3
   - sentence: "If you do not wish to continue with this tutorial just let me know
       and I\u2019ll let you go from those chains you're in\u2026"
-    audioClip: {fileID: 8300000, guid: 675df02ce93a93549abc93638b3ead2c, type: 3}
+    audioClip: {fileID: 8300000, guid: ed76c04ea6d7c2c41be1c76e4b0a7f6c, type: 3}
     onSentenceFinished:
       m_PersistentCalls:
         m_Calls:
@@ -417044,7 +417069,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1761824466}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -422875,8 +422900,8 @@ Transform:
   m_GameObject: {fileID: 1799420781}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.02273, y: -4.00376, z: 1.78051}
-  m_LocalScale: {x: 17.932, y: 2.1247, z: 4.3755}
+  m_LocalPosition: {x: -0.13, y: -4.00376, z: 1.91}
+  m_LocalScale: {x: 16.40781, y: 2.1247, z: 2.901735}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 413274931}
@@ -445236,8 +445261,8 @@ Transform:
   m_GameObject: {fileID: 1893794425}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.1, y: -0.029999971, z: -4.9}
-  m_LocalScale: {x: 18.879, y: -0.09758687, z: 1}
+  m_LocalPosition: {x: 0, y: -0.029999971, z: -4.9}
+  m_LocalScale: {x: 16.40781, y: -0.09758687, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 253460894}
@@ -460207,6 +460232,119 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1991919823}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1992193898
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1992193899}
+  - component: {fileID: 1992193902}
+  - component: {fileID: 1992193901}
+  - component: {fileID: 1992193900}
+  m_Layer: 0
+  m_Name: Plane (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1992193899
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992193898}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.01, z: 20.4}
+  m_LocalScale: {x: 30.494564, y: 1, z: 37.41598}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 253460894}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &1992193900
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992193898}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &1992193901
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992193898}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: fb6b2eea31e284a46adf32b5bcba3112, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1992193902
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992193898}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1992269951
 GameObject:
   m_ObjectHideFlags: 0
@@ -471004,8 +471142,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1772886274663465540, guid: 9f64e31f5ff4f2d46a5ab88010914b84, type: 3}
+      propertyPath: leapingVelocity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1772886274663465540, guid: 9f64e31f5ff4f2d46a5ab88010914b84, type: 3}
       propertyPath: groundLayer.m_Bits
-      value: 1
+      value: 49089
       objectReference: {fileID: 0}
     - target: {fileID: 1860211136583764802, guid: 9f64e31f5ff4f2d46a5ab88010914b84, type: 3}
       propertyPath: m_Name
@@ -471014,6 +471156,22 @@ PrefabInstance:
     - target: {fileID: 1860211136583764802, guid: 9f64e31f5ff4f2d46a5ab88010914b84, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2918744565144716927, guid: 9f64e31f5ff4f2d46a5ab88010914b84, type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2918744565144716927, guid: 9f64e31f5ff4f2d46a5ab88010914b84, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.0754717
+      objectReference: {fileID: 0}
+    - target: {fileID: 2918744565144716927, guid: 9f64e31f5ff4f2d46a5ab88010914b84, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.0754717
+      objectReference: {fileID: 0}
+    - target: {fileID: 2918744565144716927, guid: 9f64e31f5ff4f2d46a5ab88010914b84, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.0754717
       objectReference: {fileID: 0}
     - target: {fileID: 2918744565144716927, guid: 9f64e31f5ff4f2d46a5ab88010914b84, type: 3}
       propertyPath: m_CullingMask.m_Bits
@@ -472671,8 +472829,8 @@ Camera:
   m_GameObject: {fileID: 2052653522}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.078431375, g: 0.078431375, b: 0.078431375, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -473240,7 +473398,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7582308785790531689, guid: 90e6c8199e486ea408fa796ad255a436, type: 3}
       propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: UnlockMiniMap
+      value: UnlockMiniMapTutorial
       objectReference: {fileID: 0}
     - target: {fileID: 7582308785790531689, guid: 90e6c8199e486ea408fa796ad255a436, type: 3}
       propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -529243,3 +529401,4 @@ SceneRoots:
   - {fileID: 1065620123}
   - {fileID: 253460894}
   - {fileID: 2052653527}
+  - {fileID: 1529554608}
